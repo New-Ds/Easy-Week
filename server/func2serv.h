@@ -3,7 +3,8 @@
 
 #include <QByteArray>
 
-QByteArray parsing(QString input);
+QByteArray parsing(QString input, int socdes);
+
 QByteArray auth(QStringList );
 QByteArray reg(/*QStringList*/);
 QByteArray get_stat(/*QStringList*/);

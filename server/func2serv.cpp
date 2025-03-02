@@ -10,9 +10,11 @@ QMap<QString, QList<QString>> mockDatabase = {
     };
 
 using namespace std;
-QByteArray parsing(QString input)
+QByteArray parsing(QString input, int socdes)
 {
+
     QStringList container = input.remove("\r\n").split("//"); //пример входящих данных reg//login_user//password_user
+    qDebug() << socdes << " user command: " << container[0];
     QString var = container[0];
     if (var == "check_task")
     {

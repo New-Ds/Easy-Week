@@ -3,10 +3,10 @@
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
-
 #include <QtNetwork>
 #include <QByteArray>
 #include <QDebug>
+#include <QMap>
 
 class MyTcpServer : public QObject
 {
@@ -22,13 +22,6 @@ private:
     QTcpServer * mTcpServer;
     QTcpSocket * mTcpSocket;
     int server_status;
-    QList<QTcpSocket*> mTcpSockets;
+    QMap<int, QTcpSocket*> mSocketDescriptors; // Хранение дескрипторов сокетов
 };
-#endif  MYTCPSERVER_H
-
-
-
-
-
-
-
+#endif  // MYTCPSERVER_H
