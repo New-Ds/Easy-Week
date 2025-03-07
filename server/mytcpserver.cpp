@@ -41,8 +41,6 @@ void MyTcpServer::slotNewConnection()
 
         qDebug() << "New connection, socket descriptor:" << socketDescriptor;
 
-        clientSocket->write("Hello, World!!! I am echo server!\r\n");
-
         connect(clientSocket, &QTcpSocket::readyRead, this, &MyTcpServer::slotServerRead);
         connect(clientSocket, &QTcpSocket::disconnected, this, &MyTcpServer::slotClientDisconnected);
     }
