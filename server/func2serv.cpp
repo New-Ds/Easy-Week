@@ -57,12 +57,15 @@ QByteArray parsing(QString input, int socdes)
     }
 }
 
+
+// дарова Руслан, когда будешь писать тут функцию эту, при успешной авторизации просто пропиши return "true", при неуспешной return "false", на клиенте я так принимаю ответ
 QByteArray auth( QStringList log ){
     string res = "You succesfull logged in!\r\nWelcom to system: " + log[1].toStdString() + "\r\nYour password: " + log[2].toStdString()+"\r\n";
     QByteArray byteArray(res.c_str(), res.length());
     return byteArray;
 }
 
+// с регистрацией та же тема, успешная - return "true", неуспешная - return "false"
 QByteArray reg(/*QStringList*/){
     return "you have been successfully registered\r\n";
 }
