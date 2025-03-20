@@ -4,7 +4,17 @@
 #include <QByteArray>
 
 QByteArray parsing(QString input, int socdes);
+/**
+    \brief Шаблонная функция суммирования двух объектов
 
+    \tparam T - любой тип, для которого определен оператор суммирования 
+    и оператор присваивания
+
+    \param [in] a Первый объект, который нужно сложить
+    \param [in] b Второй объект, который нужно сложить
+
+    \return Новый объект типа *T*, равный сумме *a* и *b*.
+*/
 QByteArray auth(QStringList );
 QByteArray reg(/*QStringList*/);
 QByteArray get_stat(/*QStringList*/);
