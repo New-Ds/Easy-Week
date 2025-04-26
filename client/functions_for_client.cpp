@@ -24,7 +24,7 @@ bool reg(QString login, QString password, QString email) {
 
     ClientSingleton& client = ClientSingleton::getInstance();
 
-    QString response = client.send_msg(QStringList{"reg", login, password, email});
+    QString response = client.send_msg(QStringList{"reg", login, email, password});
 
 
     // проверка на успешность регистрации
