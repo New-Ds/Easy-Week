@@ -77,32 +77,51 @@ QByteArray auth(QStringList log) {
     return "auth_failed//Invalid credentials\r\n";
 }
 
+
 QByteArray reg(QStringList params) {
+    // 1️⃣ Проверка количества параметров
     if (params.size() != 4) {
         return "reg_failed//Недостаточно параметров для регистрации\r\n";
     }
 
-    QString name = params[1];
-    QString email = params[2];
-    QString password = params[3];
+    // 2️⃣ Извлечение данных из запроса
+    QString name = params[1];      // Имя пользователя
+    QString email = params[2];     // Email (должен быть уникальным)
+    QString password = params[3];  // Пароль
 
     DataBaseSingleton* db = DataBaseSingleton::getInstance();
 
+    // 3️⃣ Проверка, не занят ли email
     QSqlQuery checkQuery = db->executeQuery(
-        "SELECT * FROM users WHERE email = :email",
+        "SELECT id FROM users WHERE email = :email",
         {{":email", email}}
         );
-    
+
+    // Если запрос не выполнился (ошибка БД)
     if (!checkQuery.exec()) {
         return "reg_failed//Ошибка при проверке email\r\n";
     }
 
+    // Если email уже существует (найдена запись)
+    if (checkQuery.next()) {
+        return "reg_failed//Пользователь с таким email уже зарегистрирован\r\n";
+    }
+
+    // 4️⃣ Попытка добавить пользователя
     bool success = db->addUser(name, email, password, false);
 
     if (success) {
+        // 5️⃣ Обновление статистики (увеличиваем счетчик регистраций)
+        QVariantMap stats = db->getStatistics();
+        db->updateStatistics(
+            stats["registrations"].toInt() + 1,  // +1 новая регистрация
+            stats["visits"].toInt(),            // Визиты без изменений
+            stats["generations"].toInt()        // Генерации без изменений
+            );
         return "reg_success//Регистрация прошла успешно\r\n";
     } else {
-        return "reg_failed//Ошибка при регистрации\r\n";
+        // Если INSERT не сработал (например, из-за UNIQUE INDEX)
+        return "reg_failed//Ошибка при регистрации (возможно, email уже занят)\r\n";
     }
 }
 

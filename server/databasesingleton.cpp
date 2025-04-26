@@ -33,6 +33,8 @@ bool DataBaseSingleton::initialize(const QString& databaseName) {
         "is_admin BOOLEAN DEFAULT FALSE)"
         );
 
+     success &= query.exec("CREATE UNIQUE INDEX IF NOT EXISTS idx_users_email ON users(email)");
+
     // Создание таблицы products
     success &= query.exec(
         "CREATE TABLE IF NOT EXISTS products ("
@@ -97,12 +99,15 @@ bool DataBaseSingleton::checkUserCredentials(const QString& login, const QString
 
 bool DataBaseSingleton::addUser(const QString& name, const QString& email, const QString& password, bool isAdmin) {
     QSqlQuery query = executeQuery(
-               "INSERT INTO users (name, email, pass, is_admin) VALUES (:name, :email, :pass, :is_admin)",
-               {{":name", name}, {":email", email}, {":pass", password}, {":is_admin", isAdmin}}
-               );
-    bool res = query.exec();
-    qDebug() << "Ошибка запроса:" << query.lastError().text();
-    return res;
+        "INSERT INTO users (name, email, pass, is_admin) VALUES (:name, :email, :pass, :is_admin)",
+        {{":name", name}, {":email", email}, {":pass", password}, {":is_admin", isAdmin}}
+        );
+
+    if (query.lastError().isValid()) {
+        qDebug() << "Ошибка SQL:" << query.lastError().text();
+        return false;
+    }
+    return true;
 }
 
 // Методы для работы с таблицей products
