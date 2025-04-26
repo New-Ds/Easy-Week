@@ -72,9 +72,9 @@ QByteArray auth(QStringList log) {
     bool authSuccess = db->checkUserCredentials(log[1], log[2]);
 
     if (authSuccess) {
-        return "auth_success//Welcome " + log[1].toUtf8() + "\r\n";
+        return "true";
     }
-    return "auth_failed//Invalid credentials\r\n";
+    return "false";
 }
 
 
