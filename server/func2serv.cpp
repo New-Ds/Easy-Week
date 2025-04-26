@@ -2,8 +2,10 @@
 #include <QString>
 #include <QStringList>
 #include <QMap>
-
+#include<databasesingleton.h>
 // Заглушка для базы данных
+
+
 QMap<QString, QList<QString>> mockDatabase = {
     {"1", {"Product1//10//5//20//1.5//...", "Product2//15//8//30//2.0//..."}},
     {"2", {"Product3//5//2//10//0.5//...", "Product4//8//3//12//0.8//..."}},
@@ -14,6 +16,12 @@ QByteArray parsing(QString input, int socdes)
 {
 
     QStringList container = input.remove("\r\n").split("//"); //пример входящих данных reg//login_user//password_user
+
+    if (container.isEmpty()) {
+        return "server error: empty command\\n";
+    }
+
+
     qDebug() << socdes << " user command: " << container[0];
     QString var = container[0];
     if (var == "check_task")
@@ -29,7 +37,7 @@ QByteArray parsing(QString input, int socdes)
     }
     else if (var =="reg")
     {
-        return reg();
+        return reg(container);
     }
     else if (var == "get_stat")
     {
@@ -59,15 +67,43 @@ QByteArray parsing(QString input, int socdes)
 
 
 // дарова Руслан, когда будешь писать тут функцию эту, при успешной авторизации просто пропиши return "true", при неуспешной return "false", на клиенте я так принимаю ответ
-QByteArray auth( QStringList log ){
-    string res = "You succesfull logged in!\r\nWelcom to system: " + log[1].toStdString() + "\r\nYour password: " + log[2].toStdString()+"\r\n";
-    QByteArray byteArray(res.c_str(), res.length());
-    return byteArray;
+QByteArray auth(QStringList log) {
+    DataBaseSingleton* db = DataBaseSingleton::getInstance();
+    bool authSuccess = db->checkUserCredentials(log[1], log[2]);
+
+    if (authSuccess) {
+        return "auth_success//Welcome " + log[1].toUtf8() + "\r\n";
+    }
+    return "auth_failed//Invalid credentials\r\n";
 }
 
-// с регистрацией та же тема, успешная - return "true", неуспешная - return "false"
-QByteArray reg(/*QStringList*/){
-    return "you have been successfully registered\r\n";
+QByteArray reg(QStringList params) {
+    if (params.size() != 4) {
+        return "reg_failed//Недостаточно параметров для регистрации\r\n";
+    }
+
+    QString name = params[1];
+    QString email = params[2];
+    QString password = params[3];
+
+    DataBaseSingleton* db = DataBaseSingleton::getInstance();
+
+    QSqlQuery checkQuery = db->executeQuery(
+        "SELECT * FROM users WHERE email = :email",
+        {{":email", email}}
+        );
+    
+    if (!checkQuery.exec()) {
+        return "reg_failed//Ошибка при проверке email\r\n";
+    }
+
+    bool success = db->addUser(name, email, password, false);
+
+    if (success) {
+        return "reg_success//Регистрация прошла успешно\r\n";
+    } else {
+        return "reg_failed//Ошибка при регистрации\r\n";
+    }
 }
 
 QByteArray get_stat(/*QStringList*/){
