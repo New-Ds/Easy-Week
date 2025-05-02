@@ -5,7 +5,7 @@
 #include "Singleton.h"
 
 
-bool auth(QString login, QString password);
+QString auth(QString login, QString password);
 bool reg(QString login, QString password, QString email);
 QString get_stable_stat(/* какие-то аргументы, если потребуются */);
 QString get_dynamic_stat(/* какие-то аргументы, если потребуются */);

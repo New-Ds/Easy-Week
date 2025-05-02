@@ -27,7 +27,7 @@ private slots:
     void on_loginButton_clicked();
 
 signals:
-    void auth_ok(QString login, QString password, QString email);
+    void auth_ok(QString id, QString login, QString password, QString email);
 
 private:
     Ui::AuthRegWindow *ui;

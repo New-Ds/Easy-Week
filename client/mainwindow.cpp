@@ -20,7 +20,8 @@ void MainWindow::slot_show() {
 };
 
 //здесь мы забираем авторизовавшегося юзера используя сигнал, который посылаем из окна авторизации
-void MainWindow::set_current_user(QString login, QString password, QString email) {
+void MainWindow::set_current_user(QString id, QString login, QString password, QString email) {
+    this->id = id;
     this->login = login;
     this->password = password;
     this->email = email;
@@ -55,6 +56,9 @@ void MainWindow::on_tableUsersButton_clicked()
 
 void MainWindow::on_productListButton_clicked()
 {
+
+    get_products(this->email);
+
     QWidget* container = ui->productsContainer;
 
     // Проверяем и создаем grid layout

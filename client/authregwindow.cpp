@@ -42,11 +42,24 @@ void AuthRegWindow::on_toRegButton_clicked()
 
 void AuthRegWindow::on_loginButton_clicked()
 {
-    if (auth(ui->loginLine->text(), ui->passwordLine->text()) )
-    {
-        emit auth_ok(ui->loginLine->text(), ui->passwordLine->text(), ui->emailLine->text());
+
+
+    QString response = auth(ui->loginLine->text(), ui->passwordLine->text());
+    QStringList parts = response.split("//");
+
+    qDebug() << "Ответ с сервера" << parts;
+
+    if (parts[0] == "auth_success") {
+        QString id = parts[1];
+        QString login = parts[2];
+        QString email = parts[3];
+        QString password = parts[4];
+
+        emit auth_ok(id, login, email, password);
         this->close();
     }
+
+
     else { clear(); }
 }
 
@@ -67,7 +80,7 @@ void AuthRegWindow::on_regButton_clicked()
             ui->passwordLine->text(),
             ui->emailLine->text()))
         {
-            emit auth_ok(ui->loginLine->text(), ui->passwordLine->text(), ui->emailLine->text()); //если регистрация успешна, отправляем сигнал что авторизация успешна
+            //emit auth_ok(ui->loginLine->text(), ui->passwordLine->text(), ui->emailLine->text()); //если регистрация успешна, отправляем сигнал что авторизация успешна
             this->close();
         } else {
             this->clear();

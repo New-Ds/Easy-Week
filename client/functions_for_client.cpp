@@ -5,19 +5,17 @@
 #include <QStringList>
 
 
-bool auth(QString login, QString password) {
+QString auth(QString login, QString password) {
 
     ClientSingleton& client = ClientSingleton::getInstance();
 
     QString response = client.send_msg(QStringList{"auth", login, password});
 
-    qDebug() << "Успешность авторизации: " << response;
+    qDebug() << "Авторизация: " << response;
 
-    // здесь проверка успешна ли авторизация
-    if (response == "true") {
-        return true;
-    }
-    return false;
+
+
+    return response;
 };
 
 bool reg(QString login, QString password, QString email) {
@@ -65,14 +63,16 @@ QByteArray get_all_users() {
 };
 
 
-QByteArray get_products(QString userId) {
+QByteArray get_products(QString email) {
 
     ClientSingleton& client = ClientSingleton::getInstance();
 
     // Формируем правильный запрос, который сервер ждёт: user//<userId>//get_products
-    QStringList params = {"user", userId, "get_products"};
+    QStringList params = {"user", email, "get_products"};
 
     QByteArray response = client.send_msg(params);
+
+    qDebug() << response;
 
     return response;
 }

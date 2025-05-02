@@ -17,13 +17,14 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    QString id;
     QString login;
     QString password;
     QString email;
 
 public slots:
     void slot_show();
-    void set_current_user(QString login, QString password, QString email);
+    void set_current_user(QString id, QString login, QString password, QString email);
 private:
     Ui::MainWindow *ui;
 
