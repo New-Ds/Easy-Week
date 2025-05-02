@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "functions_for_client.h"
+#include "productCard.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +31,7 @@ private slots:
     void on_stableStatButton_clicked();
     void on_dynamicStatButton_clicked();
     void on_tableUsersButton_clicked();
+    void on_productListButton_clicked();
 };
 
 #endif // MAINWINDOW_H

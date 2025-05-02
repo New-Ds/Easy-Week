@@ -13,7 +13,7 @@ QByteArray get_all_users();
 
 QByteArray check_task(/*QStringList*/);
 QByteArray menu_export(/*QStringList*/);
-QByteArray get_products(QStringList params);
+QByteArray get_products(QString userId);
 
 int get_user_count();
 int get_product_count();

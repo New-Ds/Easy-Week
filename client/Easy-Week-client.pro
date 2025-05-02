@@ -16,7 +16,8 @@ SOURCES += \
     main.cpp \
     authregwindow.cpp \
     mainwindow.cpp \
-    managerforms.cpp
+    managerforms.cpp \
+    productCard.cpp
 
 HEADERS += \
     Singleton.h \
@@ -24,7 +25,8 @@ HEADERS += \
     functions_for_client.h \
     mainwindow.h \
     managerforms.h \
-    managerforms.h
+    managerforms.h \
+    productCard.h
 
 FORMS += \
     authregwindow.ui \

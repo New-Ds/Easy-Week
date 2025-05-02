@@ -64,3 +64,15 @@ QByteArray get_all_users() {
     return stat;
 };
 
+
+QByteArray get_products(QString userId) {
+
+    ClientSingleton& client = ClientSingleton::getInstance();
+
+    // Формируем правильный запрос, который сервер ждёт: user//<userId>//get_products
+    QStringList params = {"user", userId, "get_products"};
+
+    QByteArray response = client.send_msg(params);
+
+    return response;
+}
