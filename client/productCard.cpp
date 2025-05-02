@@ -5,6 +5,7 @@
 productCard::productCard(QString name, int price, QWidget *parent)
     : QWidget(parent)
 {
+
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->addWidget(new QLabel("Название: " + name));
     layout->addWidget(new QLabel("Цена: " + QString::number(price) + " руб"));

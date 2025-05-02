@@ -1,6 +1,7 @@
 #pragma once
 #include <QWidget>
 
+
 class productCard : public QWidget {
     Q_OBJECT
 public:
