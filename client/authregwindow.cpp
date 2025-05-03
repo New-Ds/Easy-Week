@@ -60,7 +60,10 @@ void AuthRegWindow::on_loginButton_clicked()
     }
 
 
-    else { clear(); }
+    else {
+        ui->reportMessage->setText("Ошибка, проверьте правильность введённых данных");
+        clear();
+    }
 }
 
 void AuthRegWindow::clear() {
