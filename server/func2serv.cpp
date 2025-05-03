@@ -7,8 +7,8 @@
 
 
 QMap<QString, QList<QString>> mockDatabase = {
-    {"1", {"Product1//10//5//20//1.5//...", "Product2//15//8//30//2.0//..."}},
-    {"2", {"Product3//5//2//10//0.5//...", "Product4//8//3//12//0.8//..."}},
+    {"1", {"orange_11_45_12_24", "banana_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24"}},
+    {"2", {"apple_11_45_12_24", "grape_11_45_12_24"}},
     };
 
 using namespace std;
@@ -68,13 +68,45 @@ QByteArray parsing(QString input, int socdes)
 
 // дарова Руслан, когда будешь писать тут функцию эту, при успешной авторизации просто пропиши return "true", при неуспешной return "false", на клиенте я так принимаю ответ
 QByteArray auth(QStringList log) {
+    // Проверяем количество параметров
+    if (log.size() < 3) {
+        return "auth_failed//Недостаточно параметров для авторизации\r\n";
+    }
+
     DataBaseSingleton* db = DataBaseSingleton::getInstance();
+
+
     bool authSuccess = db->checkUserCredentials(log[1], log[2]);
 
-    if (authSuccess) {
-        return "true";
+    if (!authSuccess) {
+        return "auth_failed//Неверный логин или пароль\r\n";
     }
-    return "false";
+
+
+
+    QSqlQuery query = db->executeQuery(
+        "SELECT id, name, email, pass FROM users WHERE (email = :login OR name = :login) AND pass = :pass",
+        {
+            {":login", log[1]}, // логин
+            {":pass", log[2]}   // пароль
+        }
+        );
+
+
+    if (!query.next()) {
+        return "auth_failed//Ошибка при получении данных пользователя\r\n";
+    }
+
+    QString userId = query.value("id").toString();
+    QString userLogin = query.value("name").toString();
+    QString userEmail = query.value("email").toString();
+
+    QString response = QString("auth_success//%1//%2//%3\r\n")
+                           .arg(userId)
+                           .arg(userLogin)
+                           .arg(userEmail);
+
+    return response.toUtf8();
 }
 
 
@@ -107,6 +139,7 @@ QByteArray reg(QStringList params) {
         return "reg_failed//Пользователь с таким email уже зарегистрирован\r\n";
     }
 
+
     // 4️⃣ Попытка добавить пользователя
     bool success = db->addUser(name, email, password, false);
 
@@ -118,6 +151,8 @@ QByteArray reg(QStringList params) {
             stats["visits"].toInt(),            // Визиты без изменений
             stats["generations"].toInt()        // Генерации без изменений
             );
+
+
         return "reg_success//Регистрация прошла успешно\r\n";
     } else {
         // Если INSERT не сработал (например, из-за UNIQUE INDEX)
@@ -144,6 +179,9 @@ void fetch_products_from_db(const QString& userId, QStringList& products) {
 }
 QByteArray get_products(QStringList params) {
     QString userId = params[1]; // ID пользователя
+
+    qDebug() << "ID USER: " << userId;
+
     QStringList products; // Список продуктов
 
 
@@ -152,7 +190,7 @@ QByteArray get_products(QStringList params) {
 
     QString response;
     for (const QString& product : std::as_const(products)) {
-        response += "prod//" + product + "\r\n";
+        response += product + "\r\n";
     }
 
     return response.toUtf8();
@@ -231,11 +269,3 @@ bool add_ration_to_favorites(const QString& userId, const QString& rationId) {
     qDebug() << "Adding ration for user:" << userId << ", ration ID:" << rationId;
     return true; // Заглушка, потом заменить на SQL-запрос
 }
-
-
-
-
-
-
-
-
