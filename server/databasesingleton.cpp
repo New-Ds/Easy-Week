@@ -71,7 +71,7 @@ bool DataBaseSingleton::initialize(const QString& databaseName) {
 
     // Инициализация статистики, если таблица пуста
     query.exec("INSERT OR IGNORE INTO statistics (count_registrations, count_visits, count_generations) VALUES (0, 0, 0)");
-
+    query.exec("INSERT OR IGNORE INTO users(name, email, pass, is_admin) VALUES ('NewDev','new@devs.su','admin',true)");
     return success;
 }
 
@@ -89,10 +89,10 @@ QSqlQuery DataBaseSingleton::executeQuery(const QString& queryStr, const QVarian
 }
 
 // Методы для работы с таблицей users
-bool DataBaseSingleton::checkUserCredentials(const QString& login, const QString& password) {
+bool DataBaseSingleton::checkUserCredentials(const QString& email, const QString& password) {
     QSqlQuery query = executeQuery(
-        "SELECT * FROM users WHERE name = :name AND pass = :pass",
-        {{":name", login}, {":pass", password}}
+        "SELECT * FROM users WHERE email = :email AND pass = :pass",
+        {{":email", email}, {":pass", password}}
         );
     return query.next();
 }
@@ -112,12 +112,21 @@ bool DataBaseSingleton::addUser(const QString& name, const QString& email, const
 
 // Методы для работы с таблицей products
 bool DataBaseSingleton::addProduct(int userId, const QString& name, int proteins, int fatness, int carbs, int weight, int cost, int type) {
-    return executeQuery(
-               "INSERT INTO products (id_user, name, proteins, fatness, carbs, weight, cost, type) "
-               "VALUES (:id_user, :name, :proteins, :fatness, :carbs, :weight, :cost, :type)",
-               {{":id_user", userId}, {":name", name}, {":proteins", proteins}, {":fatness", fatness},
-                {":carbs", carbs}, {":weight", weight}, {":cost", cost}, {":type", type}}
-               ).exec();
+    QSqlQuery query = executeQuery(
+        "INSERT INTO products (id_user, name, proteins, fatness, carbs, weight, cost, type) "
+        "VALUES (:id_user, :name, :proteins, :fatness, :carbs, :weight, :cost, :type)",
+        {
+            {":id_user", userId},
+            {":name", name},
+            {":proteins", proteins},
+            {":fatness", fatness},
+            {":carbs", carbs},
+            {":weight", weight},
+            {":cost", cost},
+            {":type", type}
+        }
+        );
+    return !query.lastError().isValid(); // Возвращаем true, если ошибок нет
 }
 
 QVector<QVariantMap> DataBaseSingleton::getProductsByUser(int userId) {

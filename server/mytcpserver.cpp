@@ -46,25 +46,16 @@ void MyTcpServer::slotNewConnection()
     }
 }
 
-void MyTcpServer::slotServerRead()
-{
+void MyTcpServer::slotServerRead() {
     QTcpSocket *clientSocket = qobject_cast<QTcpSocket*>(sender());
-    if (!clientSocket) {
-        return;
-    }
+    if (!clientSocket) return;
 
-    QString res = "";
-    while (clientSocket->bytesAvailable() > 0) {
-        QByteArray array = clientSocket->readAll();
-        qDebug() << array << "\n";
-        if (array == "\\x01\r\n") {
-            clientSocket->write(res.toUtf8());
-            res = "";
-        } else {
-            res.append(array);
-        }
-    }
-    clientSocket->write(parsing(res, clientSocket->socketDescriptor()));
+    QByteArray data = clientSocket->readAll();
+    qDebug() << "Received data:" << data;
+
+    // Обрабатываем данные сразу, без накопления
+    QByteArray response = parsing(QString(data).trimmed(), clientSocket->socketDescriptor());
+    clientSocket->write(response);
 }
 
 void MyTcpServer::slotClientDisconnected()

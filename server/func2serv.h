@@ -7,6 +7,7 @@ QByteArray parsing(QString input, int socdes);
 
 QByteArray auth(QStringList );
 QByteArray reg(QStringList);
+QByteArray add_product(QStringList);
 QByteArray get_stat(/*QStringList*/);
 QByteArray check_task(/*QStringList*/);
 QByteArray menu_export(/*QStringList*/);

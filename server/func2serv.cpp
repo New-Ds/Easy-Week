@@ -2,13 +2,13 @@
 #include <QString>
 #include <QStringList>
 #include <QMap>
+#include <QDebug>
 #include<databasesingleton.h>
 // Заглушка для базы данных
 
-
 QMap<QString, QList<QString>> mockDatabase = {
     {"1", {"orange_11_45_12_24", "banana_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24", "orange_11_45_12_24"}},
-    {"2", {"apple_11_45_12_24", "grape_11_45_12_24"}},
+    {"2", {"apple_11_45_12_24", "grape_11_45_12_24"}}
     };
 
 using namespace std;
@@ -31,6 +31,10 @@ QByteArray parsing(QString input, int socdes)
     else if (var =="auth")
     {
         return auth(container);
+    }
+    else if (var == "add_product")
+    {
+        return add_product(container);
     }
     else if (var == "user" && container[2] == "get_products") {
         return get_products(container);
@@ -74,8 +78,6 @@ QByteArray auth(QStringList log) {
     }
 
     DataBaseSingleton* db = DataBaseSingleton::getInstance();
-
-
     bool authSuccess = db->checkUserCredentials(log[1], log[2]);
 
     if (!authSuccess) {
@@ -139,7 +141,6 @@ QByteArray reg(QStringList params) {
         return "reg_failed//Пользователь с таким email уже зарегистрирован\r\n";
     }
 
-
     // 4️⃣ Попытка добавить пользователя
     bool success = db->addUser(name, email, password, false);
 
@@ -151,13 +152,45 @@ QByteArray reg(QStringList params) {
             stats["visits"].toInt(),            // Визиты без изменений
             stats["generations"].toInt()        // Генерации без изменений
             );
-
-
         return "reg_success//Регистрация прошла успешно\r\n";
     } else {
         // Если INSERT не сработал (например, из-за UNIQUE INDEX)
         return "reg_failed//Ошибка при регистрации (возможно, email уже занят)\r\n";
     }
+}
+
+QByteArray add_product(QStringList params) {
+    if (params.size() != 9) {
+        return "add_product//failed//Неверные аргументы\r\n";
+    }
+
+    DataBaseSingleton *db = DataBaseSingleton::getInstance();
+    int userId = params[1].toInt();
+    QString name = params[2];
+/*
+    // Проверяем, существует ли уже такой продукт
+    QSqlQuery checkQuery = db->executeQuery(
+        "SELECT id FROM products WHERE id_user = :id_user AND name = :name",
+        {{":id_user", userId}, {":name", name}}
+        );
+
+    if (checkQuery.next()) {
+        return "add_product//failed//Продукт уже существует\r\n";
+    }
+*/
+    // Добавляем продукт
+    bool success = db->addProduct(
+        userId,
+        name,
+        params[3].toInt(), // proteins
+        params[4].toInt(), // fatness
+        params[5].toInt(), // carbs
+        params[6].toInt(), // weight
+        params[7].toInt(), // cost
+        params[8].toInt()  // type
+        );
+
+    return success ? "add_product//success\r\n" : "add_product//failed//Ошибка БД\r\n";
 }
 
 QByteArray get_stat(/*QStringList*/){
@@ -179,9 +212,7 @@ void fetch_products_from_db(const QString& userId, QStringList& products) {
 }
 QByteArray get_products(QStringList params) {
     QString userId = params[1]; // ID пользователя
-
     qDebug() << "ID USER: " << userId;
-
     QStringList products; // Список продуктов
 
 
@@ -269,3 +300,11 @@ bool add_ration_to_favorites(const QString& userId, const QString& rationId) {
     qDebug() << "Adding ration for user:" << userId << ", ration ID:" << rationId;
     return true; // Заглушка, потом заменить на SQL-запрос
 }
+
+
+
+
+
+
+
+
