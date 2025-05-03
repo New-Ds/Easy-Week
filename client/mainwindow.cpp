@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QGridLayout>
+#include <QScrollArea>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -69,8 +70,18 @@ void MainWindow::on_productListButton_clicked()
     qDebug() << "Массив продуктов: " << productList;
 
 
-    QWidget* container = ui->productsContainer;
+    QWidget* container = ui->mainContainer;
     QGridLayout* gridLayout = qobject_cast<QGridLayout*>(container->layout());
+
+    if (ui->mainContainer->layout()) {
+        while (QLayoutItem* item = ui->mainContainer->layout()->takeAt(0)) {
+            if (QWidget* widget = item->widget()) {
+                delete widget; // Удаляем виджет
+            }
+            delete item; // Удаляем сам item
+        }
+        delete ui->mainContainer->layout();
+    }
 
     if (!gridLayout) {
         gridLayout = new QGridLayout(container);
@@ -112,3 +123,45 @@ void MainWindow::on_productListButton_clicked()
 
     container->setVisible(true);
 }
+
+
+void MainWindow::on_createMenButton_clicked()
+{
+    QScrollArea* scrollArea = qobject_cast<QScrollArea*>(ui->mainContainer->findChild<QWidget*>("innerScrollArea"));
+
+    if (!scrollArea) {
+        scrollArea = new QScrollArea(ui->mainContainer);
+        scrollArea->setObjectName("innerScrollArea");
+        scrollArea->setWidgetResizable(false); // Отключаем авто-растягивание
+        scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+
+        if (ui->mainContainer->layout()) {
+            delete ui->mainContainer->layout();
+        }
+        ui->mainContainer->setLayout(new QVBoxLayout());
+        ui->mainContainer->layout()->addWidget(scrollArea);
+    }
+
+    QWidget* cardsContainer = new QWidget();
+    QHBoxLayout* cardsLayout = new QHBoxLayout(cardsContainer);
+    cardsLayout->setSpacing(10);
+
+    const QStringList days = {"ПОНЕДЕЛЬНИК", "ВТОРНИК", "СРЕДА", "ЧЕТВЕРГ", "ПЯТНИЦА", "СУББОТА", "ВОСКРЕСЕНЬЕ"};
+
+    for (int i = 0; i < 7; i++) {
+
+        QStringList products = {"Курица c рисом", "Овощи", "Квас"};
+        QVector<int> pfc = {34, 21, 113};
+
+
+        menuCard* card = new menuCard(days[i], products, 623, pfc, 500, 219, cardsContainer);
+
+        card->setFixedSize(370, 468);
+        cardsLayout->addWidget(card);
+    }
+
+    // 4. Настраиваем скролл
+    scrollArea->setWidget(cardsContainer);
+}
+

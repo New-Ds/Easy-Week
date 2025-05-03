@@ -16,7 +16,7 @@ AuthRegWindow::AuthRegWindow(QWidget *parent)
 
 void AuthRegWindow::change_type_to_reg(bool is_reg) {
     ui->reportMessage->setText("");
-    
+
     ui->loginLabel->setVisible(is_reg);
     ui->loginLine->setVisible(is_reg);
 

@@ -17,6 +17,7 @@ SOURCES += \
     authregwindow.cpp \
     mainwindow.cpp \
     managerforms.cpp \
+    menuCard.cpp \
     productCard.cpp
 
 HEADERS += \
@@ -26,12 +27,14 @@ HEADERS += \
     mainwindow.h \
     managerforms.h \
     managerforms.h \
+    menuCard.h \
     productCard.h
 
 FORMS += \
     authregwindow.ui \
     mainwindow.ui \
-    mainwindow_2.ui
+    mainwindow_2.ui \
+    menuCard.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

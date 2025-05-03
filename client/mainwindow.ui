@@ -117,7 +117,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="createMenButton">
            <property name="text">
             <string>Создать меню</string>
            </property>
@@ -166,7 +166,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QScrollArea" name="mainContainer">
+      <widget class="QFrame" name="mainContainer">
        <property name="geometry">
         <rect>
          <x>180</x>
@@ -175,33 +175,12 @@
          <height>521</height>
         </rect>
        </property>
-       <property name="widgetResizable">
-        <bool>true</bool>
+       <property name="frameShape">
+        <enum>QFrame::Shape::StyledPanel</enum>
        </property>
-       <widget class="QWidget" name="productsContainer">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>0</y>
-          <width>1059</width>
-          <height>519</height>
-         </rect>
-        </property>
-        <widget class="QWidget" name="gridLayoutWidget">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>1061</width>
-           <height>521</height>
-          </rect>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_2"/>
-        </widget>
-       </widget>
+       <property name="frameShadow">
+        <enum>QFrame::Shadow::Raised</enum>
+       </property>
       </widget>
      </widget>
     </item>
