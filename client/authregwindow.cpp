@@ -1,13 +1,13 @@
 #include "authregwindow.h"
 #include "ui_authregwindow.h"
 
-//bool isAuth = auth("admin", "root");
-
 AuthRegWindow::AuthRegWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::AuthRegWindow)
 {
     ui->setupUi(this);
+    ui->loginLabel->setVisible(false);
+    ui->loginLine->setVisible(false);
     change_type_to_reg(false);
 }
 
@@ -15,12 +15,13 @@ AuthRegWindow::AuthRegWindow(QWidget *parent)
 
 
 void AuthRegWindow::change_type_to_reg(bool is_reg) {
-    ui->confirmPasswordLabel->setVisible(is_reg);
-    ui->emailLabel->setVisible(is_reg);
-    ui->confirmPasswordLine->setVisible(is_reg);
-    ui->emailLine->setVisible(is_reg);
-    ui->regButton->setVisible(is_reg);
+    ui->loginLabel->setVisible(is_reg);
+    ui->loginLine->setVisible(is_reg);
 
+    ui->confirmPasswordLabel->setVisible(is_reg);
+    ui->confirmPasswordLine->setVisible(is_reg);
+
+    ui->regButton->setVisible(is_reg);
     ui->loginButton->setVisible(!is_reg);
     ui->toRegButton->setText(!is_reg? "to Reg" : "to Auth");
 };
@@ -32,7 +33,7 @@ AuthRegWindow::~AuthRegWindow()
 
 void AuthRegWindow::on_toRegButton_clicked()
 {
-    change_type_to_reg(!ui->emailLabel->isVisible());
+    change_type_to_reg(!ui->loginLabel->isVisible());
 }
 
 
@@ -44,7 +45,8 @@ void AuthRegWindow::on_loginButton_clicked()
 {
 
 
-    QString response = auth(ui->loginLine->text(), ui->passwordLine->text());
+    QString response = auth(ui->emailLine->text(), ui->passwordLine->text());
+
     QStringList parts = response.split("//");
 
     if (parts[0] == "auth_success") {
@@ -72,15 +74,18 @@ void AuthRegWindow::clear() {
 void AuthRegWindow::on_regButton_clicked()
 {
     if (ui->passwordLine->text() != ui->confirmPasswordLine->text()) {
-        this->clear();
+        ui->reportMessage->setText("Введённые пароли не совпадают");
     } else {
         if (reg(ui->loginLine->text(), // делаем запрос на сервер для регистрации, передаём логин, пароль, почту
             ui->passwordLine->text(),
             ui->emailLine->text()))
         {
-            //emit auth_ok(ui->loginLine->text(), ui->passwordLine->text(), ui->emailLine->text()); //если регистрация успешна, отправляем сигнал что авторизация успешна
-            this->close();
+            ui->loginLine->setText("");
+            ui->confirmPasswordLine->setText("");
+            ui->reportMessage->setText("Регистрация успешна, нажмите login для авторизации");
+            change_type_to_reg(false);
         } else {
+            ui->reportMessage->setText("Ошибка, пользователь с таким email уже существует");
             this->clear();
         };
     }

@@ -5,15 +5,13 @@
 #include <QStringList>
 
 
-QString auth(QString login, QString password) {
+QString auth(QString email, QString password) {
 
     ClientSingleton& client = ClientSingleton::getInstance();
 
-    QString response = client.send_msg(QStringList{"auth", login, password});
+    QString response = client.send_msg(QStringList{"auth", email, password});
 
     qDebug() << "Авторизация: " << response;
-
-
 
     return response;
 };
@@ -24,9 +22,10 @@ bool reg(QString login, QString password, QString email) {
 
     QString response = client.send_msg(QStringList{"reg", login, email, password});
 
+    QStringList parts = response.split("//");
 
     // проверка на успешность регистрации
-    if (response == "true") {
+    if (parts[0] == "reg_success") {
         return true;
     }
     return false;
