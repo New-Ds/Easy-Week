@@ -47,8 +47,6 @@ void AuthRegWindow::on_loginButton_clicked()
     QString response = auth(ui->loginLine->text(), ui->passwordLine->text());
     QStringList parts = response.split("//");
 
-    qDebug() << "Ответ с сервера" << parts;
-
     if (parts[0] == "auth_success") {
         QString id = parts[1];
         QString login = parts[2];
