@@ -57,19 +57,28 @@ void MainWindow::on_tableUsersButton_clicked()
 
 void MainWindow::on_productListButton_clicked()
 {
+    // Получаем строку с продуктами (теперь это JSON)
+    QByteArray productsJson = get_products(id);
 
-    // Получаем строку с продуктами
-    QString productsString = get_products(id);
+    qDebug() << "Сырой JSON продуктов: " << productsJson;
 
-    qDebug() << "Строка всех продуктов: " << productsString;
+    // Парсим JSON
+    QJsonParseError parseError;
+    QJsonDocument doc = QJsonDocument::fromJson(productsJson, &parseError);
 
-    // Разбиваем строку на отдельные продукты (разделены запятыми или другим разделителем?)
-    // Предполагаю, что продукты разделены запятыми, как в вашем примере mockDatabase
-    QStringList productList = productsString.split("\r\n", Qt::SkipEmptyParts);
+    if (parseError.error != QJsonParseError::NoError) {
+        qDebug() << "Ошибка парсинга JSON: " << parseError.errorString();
+        return;
+    }
 
-    qDebug() << "Массив продуктов: " << productList;
+    if (!doc.isArray()) {
+        qDebug() << "Ошибка: ожидался JSON-массив!";
+        return;
+    }
 
+    QJsonArray productArray = doc.array();
 
+    // 1️⃣ Берём контейнер и удаляем старый layout/карточки (как у тебя было)
     QWidget* container = ui->mainContainer;
     QGridLayout* gridLayout = qobject_cast<QGridLayout*>(container->layout());
 
@@ -88,41 +97,35 @@ void MainWindow::on_productListButton_clicked()
         container->setLayout(gridLayout);
     }
 
-    // Очистка предыдущих карточек
-    QLayoutItem* child;
-    while ((child = gridLayout->takeAt(0)) != nullptr) {
-        if (child->widget()) {
-            delete child->widget();
-        }
-        delete child;
-    }
-
-    // Создание карточек
+    // 2️⃣ Создаём карточки (визуал точно как у тебя)
     const int columns = 4;
 
-    for (int i = 0; i < productList.size(); ++i) {
-        // Разбиваем данные продукта
-        QStringList parts = productList[i].split("_", Qt::SkipEmptyParts);
+    for (int i = 0; i < productArray.size(); ++i) {
+        QJsonObject obj = productArray[i].toObject();
 
-        if (parts.size() < 5) {
-            qDebug() << "Invalid product format:" << productList[i];
-            continue;
-        }
+        // Извлекаем данные (ключи должны совпадать с сервером)
+        QString productName = obj["name"].toString();
+        int price = obj["cost"].toInt();
+        int proteins = obj["proteins"].toInt();
+        int fatness = obj["fatness"].toInt();
+        int carbs = obj["carbs"].toInt();
 
-        // Парсинг данных
-        QString productName = parts[0].trimmed();
-        int price = parts[1].trimmed().toInt();
-        int proteins = parts[2].trimmed().toInt();
-        int fatness = parts[3].trimmed().toInt();
-        int carbs = parts[4].trimmed().toInt();
+        qDebug() << "Продукт #" << (i + 1)
+                 << " Name:" << productName
+                 << " Price:" << price
+                 << " Proteins:" << proteins
+                 << " Fatness:" << fatness
+                 << " Carbs:" << carbs;
 
-        // Создание и размещение карточки
+        // Создание и размещение карточки (визуал не трогаем)
         productCard* card = new productCard(productName, price, proteins, fatness, carbs, container);
         gridLayout->addWidget(card, i / columns, i % columns);
     }
 
     container->setVisible(true);
 }
+
+
 
 
 void MainWindow::on_createMenButton_clicked()

@@ -63,13 +63,14 @@ QByteArray get_all_users() {
 
 
 QByteArray get_products(QString id) {
-
     ClientSingleton& client = ClientSingleton::getInstance();
 
-    // Формируем правильный запрос, который сервер ждёт: user//<userId>//get_products
     QStringList params = {"user", id, "get_products"};
 
     QByteArray response = client.send_msg(params);
+    qDebug() << "Сырой ответ от сервера (JSON): " << response;
 
-    return response;
+    return response;  // <-- просто возвращаем JSON байты, пусть парсинг делает кликер
 }
+
+
