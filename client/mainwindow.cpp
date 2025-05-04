@@ -168,3 +168,11 @@ void MainWindow::on_createMenButton_clicked()
     scrollArea->setWidget(cardsContainer);
 }
 
+
+
+
+void MainWindow::on_addProductButton_clicked()
+{
+    emit add_product();
+}
+

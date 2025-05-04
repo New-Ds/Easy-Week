@@ -35,6 +35,10 @@ private slots:
     void on_tableUsersButton_clicked();
     void on_productListButton_clicked();
     void on_createMenButton_clicked();
+    void on_addProductButton_clicked();
+
+signals:
+    void add_product();
 };
 
 #endif // MAINWINDOW_H

@@ -2,6 +2,7 @@
 #define MANAGERFORMS_H
 
 #include <QMainWindow>
+#include "add_product.h"
 #include "authregwindow.h"
 #include "mainwindow.h"
 #include "Singleton.h"
@@ -21,6 +22,7 @@ public:
 private:
     AuthRegWindow * curr_auth;
     MainWindow * main;
+    AddProductWindow * addProductWindow;
 };
 
 
