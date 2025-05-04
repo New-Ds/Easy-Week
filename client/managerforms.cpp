@@ -9,7 +9,7 @@ ManagerForms::ManagerForms(QWidget *parent)
     this->addProductWindow = new AddProductWindow();
 
 
-    connect(main, &MainWindow::add_product, AddProductWindow, &AddProductWindow::slot_show);
+    connect(main, &MainWindow::add_product, addProductWindow, &AddProductWindow::slot_show);
     connect(curr_auth, &AuthRegWindow::auth_ok, main, &MainWindow::slot_show);
     connect(curr_auth, &AuthRegWindow::auth_ok, main, &MainWindow::set_current_user);
 }
