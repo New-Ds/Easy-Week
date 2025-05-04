@@ -4,6 +4,9 @@
 #include <QMap>
 #include <QDebug>
 #include<databasesingleton.h>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonDocument>
 // Заглушка для базы данных
 
 QMap<QString, QList<QString>> mockDatabase = {
@@ -37,7 +40,7 @@ QByteArray parsing(QString input, int socdes)
         return add_product(container);
     }
     else if (var == "user" && container[2] == "get_products") {
-        return get_products(container);
+        return get_products(container[1]);
     }
     else if (var =="reg")
     {
@@ -210,22 +213,25 @@ void fetch_products_from_db(const QString& userId, QStringList& products) {
         products = mockDatabase[userId];
     }
 }
-QByteArray get_products(QStringList params) {
-    QString userId = params[1]; // ID пользователя
-    qDebug() << "ID USER: " << userId;
-    QStringList products; // Список продуктов
+QByteArray get_products(QString userId) {
+    DataBaseSingleton* db = DataBaseSingleton::getInstance();
+    int userIdInt = userId.toInt();
+    QVector<QVariantMap> products = db->getProductsByUser(userIdInt);
 
-
-    fetch_products_from_db(userId, products);
-
-
-    QString response;
-    for (const QString& product : std::as_const(products)) {
-        response += product + "\r\n";
+    QJsonArray jsonArray;
+    for (const QVariantMap& product : products) {
+        QJsonObject obj = QJsonObject::fromVariantMap(product);
+        jsonArray.append(obj);
     }
 
-    return response.toUtf8();
+    QJsonDocument doc(jsonArray);
+    QByteArray jsonBytes = doc.toJson(QJsonDocument::Compact);
+
+    qDebug() << "Отправляем продукты в виде JSON:" << jsonBytes;
+
+    return jsonBytes;
 }
+
 QByteArray get_all_users() {
     QStringList users;
 

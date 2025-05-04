@@ -11,7 +11,7 @@ QByteArray add_product(QStringList);
 QByteArray get_stat(/*QStringList*/);
 QByteArray check_task(/*QStringList*/);
 QByteArray menu_export(/*QStringList*/);
-QByteArray get_products(QStringList params);
+QByteArray get_products(QString UserId);
 QByteArray get_all_users();
 QByteArray get_stable_stat();
 int get_user_count();
