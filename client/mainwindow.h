@@ -20,7 +20,6 @@ public:
 
     QString id;
     QString login;
-    QString password;
     QString email;
 
 public slots:
