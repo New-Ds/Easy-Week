@@ -15,8 +15,8 @@ productCard::productCard(QString name, int price, int proteins, int fatness, int
     mainLayout->setSpacing(8);
 
     // Стили для улучшения читаемости
-    QString labelStyle = "QLabel { font-size: 16px; color: white; }";
-    QString titleStyle = "QLabel { font-weight: bold; font-size: 18px; color: white; }";
+    QString labelStyle = "QLabel { font-size: 16px; color: black; }";
+    QString titleStyle = "QLabel { font-weight: bold; font-size: 18px; color: black; }";
     QString priceStyle = "QLabel { font-weight: bold; font-size: 16px; color: green; }";
 
     // Название продукта
@@ -36,7 +36,7 @@ productCard::productCard(QString name, int price, int proteins, int fatness, int
     QFrame* line = new QFrame();
     line->setFrameShape(QFrame::HLine);
     line->setFrameShadow(QFrame::Sunken);
-    line->setStyleSheet("color: #e0e0e0;");
+    line->setStyleSheet("color: black;");
     mainLayout->addWidget(line);
 
     // Панель с пищевой ценностью

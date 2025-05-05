@@ -21,8 +21,6 @@ private:
 public slots:
     void slot_show();
 
-signals:
-    void add_product();
 };
 
 #endif // ADD_PRODUCT_H

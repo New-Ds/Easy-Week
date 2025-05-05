@@ -36,7 +36,6 @@ FORMS += \
     add_product.ui \
     authregwindow.ui \
     mainwindow.ui \
-    mainwindow_2.ui \
     menuCard.ui
 
 # Default rules for deployment.

@@ -25,7 +25,7 @@ void AuthRegWindow::change_type_to_reg(bool is_reg) {
 
     ui->regButton->setVisible(is_reg);
     ui->loginButton->setVisible(!is_reg);
-    ui->toRegButton->setText(!is_reg? "to Reg" : "to Auth");
+    ui->toRegButton->setText(!is_reg? "РЕГИСТРАЦИЯ" : "АВТОРИЗАЦИЯ");
 };
 
 AuthRegWindow::~AuthRegWindow()
