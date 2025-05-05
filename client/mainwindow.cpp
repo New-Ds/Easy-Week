@@ -21,10 +21,9 @@ void MainWindow::slot_show() {
 };
 
 //здесь мы забираем авторизовавшегося юзера используя сигнал, который посылаем из окна авторизации
-void MainWindow::set_current_user(QString id, QString login, QString password, QString email) {
+void MainWindow::set_current_user(QString id, QString login, QString email) {
     this->id = id;
     this->login = login;
-    this->password = password;
     this->email = email;
 }
 
