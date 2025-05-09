@@ -21,9 +21,10 @@ void MainWindow::slot_show() {
 };
 
 //здесь мы забираем авторизовавшегося юзера используя сигнал, который посылаем из окна авторизации
-void MainWindow::set_current_user(QString id, QString login, QString email) {
+void MainWindow::set_current_user(QString id, QString login,  QString email) {
     this->id = id;
     this->login = login;
+
     this->email = email;
 }
 
@@ -169,9 +170,20 @@ void MainWindow::on_createMenButton_clicked()
 
 
 
-
 void MainWindow::on_addProductButton_clicked()
 {
-    emit add_product();
+    emit add_product();  // Отправляем сигнал для открытия окна добавления продукта
 }
 
+
+void MainWindow::handleProductAdded(QString id, QString name, int proteins, int fats, int carbs, int weight, int cost, int type)
+{
+    QByteArray response = ::add_product(id, name, proteins, fats, carbs, weight, cost, type);
+    qDebug() << "Response from server:" << response;
+
+    if (response.contains("success")) {
+        QMessageBox::information(this, "Успех", "Продукт успешно добавлен!");
+    } else {
+        QMessageBox::warning(this, "Ошибка", "Не удалось добавить продукт: " + response);
+    }
+}

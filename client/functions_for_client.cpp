@@ -1,5 +1,6 @@
 #include "functions_for_client.h"
-
+#include "mainwindow.h"
+#include "managerforms.h"
 #include <QDebug>
 #include <QByteArray>
 #include <QStringList>
@@ -73,4 +74,20 @@ QByteArray get_products(QString id) {
     return response;  // <-- просто возвращаем JSON байты, пусть парсинг делает кликер
 }
 
+QByteArray add_product(QString id, QString name, int proteins, int fats, int carbs, int weight, int cost, int type) {
+    ClientSingleton& client = ClientSingleton::getInstance();
+    QStringList params = {
+        "add_product",
+        id,
+        name,
+        QString::number(proteins),
+        QString::number(fats),
+        QString::number(carbs),
+        QString::number(weight),
+        QString::number(cost),
+        QString::number(type)
+    };
+    QByteArray response = client.send_msg(params);
+    return response;
+}
 

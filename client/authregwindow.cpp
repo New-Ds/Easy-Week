@@ -56,6 +56,7 @@ void AuthRegWindow::on_loginButton_clicked()
         QString login = parts[2];
         QString email = parts[3];
 
+
         emit auth_ok(id, login, email);
         this->close();
     }
