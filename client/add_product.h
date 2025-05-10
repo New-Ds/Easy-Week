@@ -20,10 +20,11 @@ private:
     Ui::AddProductWindow *ui;
 
 signals:
-    void productAdded(QString id, QString name, int proteins, int fats, int carbs, int weight, int cost, int type);
+    void productAdded(QString name, int proteins, int fats, int carbs, int weight, int cost, int type);
 
 
 public slots:
+    void clear();
     void slot_show();
 
 private slots:

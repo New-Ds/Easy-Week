@@ -196,7 +196,7 @@ QLabel {
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="exitButton">
             <property name="minimumSize">
              <size>
               <width>150</width>
