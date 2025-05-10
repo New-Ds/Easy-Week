@@ -15,6 +15,8 @@ QByteArray check_task(/*QStringList*/);
 QByteArray menu_export(/*QStringList*/);
 QByteArray get_products(QString userId);
 
+QByteArray add_product(QString id, QString name, int proteins, int fats, int carbs, int weight, int cost, int type);
+
 int get_user_count();
 int get_product_count();
 int get_weekly_logins();

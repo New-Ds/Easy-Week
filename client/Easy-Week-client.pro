@@ -12,6 +12,7 @@ CONFIG += c++17
 
 SOURCES += \
     Singleton.cpp \
+    add_product.cpp \
     functions_for_client.cpp \
     main.cpp \
     authregwindow.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 
 HEADERS += \
     Singleton.h \
+    add_product.h \
     authregwindow.h \
     functions_for_client.h \
     mainwindow.h \
@@ -31,9 +33,9 @@ HEADERS += \
     productCard.h
 
 FORMS += \
+    add_product.ui \
     authregwindow.ui \
     mainwindow.ui \
-    mainwindow_2.ui \
     menuCard.ui
 
 # Default rules for deployment.

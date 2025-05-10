@@ -25,7 +25,7 @@ void AuthRegWindow::change_type_to_reg(bool is_reg) {
 
     ui->regButton->setVisible(is_reg);
     ui->loginButton->setVisible(!is_reg);
-    ui->toRegButton->setText(!is_reg? "to Reg" : "to Auth");
+    ui->toRegButton->setText(!is_reg? "РЕГИСТРАЦИЯ" : "АВТОРИЗАЦИЯ");
 };
 
 AuthRegWindow::~AuthRegWindow()
@@ -55,9 +55,9 @@ void AuthRegWindow::on_loginButton_clicked()
         QString id = parts[1];
         QString login = parts[2];
         QString email = parts[3];
-        QString password = parts[4];
 
-        emit auth_ok(id, login, email, password);
+
+        emit auth_ok(id, login, email);
         this->close();
     }
 

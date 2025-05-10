@@ -4,6 +4,10 @@
 #include <QScrollArea>
 #include <QDebug>
 
+#include <QProcess>
+#include <QApplication>
+#include <QPushButton>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -21,10 +25,10 @@ void MainWindow::slot_show() {
 };
 
 //здесь мы забираем авторизовавшегося юзера используя сигнал, который посылаем из окна авторизации
-void MainWindow::set_current_user(QString id, QString login, QString password, QString email) {
+void MainWindow::set_current_user(QString id, QString login,  QString email) {
     this->id = id;
     this->login = login;
-    this->password = password;
+
     this->email = email;
 }
 
@@ -57,7 +61,7 @@ void MainWindow::on_tableUsersButton_clicked()
 
 void MainWindow::on_productListButton_clicked()
 {
-    // Получаем строку с продуктами (теперь это JSON)
+    // Получаем строку с продуктами (JSON)
     QByteArray productsJson = get_products(id);
 
     qDebug() << "Сырой JSON продуктов: " << productsJson;
@@ -78,32 +82,28 @@ void MainWindow::on_productListButton_clicked()
 
     QJsonArray productArray = doc.array();
 
-    // 1️⃣ Берём контейнер и удаляем старый layout/карточки (как у тебя было)
+    // Берём контейнер и полностью очищаем старый layout (с удалением)
     QWidget* container = ui->mainContainer;
-    QGridLayout* gridLayout = qobject_cast<QGridLayout*>(container->layout());
 
-    if (ui->mainContainer->layout()) {
-        while (QLayoutItem* item = ui->mainContainer->layout()->takeAt(0)) {
+    if (QLayout* oldLayout = container->layout()) {
+        while (QLayoutItem* item = oldLayout->takeAt(0)) {
             if (QWidget* widget = item->widget()) {
                 delete widget; // Удаляем виджет
             }
-            delete item; // Удаляем сам item
+            delete item; // Удаляем item
         }
-        delete ui->mainContainer->layout();
+        delete oldLayout; // Полностью удаляем старый layout
     }
 
-    if (!gridLayout) {
-        gridLayout = new QGridLayout(container);
-        container->setLayout(gridLayout);
-    }
+    // ВСЕГДА создаём новый layout после удаления
+    QGridLayout* gridLayout = new QGridLayout(container);
+    container->setLayout(gridLayout);
 
-    // 2️⃣ Создаём карточки (визуал точно как у тебя)
+    // Создаём карточки
     const int columns = 4;
-
     for (int i = 0; i < productArray.size(); ++i) {
         QJsonObject obj = productArray[i].toObject();
 
-        // Извлекаем данные (ключи должны совпадать с сервером)
         QString productName = obj["name"].toString();
         int price = obj["cost"].toInt();
         int proteins = obj["proteins"].toInt();
@@ -117,7 +117,6 @@ void MainWindow::on_productListButton_clicked()
                  << " Fatness:" << fatness
                  << " Carbs:" << carbs;
 
-        // Создание и размещение карточки (визуал не трогаем)
         productCard* card = new productCard(productName, price, proteins, fatness, carbs, container);
         gridLayout->addWidget(card, i / columns, i % columns);
     }
@@ -166,5 +165,40 @@ void MainWindow::on_createMenButton_clicked()
 
     // 4. Настраиваем скролл
     scrollArea->setWidget(cardsContainer);
+}
+
+
+
+void MainWindow::on_addProductButton_clicked()
+{
+    emit add_product();  // Отправляем сигнал для открытия окна добавления продукта
+}
+
+
+void MainWindow::handleProductAdded(QString name, int proteins, int fats, int carbs, int weight, int cost, int type)
+{
+    QByteArray response = ::add_product(id, name, proteins, fats, carbs, weight, cost, type);
+    qDebug() << "Response from server:" << response;
+
+    if (response.contains("success")) {
+        QMessageBox::information(this, "Успех", "Продукт успешно добавлен!");
+    } else {
+        QMessageBox::warning(this, "Ошибка", "Не удалось добавить продукт: " + response);
+    }
+}
+
+
+void MainWindow::on_exitButton_clicked()
+{
+    // Получаем путь к исполняемому файлу и аргументы
+    QString program = QApplication::applicationFilePath();
+    QStringList arguments = QApplication::arguments();
+    arguments.removeFirst(); // Удаляем первый аргумент (путь к программе)
+
+    // Запускаем новый экземпляр приложения
+    QProcess::startDetached(program, arguments);
+
+    // Закрываем текущее приложение
+    QApplication::quit();
 }
 

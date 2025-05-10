@@ -5,6 +5,7 @@
 #include "functions_for_client.h"
 #include "productCard.h"
 #include "menuCard.h"
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -25,7 +26,9 @@ public:
 
 public slots:
     void slot_show();
-    void set_current_user(QString id, QString login, QString password, QString email);
+    void set_current_user(QString id, QString login, QString email);
+    void handleProductAdded( QString name, int proteins, int fats, int carbs, int weight, int cost, int type);
+
 private:
     Ui::MainWindow *ui;
 
@@ -35,6 +38,11 @@ private slots:
     void on_tableUsersButton_clicked();
     void on_productListButton_clicked();
     void on_createMenButton_clicked();
+    void on_addProductButton_clicked();
+    void on_exitButton_clicked();
+
+signals:
+    void add_product();
 };
 
 #endif // MAINWINDOW_H
