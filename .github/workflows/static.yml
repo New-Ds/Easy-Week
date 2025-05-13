@@ -54,7 +54,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './html/'  # Папка, где Doxygen генерирует документацию
+          path: '.docs/build/html/'  # Папка, где Doxygen генерирует документацию
 
       # Шаг 7: Деплой документации на GitHub Pages
       - name: Deploy to GitHub Pages
