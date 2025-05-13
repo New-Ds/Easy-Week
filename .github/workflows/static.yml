@@ -1,62 +1,52 @@
 name: Deploy static content to Pages
 
 on:
-  # Workflow срабатывает при пуше в ветку add-doxygen-docs
   push:
     branches:
-      - "add-doxygen-docs"  # Используем ветку add-doxygen-docs
-
-  # Позволяет запускать workflow вручную через интерфейс GitHub Actions
+      - "add-doxygen-docs"  # или ваша основная ветка, например, "main"
   workflow_dispatch:
 
 permissions:
-  # Права, необходимые для работы с GitHub Pages
-  contents: read    # Чтение содержимого репозитория
-  pages: write      # Запись на GitHub Pages
-  id-token: write   # Токен для аутентификации
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false  # Не отменять текущие деплои, если идет другой
+  cancel-in-progress: false
 
 jobs:
   deploy:
-    # Параметры среды, где будет развернута документация
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
-    # Указание на платформу для выполнения
     runs-on: ubuntu-latest
-
     steps:
-      # Шаг 1: Скачиваем репозиторий
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # Шаг 2: Настройка GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      # Шаг 3: Установка Doxygen
+      # Устанавливаем Doxygen
       - name: Install Doxygen
-        run: sudo apt-get install doxygen && doxygen --version
+        run: sudo apt install doxygen && doxygen --version
 
-      # Шаг 4: Установка Graphviz (если нужно для графиков в документации)
+      # Устанавливаем Graphviz (если нужно для генерации графиков в Doxygen)
       - name: Install Graphviz
-        run: sudo apt-get install graphviz
+        run: sudo apt install graphviz
 
-      # Шаг 5: Генерация документации с использованием Doxygen
+      # Создаем документацию
       - name: Create documentation
-        run: doxygen Doxyfile  # Предполагаем, что у вас есть файл Doxyfile в корне репозитория
+        run: doxygen
 
-      # Шаг 6: Загружаем сгенерированную документацию как артефакт
+      # Загрузка артефакта (с учетом структуры папок)
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.docs/build/html/'  # Папка, где Doxygen генерирует документацию
+          path: './docs/build/html'  # Указываем правильный путь к сгенерированной документации
 
-      # Шаг 7: Деплой документации на GitHub Pages
+      # Разворачиваем на GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
