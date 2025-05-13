@@ -1,0 +1,7 @@
+<map id="server/func2serv.h" name="server/func2serv.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="38,5,166,32"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,80,95,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,34,70,69,66,66,91,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="119,80,189,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,31,138,66,134,69,109,34"/>
+</map>

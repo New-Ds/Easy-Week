@@ -1,1 +1,48 @@
-+
+# Основные настройки
+PROJECT_NAME           = "My Project"         # Название проекта
+PROJECT_BRIEF          = "Project description"  # Краткое описание проекта
+OUTPUT_DIRECTORY       = docs/doxygen           # Папка для вывода документации
+CREATE_SUBDIRS         = NO                    # Не создавать подкаталоги для выходных файлов
+EXTRACT_ALL            = YES                   # Извлекать все комментарии (даже если нет тегов Doxygen)
+EXTRACT_PRIVATE        = YES                   # Включать приватные члены
+EXTRACT_STATIC         = YES                   # Включать статические функции и переменные
+INLINE_SOURCES         = YES                   # Включать исходный код в документацию
+FILE_PATTERNS          = *.h *.cpp             # Паттерны для поиска исходных файлов
+RECURSIVE              = YES                   # Рекурсивный поиск по каталогам
+ENABLE_PREPROCESSING   = YES                   # Разрешить обработку препроцессора
+MACRO_EXPANSION        = YES                   # Разрешить расширение макросов
+TCL_SUBST              = YES                   # Разрешить обработку команд TCL
+
+# Формат вывода документации
+GENERATE_HTML          = YES                   # Генерация HTML документации
+HTML_OUTPUT            = html                  # Папка для вывода HTML файлов
+HTML_EXTRA_STYLESHEET  = ""                    # Кастомный файл стилей (если есть)
+
+# Формат LaTeX (если нужен)
+GENERATE_LATEX         = YES                    # Отключить генерацию LaTeX документации
+
+
+# Использование Doxygen комментариев
+ALIASES                = "myalias=somealias"   # Можно настроить пользовательские алиасы (не обязательно)
+TEMPLATE_RELATIONS     = YES                   # Включить создание связей между файлами и классами
+HAVE_DOT               = YES                   # Использовать Graphviz для генерации графиков и диаграмм
+
+# Функции и классы
+EXTRACT_LOCAL_CLASSES  = YES                   # Включать локальные классы в документацию
+EXTRACT_LOCAL_METHODS  = YES                   # Включать локальные методы в документацию
+
+# Включение/выключение различных типов документации
+SHOW_FILES             = YES                   # Показать файлы в документации
+SHOW_NAMESPACES        = YES                   # Показать пространства имен
+SHOW_INCLUDE_FILES     = YES                   # Показать включаемые файлы
+
+# Визуальные параметры
+HTML_DYNAMIC_MENUS     = YES                   # Включить динамические меню в HTML документации
+HTML_COLORSTYLE        = "yes"                 # Включить стилизацию документации
+
+# Включение тэгов Doxygen в комментариях
+JAVADOC_AUTOBRIEF      = YES                   # Автоматически добавлять краткое описание в JavaDoc стиле
+DISTRIBUTE_GROUPS      = YES                   # Разрешить группировку документации
+
+# Путь к исходным файлам
+INPUT                  = ./server    # Путь к вашим исходным файлам

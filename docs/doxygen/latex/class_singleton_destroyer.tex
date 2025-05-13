@@ -1,0 +1,98 @@
+\doxysection{Singleton\+Destroyer Class Reference}
+\hypertarget{class_singleton_destroyer}{}\label{class_singleton_destroyer}\index{SingletonDestroyer@{SingletonDestroyer}}
+
+
+Класс для разрушения экземпляра Singleton.  
+
+
+
+
+{\ttfamily \#include $<$databasesingleton.\+h$>$}
+
+
+
+Collaboration diagram for Singleton\+Destroyer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{class_singleton_destroyer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_singleton_destroyer_a8ac3166871f4c5411edfdb13594dee15}{\texorpdfstring{$\sim$}{\string~}\+Singleton\+Destroyer}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор для удаления Singleton. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_singleton_destroyer_abcaf525b6af81fbb5717c7dae73af8ec}{initialize}} (\mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Инициализация указателя на экземпляр Singleton. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_singleton_destroyer_a66a75552c83eb8515e6d458d7a6b0178}{p\+\_\+instance}}
+\begin{DoxyCompactList}\small\item\em Указатель на экземпляр Singleton. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Класс для разрушения экземпляра Singleton. 
+
+Используется для корректного удаления экземпляра \doxylink{class_data_base_singleton}{Data\+Base\+Singleton}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_singleton_destroyer_a8ac3166871f4c5411edfdb13594dee15}\index{SingletonDestroyer@{SingletonDestroyer}!````~SingletonDestroyer@{\texorpdfstring{$\sim$}{\string~}SingletonDestroyer}}
+\index{````~SingletonDestroyer@{\texorpdfstring{$\sim$}{\string~}SingletonDestroyer}!SingletonDestroyer@{SingletonDestroyer}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}SingletonDestroyer()}{\string~SingletonDestroyer()}}
+{\footnotesize\ttfamily \label{class_singleton_destroyer_a8ac3166871f4c5411edfdb13594dee15} 
+Singleton\+Destroyer\+::\texorpdfstring{$\sim$}{\string~}\+Singleton\+Destroyer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Деструктор для удаления Singleton. 
+
+Уничтожает экземпляр Singleton, если он существует. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00211\ \{\ \textcolor{keyword}{delete}\ \mbox{\hyperlink{class_singleton_destroyer_a66a75552c83eb8515e6d458d7a6b0178}{p\_instance}};\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_singleton_destroyer_abcaf525b6af81fbb5717c7dae73af8ec}\index{SingletonDestroyer@{SingletonDestroyer}!initialize@{initialize}}
+\index{initialize@{initialize}!SingletonDestroyer@{SingletonDestroyer}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{class_singleton_destroyer_abcaf525b6af81fbb5717c7dae73af8ec} 
+void Singleton\+Destroyer\+::initialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})}
+
+
+
+Инициализация указателя на экземпляр Singleton. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Указатель на экземпляр Singleton. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00212\ \{\ \mbox{\hyperlink{class_singleton_destroyer_a66a75552c83eb8515e6d458d7a6b0178}{p\_instance}}\ =\ p;\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_singleton_destroyer_a66a75552c83eb8515e6d458d7a6b0178}\index{SingletonDestroyer@{SingletonDestroyer}!p\_instance@{p\_instance}}
+\index{p\_instance@{p\_instance}!SingletonDestroyer@{SingletonDestroyer}}
+\doxysubsubsection{\texorpdfstring{p\_instance}{p\_instance}}
+{\footnotesize\ttfamily \label{class_singleton_destroyer_a66a75552c83eb8515e6d458d7a6b0178} 
+\mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}}\texorpdfstring{$\ast$}{*} Singleton\+Destroyer\+::p\+\_\+instance\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Указатель на экземпляр Singleton. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+server/\mbox{\hyperlink{databasesingleton_8h}{databasesingleton.\+h}}\item 
+server/\mbox{\hyperlink{databasesingleton_8cpp}{databasesingleton.\+cpp}}\end{DoxyCompactItemize}
