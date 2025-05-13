@@ -1,0 +1,157 @@
+\doxysection{menu\+Card Class Reference}
+\hypertarget{classmenu_card}{}\label{classmenu_card}\index{menuCard@{menuCard}}
+
+
+Виджет отображения информации о рационе питания.  
+
+
+
+
+{\ttfamily \#include $<$menu\+Card.\+h$>$}
+
+
+
+Inheritance diagram for menu\+Card\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=141pt]{classmenu_card__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for menu\+Card\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=141pt]{classmenu_card__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmenu_card_a2031e638510376289c988f8c9799ab5b}{menu\+Card}} (QString day, QString\+List products, int calories, QVector$<$ int $>$ \&pfc, int weight, int price, QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Конструктор виджета \doxylink{classmenu_card}{menu\+Card}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmenu_card_af0a4efa29020e128e125a4693b989024}{\texorpdfstring{$\sim$}{\string~}menu\+Card}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Ui\+::menu\+Card \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}
+\begin{DoxyCompactList}\small\item\em UI-\/компоненты, сгенерированные Qt Designer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Виджет отображения информации о рационе питания. 
+
+Показывает данные за определённый день\+: список продуктов, калорийность, содержание БЖУ, вес и цену. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classmenu_card_a2031e638510376289c988f8c9799ab5b}\index{menuCard@{menuCard}!menuCard@{menuCard}}
+\index{menuCard@{menuCard}!menuCard@{menuCard}}
+\doxysubsubsection{\texorpdfstring{menuCard()}{menuCard()}}
+{\footnotesize\ttfamily \label{classmenu_card_a2031e638510376289c988f8c9799ab5b} 
+menu\+Card\+::menu\+Card (\begin{DoxyParamCaption}\item[{QString}]{day}{, }\item[{QString\+List}]{products}{, }\item[{int}]{calories}{, }\item[{QVector$<$ int $>$ \&}]{pfc}{, }\item[{int}]{weight}{, }\item[{int}]{price}{, }\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Конструктор виджета \doxylink{classmenu_card}{menu\+Card}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em day} & День недели или дата. \\
+\hline
+{\em products} & Список продуктов в рационе. \\
+\hline
+{\em calories} & Общее количество калорий. \\
+\hline
+{\em pfc} & Вектор, содержащий значения белков, жиров и углеводов. \\
+\hline
+{\em weight} & Общий вес рациона. \\
+\hline
+{\em price} & Общая стоимость рациона. \\
+\hline
+{\em parent} & Родительский виджет. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00011\ \ \ \ \ \ :\ QWidget(parent)}
+\DoxyCodeLine{00012\ \ \ \ \ \ ,\ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}(\textcolor{keyword}{new}\ Ui::menuCard) }
+\DoxyCodeLine{00013\ \ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}-\/>setupUi(\textcolor{keyword}{this});}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}-\/>dayLabel-\/>setText(day);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \textcolor{comment}{//\ 1.\ Добавляем\ продукты\ в\ menuVerticalLayout}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ QString\&\ product\ :\ products)\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ QLabel*\ productLabel\ =\ \textcolor{keyword}{new}\ QLabel(product,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ productLabel-\/>setStyleSheet(\textcolor{stringliteral}{"{}font-\/size:\ 16px;\ font-\/weight:\ bold"{}});}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}-\/>menuVerticalLayout-\/>addWidget(productLabel);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \textcolor{comment}{//\ 2.\ Добавляем\ параметры\ в\ paramsVerticalLayout}}
+\DoxyCodeLine{00028\ \ \ \ \ \ QLabel*\ caloriesLabel\ =\ \textcolor{keyword}{new}\ QLabel(QString(\textcolor{stringliteral}{"{}Калории:\ \%1"{}}).arg(calories),\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00029\ \ \ \ \ \ QLabel*\ pfcLabel\ =\ \textcolor{keyword}{new}\ QLabel(QString(\textcolor{stringliteral}{"{}БЖУ:\ \%1-\/\%2-\/\%3"{}}).arg(pfc[0]).arg(pfc[1]).arg(pfc[2]),\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00030\ \ \ \ \ \ QLabel*\ weightLabel\ =\ \textcolor{keyword}{new}\ QLabel(QString(\textcolor{stringliteral}{"{}Вес:\ \%1\ г"{}}).arg(weight),\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00031\ \ \ \ \ \ QLabel*\ priceLabel\ =\ \textcolor{keyword}{new}\ QLabel(QString(\textcolor{stringliteral}{"{}Цена:\ \%1\ руб."{}}).arg(price),\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \textcolor{comment}{//\ Настройка\ стилей\ для\ параметров}}
+\DoxyCodeLine{00034\ \ \ \ \ \ QString\ paramStyle\ =\ \textcolor{stringliteral}{"{}font-\/size:\ 14px;\ color:\ black;\ font-\/weight:\ bold"{}};}
+\DoxyCodeLine{00035\ \ \ \ \ \ caloriesLabel-\/>setStyleSheet(paramStyle);}
+\DoxyCodeLine{00036\ \ \ \ \ \ pfcLabel-\/>setStyleSheet(paramStyle);}
+\DoxyCodeLine{00037\ \ \ \ \ \ weightLabel-\/>setStyleSheet(paramStyle);}
+\DoxyCodeLine{00038\ \ \ \ \ \ priceLabel-\/>setStyleSheet(paramStyle);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \textcolor{comment}{//\ Добавление\ в\ layout}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}-\/>paramsVerticalLayout-\/>addWidget(caloriesLabel);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}-\/>paramsVerticalLayout-\/>addWidget(pfcLabel);}
+\DoxyCodeLine{00043\ \ \ \ \ \ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}-\/>paramsVerticalLayout-\/>addWidget(weightLabel);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}-\/>paramsVerticalLayout-\/>addWidget(priceLabel);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \textcolor{comment}{//\ Добавляем\ растягивающийся\ элемент\ в\ конец}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}-\/>menuVerticalLayout-\/>addStretch();}
+\DoxyCodeLine{00048\ \ \ \ \ \ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}}-\/>paramsVerticalLayout-\/>addStretch();}
+\DoxyCodeLine{00049\ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{classmenu_card_af0a4efa29020e128e125a4693b989024}\index{menuCard@{menuCard}!````~menuCard@{\texorpdfstring{$\sim$}{\string~}menuCard}}
+\index{````~menuCard@{\texorpdfstring{$\sim$}{\string~}menuCard}!menuCard@{menuCard}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}menuCard()}{\string~menuCard()}}
+{\footnotesize\ttfamily \label{classmenu_card_af0a4efa29020e128e125a4693b989024} 
+menu\+Card\+::\texorpdfstring{$\sim$}{\string~}menu\+Card (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Деструктор. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{delete}\ \mbox{\hyperlink{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}{ui}};}
+\DoxyCodeLine{00054\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77}\index{menuCard@{menuCard}!ui@{ui}}
+\index{ui@{ui}!menuCard@{menuCard}}
+\doxysubsubsection{\texorpdfstring{ui}{ui}}
+{\footnotesize\ttfamily \label{classmenu_card_a71b7e60bf8f8341de5cd2631e8701e77} 
+Ui\+::menu\+Card\texorpdfstring{$\ast$}{*} menu\+Card\+::ui\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+UI-\/компоненты, сгенерированные Qt Designer. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+client/\mbox{\hyperlink{menu_card_8h}{menu\+Card.\+h}}\item 
+client/\mbox{\hyperlink{menucard_8cpp}{menucard.\+cpp}}\end{DoxyCompactItemize}

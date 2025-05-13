@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['main_0',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['menu_5fexport_1',['menu_export',['../func2serv_8cpp.html#aa70831eddff4b8ed7a04647778a35747',1,'menu_export():&#160;func2serv.cpp'],['../func2serv_8h.html#aa70831eddff4b8ed7a04647778a35747',1,'menu_export():&#160;func2serv.cpp']]],
-  ['mytcpserver_2',['MyTcpServer',['../class_my_tcp_server.html#acf367c4695b4d160c7a2d25c2afaaec4',1,'MyTcpServer']]]
+  ['initialize_0',['initialize',['../class_singleton_destroyer.html#abcaf525b6af81fbb5717c7dae73af8ec',1,'SingletonDestroyer::initialize()'],['../class_data_base_singleton.html#a59bda63308000a018c5bdc1989582e50',1,'DataBaseSingleton::initialize()'],['../class_client_singleton_destroyer.html#a26da498540dff266ed02cadab5cf2ceb',1,'ClientSingletonDestroyer::initialize()']]]
 ];

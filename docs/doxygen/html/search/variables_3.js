@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['server_5fstatus_0',['server_status',['../class_my_tcp_server.html#ae0dc69dfef4f9fc3a5f031f4152e4f91',1,'MyTcpServer']]]
+  ['email_0',['email',['../class_main_window.html#a46daecfbbd4056b097b3b470cc4f1618',1,'MainWindow']]]
 ];

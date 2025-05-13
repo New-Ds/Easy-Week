@@ -1,0 +1,143 @@
+\doxysection{Manager\+Forms Class Reference}
+\hypertarget{class_manager_forms}{}\label{class_manager_forms}\index{ManagerForms@{ManagerForms}}
+
+
+Класс для управления окнами приложения.  
+
+
+
+
+{\ttfamily \#include $<$managerforms.\+h$>$}
+
+
+
+Inheritance diagram for Manager\+Forms\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=161pt]{class_manager_forms__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Manager\+Forms\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_manager_forms__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_manager_forms_a28520be4f92d605ac48783497f23cf96}{Manager\+Forms}} (QWidget \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Конструктор класса \doxylink{class_manager_forms}{Manager\+Forms}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_manager_forms_a6fcef06607418dbf71c05c44847b0112}{\texorpdfstring{$\sim$}{\string~}\+Manager\+Forms}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_auth_reg_window}{Auth\+Reg\+Window}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_manager_forms_a30b01a09a0e1859c5c934d77280249c8}{curr\+\_\+auth}}
+\begin{DoxyCompactList}\small\item\em Указатель на окно авторизации и регистрации. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_main_window}{Main\+Window}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_manager_forms_a55e8215156bd70da8b91860773f181a6}{main}}
+\begin{DoxyCompactList}\small\item\em Указатель на главное окно приложения. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_add_product_window}{Add\+Product\+Window}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_manager_forms_a35e56ed089659370d82a6ede47a35ff0}{add\+Product\+Window}}
+\begin{DoxyCompactList}\small\item\em Указатель на окно добавления продукта. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Класс для управления окнами приложения. 
+
+Отвечает за создание и переключение между окнами авторизации, главного интерфейса и окна добавления продукта. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_manager_forms_a28520be4f92d605ac48783497f23cf96}\index{ManagerForms@{ManagerForms}!ManagerForms@{ManagerForms}}
+\index{ManagerForms@{ManagerForms}!ManagerForms@{ManagerForms}}
+\doxysubsubsection{\texorpdfstring{ManagerForms()}{ManagerForms()}}
+{\footnotesize\ttfamily \label{class_manager_forms_a28520be4f92d605ac48783497f23cf96} 
+Manager\+Forms\+::\+Manager\+Forms (\begin{DoxyParamCaption}\item[{QWidget \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Конструктор класса \doxylink{class_manager_forms}{Manager\+Forms}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & Родительский виджет. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QMainWindow(parent) }
+\DoxyCodeLine{00004\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ this-\/>\mbox{\hyperlink{class_manager_forms_a30b01a09a0e1859c5c934d77280249c8}{curr\_auth}}\ =\ \textcolor{keyword}{new}\ AuthRegWindow();}
+\DoxyCodeLine{00006\ \ \ \ \ this-\/>\mbox{\hyperlink{class_manager_forms_a55e8215156bd70da8b91860773f181a6}{main}}\ =\ \textcolor{keyword}{new}\ MainWindow();}
+\DoxyCodeLine{00007\ \ \ \ \ this-\/>\mbox{\hyperlink{class_manager_forms_a30b01a09a0e1859c5c934d77280249c8}{curr\_auth}}-\/>show();}
+\DoxyCodeLine{00008\ \ \ \ \ this-\/>\mbox{\hyperlink{class_manager_forms_a35e56ed089659370d82a6ede47a35ff0}{addProductWindow}}\ =\ \textcolor{keyword}{new}\ AddProductWindow();}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ connect(\mbox{\hyperlink{class_manager_forms_a55e8215156bd70da8b91860773f181a6}{main}},\ \&\mbox{\hyperlink{class_main_window_afa09d58e484be8e5c49e5f5b33f0e3d8}{MainWindow::add\_product}},\ \mbox{\hyperlink{class_manager_forms_a35e56ed089659370d82a6ede47a35ff0}{addProductWindow}},\ \&\mbox{\hyperlink{class_add_product_window_a92754fe51527bbce7e7dbe5f07542d21}{AddProductWindow::slot\_show}});}
+\DoxyCodeLine{00011\ \ \ \ \ connect(\mbox{\hyperlink{class_manager_forms_a35e56ed089659370d82a6ede47a35ff0}{addProductWindow}},\ \&\mbox{\hyperlink{class_add_product_window_ab982bd5dd091137578e647c0c588fade}{AddProductWindow::productAdded}},\ \mbox{\hyperlink{class_manager_forms_a55e8215156bd70da8b91860773f181a6}{main}},\ \&\mbox{\hyperlink{class_main_window_a9e4beb27bda168783b6e71d486ebcb90}{MainWindow::handleProductAdded}});}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ connect(\mbox{\hyperlink{class_manager_forms_a30b01a09a0e1859c5c934d77280249c8}{curr\_auth}},\ \&\mbox{\hyperlink{class_auth_reg_window_ae7c7188f7a51b721fa342670262d2faa}{AuthRegWindow::auth\_ok}},\ \mbox{\hyperlink{class_manager_forms_a55e8215156bd70da8b91860773f181a6}{main}},\ \&\mbox{\hyperlink{class_main_window_a9a15eca3ebf289292af72b78b2cf1b56}{MainWindow::slot\_show}});}
+\DoxyCodeLine{00014\ \ \ \ \ connect(\mbox{\hyperlink{class_manager_forms_a30b01a09a0e1859c5c934d77280249c8}{curr\_auth}},\ \&\mbox{\hyperlink{class_auth_reg_window_ae7c7188f7a51b721fa342670262d2faa}{AuthRegWindow::auth\_ok}},\ \mbox{\hyperlink{class_manager_forms_a55e8215156bd70da8b91860773f181a6}{main}},\ \&\mbox{\hyperlink{class_main_window_a91a9ec299ac67e179bd9e3acbf23eb0c}{MainWindow::set\_current\_user}});}
+\DoxyCodeLine{00015\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_manager_forms_a6fcef06607418dbf71c05c44847b0112}\index{ManagerForms@{ManagerForms}!````~ManagerForms@{\texorpdfstring{$\sim$}{\string~}ManagerForms}}
+\index{````~ManagerForms@{\texorpdfstring{$\sim$}{\string~}ManagerForms}!ManagerForms@{ManagerForms}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ManagerForms()}{\string~ManagerForms()}}
+{\footnotesize\ttfamily \label{class_manager_forms_a6fcef06607418dbf71c05c44847b0112} 
+Manager\+Forms\+::\texorpdfstring{$\sim$}{\string~}\+Manager\+Forms (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Деструктор. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_manager_forms_a35e56ed089659370d82a6ede47a35ff0}\index{ManagerForms@{ManagerForms}!addProductWindow@{addProductWindow}}
+\index{addProductWindow@{addProductWindow}!ManagerForms@{ManagerForms}}
+\doxysubsubsection{\texorpdfstring{addProductWindow}{addProductWindow}}
+{\footnotesize\ttfamily \label{class_manager_forms_a35e56ed089659370d82a6ede47a35ff0} 
+\mbox{\hyperlink{class_add_product_window}{Add\+Product\+Window}}\texorpdfstring{$\ast$}{*} Manager\+Forms\+::add\+Product\+Window\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Указатель на окно добавления продукта. 
+
+\Hypertarget{class_manager_forms_a30b01a09a0e1859c5c934d77280249c8}\index{ManagerForms@{ManagerForms}!curr\_auth@{curr\_auth}}
+\index{curr\_auth@{curr\_auth}!ManagerForms@{ManagerForms}}
+\doxysubsubsection{\texorpdfstring{curr\_auth}{curr\_auth}}
+{\footnotesize\ttfamily \label{class_manager_forms_a30b01a09a0e1859c5c934d77280249c8} 
+\mbox{\hyperlink{class_auth_reg_window}{Auth\+Reg\+Window}}\texorpdfstring{$\ast$}{*} Manager\+Forms\+::curr\+\_\+auth\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Указатель на окно авторизации и регистрации. 
+
+\Hypertarget{class_manager_forms_a55e8215156bd70da8b91860773f181a6}\index{ManagerForms@{ManagerForms}!main@{main}}
+\index{main@{main}!ManagerForms@{ManagerForms}}
+\doxysubsubsection{\texorpdfstring{main}{main}}
+{\footnotesize\ttfamily \label{class_manager_forms_a55e8215156bd70da8b91860773f181a6} 
+\mbox{\hyperlink{class_main_window}{Main\+Window}}\texorpdfstring{$\ast$}{*} Manager\+Forms\+::main\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Указатель на главное окно приложения. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+client/\mbox{\hyperlink{managerforms_8h}{managerforms.\+h}}\item 
+client/\mbox{\hyperlink{managerforms_8cpp}{managerforms.\+cpp}}\end{DoxyCompactItemize}

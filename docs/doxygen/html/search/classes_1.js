@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['mytcpserver_0',['MyTcpServer',['../class_my_tcp_server.html',1,'']]]
+  ['clientsingleton_0',['ClientSingleton',['../class_client_singleton.html',1,'']]],
+  ['clientsingletondestroyer_1',['ClientSingletonDestroyer',['../class_client_singleton_destroyer.html',1,'']]]
 ];

@@ -1,0 +1,41 @@
+\doxysection{add\+\_\+product.\+h}
+\hypertarget{add__product_8h_source}{}\label{add__product_8h_source}\index{client/add\_product.h@{client/add\_product.h}}
+\mbox{\hyperlink{add__product_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ ADD\_PRODUCT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ ADD\_PRODUCT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QMessageBox>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_ui}{Ui}}\ \{}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_add_product_window}{AddProductWindow}};}
+\DoxyCodeLine{00009\ \}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_add_product_window_a49c10613d21d41f0fdac806935c52ac5}{AddProductWindow}}\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_add_product_window_a49c10613d21d41f0fdac806935c52ac5}{AddProductWindow}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{class_add_product_window_a498b45adac7d1269980cd4278b8eb277}{\string~AddProductWindow}}();}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ signals:}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_add_product_window_ab982bd5dd091137578e647c0c588fade}{productAdded}}(QString\ name,\ \textcolor{keywordtype}{int}\ proteins,\ \textcolor{keywordtype}{int}\ fats,\ \textcolor{keywordtype}{int}\ carbs,\ \textcolor{keywordtype}{int}\ weight,\ \textcolor{keywordtype}{int}\ cost,\ \textcolor{keywordtype}{int}\ type);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_add_product_window_ac12c9b053c1c61820ffb11b4be8a9b4c}{clear}}();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_add_product_window_a92754fe51527bbce7e7dbe5f07542d21}{slot\_show}}();}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00058\ \ \ \ \ Ui::AddProductWindow\ *\mbox{\hyperlink{class_add_product_window_a28dcf3fbd6c9bb3ce89f9f52f801ebe0}{ui}};\ }
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_add_product_window_a0ddc09d3daa55c6c5b82211f16dee0fe}{on\_add\_clicked}}();}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ ADD\_PRODUCT\_H}}
+
+\end{DoxyCode}

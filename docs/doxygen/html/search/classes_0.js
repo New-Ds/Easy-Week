@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['databasesingleton_0',['DataBaseSingleton',['../class_data_base_singleton.html',1,'']]]
+  ['addproductwindow_0',['AddProductWindow',['../class_add_product_window.html',1,'']]],
+  ['authregwindow_1',['AuthRegWindow',['../class_auth_reg_window.html',1,'']]]
 ];

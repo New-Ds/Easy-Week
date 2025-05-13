@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['singletondestroyer_0',['SingletonDestroyer',['../class_singleton_destroyer.html',1,'']]]
+  ['databasesingleton_0',['DataBaseSingleton',['../class_data_base_singleton.html',1,'']]]
 ];

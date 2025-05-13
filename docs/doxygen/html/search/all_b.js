@@ -1,8 +1,10 @@
 var searchData=
 [
-  ['server_5fstatus_0',['server_status',['../class_my_tcp_server.html#ae0dc69dfef4f9fc3a5f031f4152e4f91',1,'MyTcpServer']]],
-  ['singletondestroyer_1',['SingletonDestroyer',['../class_singleton_destroyer.html',1,'SingletonDestroyer'],['../class_data_base_singleton.html#aa93ce997b9645496c0e17460fba08432',1,'DataBaseSingleton::SingletonDestroyer()']]],
-  ['slotclientdisconnected_2',['slotClientDisconnected',['../class_my_tcp_server.html#a3e040c49dbefd65b9a58ab662fc9f7a2',1,'MyTcpServer']]],
-  ['slotnewconnection_3',['slotNewConnection',['../class_my_tcp_server.html#a0ba7316ffe1a26c57fabde9e74b6c8dc',1,'MyTcpServer']]],
-  ['slotserverread_4',['slotServerRead',['../class_my_tcp_server.html#ab4a64d2eab985d723090963f5c8a2882',1,'MyTcpServer']]]
+  ['p_5finstance_0',['p_instance',['../class_singleton_destroyer.html#a66a75552c83eb8515e6d458d7a6b0178',1,'SingletonDestroyer::p_instance'],['../class_data_base_singleton.html#abf86267afcfebbe05658438ff0ccfdfd',1,'DataBaseSingleton::p_instance'],['../class_client_singleton_destroyer.html#a58c4352591e26446fbc431e15fd5df76',1,'ClientSingletonDestroyer::p_instance'],['../class_client_singleton.html#a0614c6ae3e4e0b166500a150dc178720',1,'ClientSingleton::p_instance']]],
+  ['parsing_1',['parsing',['../func2serv_8cpp.html#a99bd96103155e73697cc47518a5559a4',1,'parsing(QString input, int socdes):&#160;func2serv.cpp'],['../func2serv_8h.html#a99bd96103155e73697cc47518a5559a4',1,'parsing(QString input, int socdes):&#160;func2serv.cpp']]],
+  ['password_2',['password',['../class_main_window.html#a25493964c8f550b2380a12616fbc8250',1,'MainWindow']]],
+  ['productadded_3',['productAdded',['../class_add_product_window.html#ab982bd5dd091137578e647c0c588fade',1,'AddProductWindow']]],
+  ['productcard_4',['productCard',['../classproduct_card.html',1,'productCard'],['../classproduct_card.html#a095d77b284258000ed61c1a7e41c84ab',1,'productCard::productCard()']]],
+  ['productcard_2ecpp_5',['productCard.cpp',['../product_card_8cpp.html',1,'']]],
+  ['productcard_2eh_6',['productCard.h',['../product_card_8h.html',1,'']]]
 ];

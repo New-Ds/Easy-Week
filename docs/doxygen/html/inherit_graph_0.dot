@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="DataBaseSingleton",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_data_base_singleton.html",tooltip="Класс для работы с базой данных."];
+  Node0 [id="Node000000",label="ClientSingletonDestroyer",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$class_client_singleton_destroyer.html",tooltip="Разрушитель Singleton для корректного удаления ClientSingleton."];
 }
