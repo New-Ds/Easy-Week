@@ -6,8 +6,7 @@
 
 
 
-Inheritance diagram for My\+Tcp\+Server\+:
-\nopagebreak
+Inheritance diagram for My\+Tcp\+Server\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,8 +15,7 @@ Inheritance diagram for My\+Tcp\+Server\+:
 \end{figure}
 
 
-Collaboration diagram for My\+Tcp\+Server\+:
-\nopagebreak
+Collaboration diagram for My\+Tcp\+Server\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -28,29 +26,29 @@ Collaboration diagram for My\+Tcp\+Server\+:
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{class_my_tcp_server_a0ba7316ffe1a26c57fabde9e74b6c8dc}{slot\+New\+Connection}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Слот для обработки нового подключения. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_my_tcp_server_a3e040c49dbefd65b9a58ab662fc9f7a2}{slot\+Client\+Disconnected}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Слот для обработки отключения клиента. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_my_tcp_server_ab4a64d2eab985d723090963f5c8a2882}{slot\+Server\+Read}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Слот для чтения данных от клиента. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{class_my_tcp_server_acf367c4695b4d160c7a2d25c2afaaec4}{My\+Tcp\+Server}} (QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
-\item 
+\begin{DoxyCompactList}\small\item\em Конструктор \end{DoxyCompactList}\item 
 \mbox{\hyperlink{class_my_tcp_server_ab39e651ff7c37c152215c02c225e79ef}{\texorpdfstring{$\sim$}{\string~}\+My\+Tcp\+Server}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Деструктор \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 QTcp\+Server \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}{m\+Tcp\+Server}}
-\item 
+\begin{DoxyCompactList}\small\item\em Сервер для обработки TCP-\/соединений \end{DoxyCompactList}\item 
 QTcp\+Socket \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_my_tcp_server_ab55c030e6eb6cf5d1acfe6d7d2bf0ed1}{m\+Tcp\+Socket}}
-\item 
+\begin{DoxyCompactList}\small\item\em Сокет для взаимодействия с клиентом \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91}{server\+\_\+status}}
-\item 
+\begin{DoxyCompactList}\small\item\em Статус сервера \end{DoxyCompactList}\item 
 QMap$<$ int, QTcp\+Socket \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3}{m\+Socket\+Descriptors}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Хранение дескрипторов сокетов \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -59,6 +57,10 @@ QMap$<$ int, QTcp\+Socket \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_
 \doxysubsubsection{\texorpdfstring{MyTcpServer()}{MyTcpServer()}}
 {\footnotesize\ttfamily \label{class_my_tcp_server_acf367c4695b4d160c7a2d25c2afaaec4} 
 My\+Tcp\+Server\+::\+My\+Tcp\+Server (\begin{DoxyParamCaption}\item[{QObject \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Конструктор 
 
 
 \begin{DoxyCode}{0}
@@ -84,6 +86,10 @@ My\+Tcp\+Server\+::\+My\+Tcp\+Server (\begin{DoxyParamCaption}\item[{QObject \te
 My\+Tcp\+Server\+::\texorpdfstring{$\sim$}{\string~}\+My\+Tcp\+Server (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
+
+Деструктор 
+
+
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00008\ \{}
 \DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}{mTcpServer}}-\/>close();}
@@ -100,6 +106,10 @@ My\+Tcp\+Server\+::\texorpdfstring{$\sim$}{\string~}\+My\+Tcp\+Server (\begin{Do
 \doxysubsubsection{\texorpdfstring{slotClientDisconnected}{slotClientDisconnected}}
 {\footnotesize\ttfamily \label{class_my_tcp_server_a3e040c49dbefd65b9a58ab662fc9f7a2} 
 void My\+Tcp\+Server\+::slot\+Client\+Disconnected (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Слот для обработки отключения клиента. 
 
 
 \begin{DoxyCode}{0}
@@ -136,6 +146,10 @@ void My\+Tcp\+Server\+::slot\+Client\+Disconnected (\begin{DoxyParamCaption}{}{}
 void My\+Tcp\+Server\+::slot\+New\+Connection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
+
+Слот для обработки нового подключения. 
+
+
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00029\ \{}
 \DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91}{server\_status}}\ ==\ 1)\ \{}
@@ -165,6 +179,10 @@ void My\+Tcp\+Server\+::slot\+New\+Connection (\begin{DoxyParamCaption}{}{}\end{
 void My\+Tcp\+Server\+::slot\+Server\+Read (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
 
 
+
+Слот для чтения данных от клиента. 
+
+
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
 \DoxyCodeLine{00050\ \ \ \ \ QTcpSocket\ *clientSocket\ =\ qobject\_cast<QTcpSocket*>(sender());}
@@ -188,11 +206,19 @@ void My\+Tcp\+Server\+::slot\+Server\+Read (\begin{DoxyParamCaption}{}{}\end{Dox
 {\footnotesize\ttfamily \label{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3} 
 QMap$<$int, QTcp\+Socket\texorpdfstring{$\ast$}{*}$>$ My\+Tcp\+Server\+::m\+Socket\+Descriptors\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Хранение дескрипторов сокетов 
+
 \Hypertarget{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}\index{MyTcpServer@{MyTcpServer}!mTcpServer@{mTcpServer}}
 \index{mTcpServer@{mTcpServer}!MyTcpServer@{MyTcpServer}}
 \doxysubsubsection{\texorpdfstring{mTcpServer}{mTcpServer}}
 {\footnotesize\ttfamily \label{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c} 
 QTcp\+Server\texorpdfstring{$\ast$}{*} My\+Tcp\+Server\+::m\+Tcp\+Server\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Сервер для обработки TCP-\/соединений 
 
 \Hypertarget{class_my_tcp_server_ab55c030e6eb6cf5d1acfe6d7d2bf0ed1}\index{MyTcpServer@{MyTcpServer}!mTcpSocket@{mTcpSocket}}
 \index{mTcpSocket@{mTcpSocket}!MyTcpServer@{MyTcpServer}}
@@ -200,11 +226,19 @@ QTcp\+Server\texorpdfstring{$\ast$}{*} My\+Tcp\+Server\+::m\+Tcp\+Server\hspace{
 {\footnotesize\ttfamily \label{class_my_tcp_server_ab55c030e6eb6cf5d1acfe6d7d2bf0ed1} 
 QTcp\+Socket\texorpdfstring{$\ast$}{*} My\+Tcp\+Server\+::m\+Tcp\+Socket\hspace{0.3cm}{\ttfamily [private]}}
 
+
+
+Сокет для взаимодействия с клиентом 
+
 \Hypertarget{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91}\index{MyTcpServer@{MyTcpServer}!server\_status@{server\_status}}
 \index{server\_status@{server\_status}!MyTcpServer@{MyTcpServer}}
 \doxysubsubsection{\texorpdfstring{server\_status}{server\_status}}
 {\footnotesize\ttfamily \label{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91} 
 int My\+Tcp\+Server\+::server\+\_\+status\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Статус сервера 
 
 
 
