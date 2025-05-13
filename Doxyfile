@@ -45,4 +45,4 @@ JAVADOC_AUTOBRIEF      = YES                   # Автоматически до
 DISTRIBUTE_GROUPS      = YES                   # Разрешить группировку документации
 
 # Путь к исходным файлам
-INPUT                  = ./server    # Путь к вашим исходным файлам
+INPUT                  = ./server .client/  # Путь к вашим исходным файлам
