@@ -3,7 +3,7 @@ name: Deploy static content to Pages
 on:
   push:
     branches:
-      - "add-doxygen-docs"  # или ваша основная ветка, например, "main"
+      - "main"  # или ваша основная ветка, например, "main"
   workflow_dispatch:
 
 permissions:
@@ -44,7 +44,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './docs/build/html'  # Указываем правильный путь к сгенерированной документации
+          path: './html'  # Указываем правильный путь к сгенерированной документации
 
       # Разворачиваем на GitHub Pages
       - name: Deploy to GitHub Pages
