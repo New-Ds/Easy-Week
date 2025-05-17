@@ -71,7 +71,7 @@ bool DataBaseSingleton::initialize(const QString& databaseName) {
 
     // Инициализация статистики, если таблица пуста
     query.exec("INSERT OR IGNORE INTO statistics (count_registrations, count_visits, count_generations) VALUES (0, 0, 0)");
-    query.exec("INSERT OR IGNORE INTO users(name, email, pass, is_admin) VALUES ('NewDev','new@devs.su','admin',true)");
+    query.exec("INSERT OR IGNORE INTO users(name, email, pass, is_admin) VALUES ('NewDev','admin@new-devs.ru','admin',true)");
     return success;
 }
 
