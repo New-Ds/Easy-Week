@@ -38,7 +38,7 @@
    <item>
     <widget class="QFrame" name="mainContainer">
      <property name="styleSheet">
-      <string notr="true">background: #FFBA71; border-radius: 10px;</string>
+      <string notr="true">background: #2d3e50; border-radius: 10px;</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Shape::StyledPanel</enum>
@@ -150,6 +150,14 @@
             <bool>true</bool>
            </property>
            <widget class="QWidget" name="scrollAreaContents">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>344</width>
+              <height>192</height>
+             </rect>
+            </property>
             <layout class="QVBoxLayout" name="scrollAreaLayout">
              <property name="spacing">
               <number>5</number>
@@ -241,7 +249,7 @@
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
              <property name="styleSheet">
-              <string notr="true">border: none; background: #FFBA71; color: black; border-radius: 5px;</string>
+              <string notr="true">border: none; background: #2d3e50; color: white; border-radius: 5px;</string>
              </property>
              <property name="text">
               <string>ИЗБР</string>
@@ -278,7 +286,7 @@
               <cursorShape>PointingHandCursor</cursorShape>
              </property>
              <property name="styleSheet">
-              <string notr="true">border: none; background: #FFBA71; color: black; border-radius: 5px;</string>
+              <string notr="true">border: none; background: #2d3e50; color: white; border-radius: 5px;</string>
              </property>
              <property name="text">
               <string>UPD</string>
