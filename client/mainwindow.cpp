@@ -129,44 +129,112 @@ void MainWindow::on_productListButton_clicked()
 
 void MainWindow::on_createMenButton_clicked()
 {
-    QScrollArea* scrollArea = qobject_cast<QScrollArea*>(ui->mainContainer->findChild<QWidget*>("innerScrollArea"));
+    // Инициализируем интерфейс прокрутки для меню
+    QScrollArea* scrollArea = new QScrollArea(ui->mainContainer);
+    scrollArea->setObjectName("innerScrollArea");
+    scrollArea->setWidgetResizable(false);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
-    if (!scrollArea) {
-        scrollArea = new QScrollArea(ui->mainContainer);
-        scrollArea->setObjectName("innerScrollArea");
-        scrollArea->setWidgetResizable(false); // Отключаем авто-растягивание
-        scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    // Очищаем существующий layout в контейнере
+    if (ui->mainContainer->layout()) {
+        delete ui->mainContainer->layout();
+    }
+    ui->mainContainer->setLayout(new QVBoxLayout());
+    ui->mainContainer->layout()->addWidget(scrollArea);
 
+    // Получаем продукты из базы данных
+    QByteArray productsJson = get_products(id);
+    QJsonDocument doc = QJsonDocument::fromJson(productsJson);
 
-        if (ui->mainContainer->layout()) {
-            delete ui->mainContainer->layout();
-        }
-        ui->mainContainer->setLayout(new QVBoxLayout());
-        ui->mainContainer->layout()->addWidget(scrollArea);
+    if (!doc.isArray()) {
+        QMessageBox::warning(this, "Ошибка", "Не удалось получить список продуктов");
+        return;
     }
 
+    QJsonArray productArray = doc.array();
+
+    // Создаем контейнер для карточек меню
     QWidget* cardsContainer = new QWidget();
     QHBoxLayout* cardsLayout = new QHBoxLayout(cardsContainer);
     cardsLayout->setSpacing(10);
 
+    // Дни недели
     const QStringList days = {"ПОНЕДЕЛЬНИК", "ВТОРНИК", "СРЕДА", "ЧЕТВЕРГ", "ПЯТНИЦА", "СУББОТА", "ВОСКРЕСЕНЬЕ"};
 
-    for (int i = 0; i < 7; i++) {
+    // Генерируем меню для каждого дня недели
+    for (int dayIndex = 0; dayIndex < 7; dayIndex++) {
+        // Распределяем продукты по типам для разнообразного меню
+        QMap<int, QList<QJsonObject>> productsByType;
+        int totalProducts = productArray.size();
 
-        QStringList products = {"Курица c рисом", "Овощи", "Квас"};
-        QVector<int> pfc = {34, 21, 113};
+        for (int i = 0; i < totalProducts; ++i) {
+            QJsonObject product = productArray[i].toObject();
+            int type = product["type"].toInt();
+            productsByType[type].append(product);
+        }
 
+        // Выбираем случайные продукты для дня (3-5 продуктов)
+        QStringList selectedProducts;
+        QVector<int> pfc = {0, 0, 0}; // Белки, Жиры, Углеводы
+        int totalCalories = 0;
+        int totalWeight = 0;
+        int totalPrice = 0;
 
-        menuCard* card = new menuCard(days[i], products, 623, pfc, 500, 219, cardsContainer);
+        // Определяем количество продуктов для этого дня
+        int productsForDay = qMin(3 + (QRandomGenerator::global()->bounded(3)), totalProducts);
+        QSet<int> usedIndices;
 
+        for (int i = 0; i < productsForDay && !productsByType.isEmpty(); ++i) {
+            // Выбираем случайный тип продукта из доступных
+            QList<int> types = productsByType.keys();
+            if (types.isEmpty()) break;
+
+            int randomTypeIndex = QRandomGenerator::global()->bounded(types.size());
+            int selectedType = types[randomTypeIndex];
+
+            QList<QJsonObject>& productsOfType = productsByType[selectedType];
+            if (productsOfType.isEmpty()) {
+                productsByType.remove(selectedType);
+                --i; // Повторяем итерацию
+                continue;
+            }
+
+            // Выбираем случайный продукт этого типа
+            int randomProductIndex = QRandomGenerator::global()->bounded(productsOfType.size());
+            QJsonObject selectedProduct = productsOfType.takeAt(randomProductIndex);
+
+            // Удаляем тип, если больше нет продуктов этого типа
+            if (productsOfType.isEmpty()) {
+                productsByType.remove(selectedType);
+            }
+
+            // Добавляем продукт в меню
+            QString productName = selectedProduct["name"].toString();
+            selectedProducts.append(productName);
+
+            // Суммируем БЖУ, калории, вес и цену
+            pfc[0] += selectedProduct["proteins"].toInt();
+            pfc[1] += selectedProduct["fatness"].toInt();
+            pfc[2] += selectedProduct["carbs"].toInt();
+
+            int weight = selectedProduct["weight"].toInt();
+            int price = selectedProduct["cost"].toInt();
+            totalWeight += weight;
+            totalPrice += price;
+
+            // Приблизительный расчет калорий: 4 ккал на 1г белка, 9 ккал на 1г жира, 4 ккал на 1г углеводов
+            totalCalories += pfc[0] * 4 + pfc[1] * 9 + pfc[2] * 4;
+        }
+
+        // Создаем карточку меню для дня
+        menuCard* card = new menuCard(days[dayIndex], selectedProducts, totalCalories, pfc, totalWeight, totalPrice, cardsContainer);
         card->setFixedSize(370, 468);
         cardsLayout->addWidget(card);
     }
 
-    // 4. Настраиваем скролл
+    // Настраиваем область прокрутки
     scrollArea->setWidget(cardsContainer);
 }
-
 
 
 void MainWindow::on_addProductButton_clicked()
