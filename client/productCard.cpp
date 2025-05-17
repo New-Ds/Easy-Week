@@ -7,7 +7,7 @@ productCard::productCard(QString name, int price, int proteins, int fatness, int
 {
     // Устанавливаем оптимальный размер с минимальными и максимальными ограничениями
     this->setMinimumSize(150, 200);
-    this->setMaximumSize(200, 250);
+    this->setMaximumSize(200, 350);
     this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 
     QVBoxLayout* mainLayout = new QVBoxLayout(this);

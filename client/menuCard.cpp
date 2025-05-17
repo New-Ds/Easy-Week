@@ -20,8 +20,9 @@
      // 1. Добавляем продукты в menuVerticalLayout
      for(const QString& product : products) {
          QLabel* productLabel = new QLabel(product, this);
-         productLabel->setStyleSheet("font-size: 16px; font-weight: bold");
+         productLabel->setStyleSheet("font-size: 16px; font-weight: bold; margin: 0; padding: 0;");
          ui->menuVerticalLayout->addWidget(productLabel);
+         ui->menuVerticalLayout->setSpacing(3);
      }
 
      // 2. Добавляем параметры в paramsVerticalLayout
@@ -31,7 +32,7 @@
      QLabel* priceLabel = new QLabel(QString("Цена: %1 руб.").arg(price), this);
 
      // Настройка стилей для параметров
-     QString paramStyle = "font-size: 14px; color: black; font-weight: bold";
+     QString paramStyle = "font-size: 14px; color: black; font-weight: bold; margin: 0; padding: 0";
      caloriesLabel->setStyleSheet(paramStyle);
      pfcLabel->setStyleSheet(paramStyle);
      weightLabel->setStyleSheet(paramStyle);

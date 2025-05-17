@@ -61,12 +61,40 @@ void MainWindow::on_tableUsersButton_clicked()
 
 void MainWindow::on_productListButton_clicked()
 {
-    // Получаем строку с продуктами (JSON)
+    // Получаем данные продуктов через API
     QByteArray productsJson = get_products(id);
-
     qDebug() << "Сырой JSON продуктов: " << productsJson;
 
-    // Парсим JSON
+    // Проверяем наличие существующей области отображения продуктов
+    QScrollArea* productScrollArea = ui->mainContainer->findChild<QScrollArea*>("productScrollArea");
+
+    // Скрываем все дочерние виджеты для переключения режима отображения
+    for (QObject* child : ui->mainContainer->children()) {
+        if (QWidget* widget = qobject_cast<QWidget*>(child)) {
+            widget->hide();
+        }
+    }
+
+    // Используем кешированную область прокрутки, если она уже существует
+    if (productScrollArea) {
+        productScrollArea->show();
+        return;
+    }
+
+    // Инициализируем область прокрутки для списка продуктов
+    productScrollArea = new QScrollArea(ui->mainContainer);
+    productScrollArea->setObjectName("productScrollArea");
+    productScrollArea->setWidgetResizable(true); // Критично для автоматической адаптации размера
+    productScrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    productScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+    // Создаем контейнер для размещения карточек продуктов в сетке
+    QWidget* productListWidget = new QWidget();
+    productListWidget->setObjectName("productListWidget");
+    QGridLayout* gridLayout = new QGridLayout(productListWidget);
+    gridLayout->setSpacing(15); // Оптимальный отступ между карточками
+
+    // Парсим JSON с валидацией
     QJsonParseError parseError;
     QJsonDocument doc = QJsonDocument::fromJson(productsJson, &parseError);
 
@@ -82,24 +110,7 @@ void MainWindow::on_productListButton_clicked()
 
     QJsonArray productArray = doc.array();
 
-    // Берём контейнер и полностью очищаем старый layout (с удалением)
-    QWidget* container = ui->mainContainer;
-
-    if (QLayout* oldLayout = container->layout()) {
-        while (QLayoutItem* item = oldLayout->takeAt(0)) {
-            if (QWidget* widget = item->widget()) {
-                delete widget; // Удаляем виджет
-            }
-            delete item; // Удаляем item
-        }
-        delete oldLayout; // Полностью удаляем старый layout
-    }
-
-    // ВСЕГДА создаём новый layout после удаления
-    QGridLayout* gridLayout = new QGridLayout(container);
-    container->setLayout(gridLayout);
-
-    // Создаём карточки
+    // Размещаем продукты в сетке с фиксированным количеством колонок
     const int columns = 4;
     for (int i = 0; i < productArray.size(); ++i) {
         QJsonObject obj = productArray[i].toObject();
@@ -117,30 +128,55 @@ void MainWindow::on_productListButton_clicked()
                  << " Fatness:" << fatness
                  << " Carbs:" << carbs;
 
-        productCard* card = new productCard(productName, price, proteins, fatness, carbs, container);
+        // Создаем карточку продукта с сохранением натурального размера
+        productCard* card = new productCard(productName, price, proteins, fatness, carbs, productListWidget);
+
+        // Регулируем размеры карточки для консистентного отображения
+        card->setMinimumHeight(200); // Гарантируем минимальную высоту
+        card->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
         gridLayout->addWidget(card, i / columns, i % columns);
     }
 
-    container->setVisible(true);
+    // Устанавливаем контент-виджет в область прокрутки
+    productScrollArea->setWidget(productListWidget);
+
+    // Инициализируем или используем существующий layout для контейнера
+    QVBoxLayout* containerLayout = qobject_cast<QVBoxLayout*>(ui->mainContainer->layout());
+    if (!containerLayout) {
+        containerLayout = new QVBoxLayout(ui->mainContainer);
+        ui->mainContainer->setLayout(containerLayout);
+    }
+
+    // Добавляем область прокрутки в основной контейнер
+    containerLayout->addWidget(productScrollArea);
+    productScrollArea->show();
 }
-
-
 
 
 void MainWindow::on_createMenButton_clicked()
 {
-    // Инициализируем интерфейс прокрутки для меню
-    QScrollArea* scrollArea = new QScrollArea(ui->mainContainer);
-    scrollArea->setObjectName("innerScrollArea");
-    scrollArea->setWidgetResizable(false);
-    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    // Проверяем, существует ли уже область для меню
+    QScrollArea* menuScrollArea = ui->mainContainer->findChild<QScrollArea*>("menuScrollArea");
 
-    // Очищаем существующий layout в контейнере
-    if (ui->mainContainer->layout()) {
-        delete ui->mainContainer->layout();
+    // Сначала скрываем все виджеты в контейнере
+    for (QObject* child : ui->mainContainer->children()) {
+        if (QWidget* widget = qobject_cast<QWidget*>(child)) {
+            widget->hide();
+        }
     }
-    ui->mainContainer->setLayout(new QVBoxLayout());
-    ui->mainContainer->layout()->addWidget(scrollArea);
+
+    // Если ScrollArea для меню уже существует, просто показываем её
+    if (menuScrollArea) {
+        menuScrollArea->show();
+        return;
+    }
+
+    // Инициализируем интерфейс прокрутки для меню
+    menuScrollArea = new QScrollArea(ui->mainContainer);
+    menuScrollArea->setObjectName("menuScrollArea");
+    menuScrollArea->setWidgetResizable(false);
+    menuScrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
     // Получаем продукты из базы данных
     QByteArray productsJson = get_products(id);
@@ -156,7 +192,7 @@ void MainWindow::on_createMenButton_clicked()
     // Создаем контейнер для карточек меню
     QWidget* cardsContainer = new QWidget();
     QHBoxLayout* cardsLayout = new QHBoxLayout(cardsContainer);
-    cardsLayout->setSpacing(10);
+    cardsLayout->setSpacing(5);
 
     // Дни недели
     const QStringList days = {"ПОНЕДЕЛЬНИК", "ВТОРНИК", "СРЕДА", "ЧЕТВЕРГ", "ПЯТНИЦА", "СУББОТА", "ВОСКРЕСЕНЬЕ"};
@@ -221,19 +257,28 @@ void MainWindow::on_createMenButton_clicked()
             int price = selectedProduct["cost"].toInt();
             totalWeight += weight;
             totalPrice += price;
-
             // Приблизительный расчет калорий: 4 ккал на 1г белка, 9 ккал на 1г жира, 4 ккал на 1г углеводов
             totalCalories += pfc[0] * 4 + pfc[1] * 9 + pfc[2] * 4;
         }
 
         // Создаем карточку меню для дня
         menuCard* card = new menuCard(days[dayIndex], selectedProducts, totalCalories, pfc, totalWeight, totalPrice, cardsContainer);
-        card->setFixedSize(370, 468);
+        card->setFixedHeight(450);
         cardsLayout->addWidget(card);
     }
 
     // Настраиваем область прокрутки
-    scrollArea->setWidget(cardsContainer);
+    menuScrollArea->setWidget(cardsContainer);
+
+    // Добавляем ScrollArea в контейнер, если ещё нет layout
+    QVBoxLayout* containerLayout = qobject_cast<QVBoxLayout*>(ui->mainContainer->layout());
+    if (!containerLayout) {
+        containerLayout = new QVBoxLayout(ui->mainContainer);
+        ui->mainContainer->setLayout(containerLayout);
+    }
+
+    containerLayout->addWidget(menuScrollArea);
+    menuScrollArea->show();
 }
 
 
