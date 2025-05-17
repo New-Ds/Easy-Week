@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
 
     // Инициализация БД
     DataBaseSingleton* db = DataBaseSingleton::getInstance();
-    if (!db->initialize("Easyweek.db")) {
+    if (!db->initialize("../../Easyweek.db")) {
         qFatal("Failed to initialize database");
     }
 
