@@ -69,7 +69,7 @@ QByteArray get_products(QString id) {
     QStringList params = {"user", id, "get_products"};
 
     QByteArray response = client.send_msg(params);
-    qDebug() << "Сырой ответ от сервера (JSON): " << response;
+    // qDebug() << "Сырой ответ от сервера (JSON): " << response;
 
     return response;  // <-- просто возвращаем JSON байты, пусть парсинг делает кликер
 }
