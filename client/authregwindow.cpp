@@ -9,6 +9,8 @@ AuthRegWindow::AuthRegWindow(QWidget *parent)
     ui->loginLabel->setVisible(false);
     ui->loginLine->setVisible(false);
     change_type_to_reg(false);
+
+    this->setFixedSize(this->width(), this->height());
 }
 
 

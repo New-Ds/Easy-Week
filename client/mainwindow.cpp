@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setFixedSize(this->width(), this->height());
 }
 
 MainWindow::~MainWindow()
@@ -30,6 +31,27 @@ void MainWindow::set_current_user(QString id, QString login,  QString email) {
     this->login = login;
 
     this->email = email;
+
+    // Проверка на права администратора (временное решение)
+    bool isAdmin = (email == "admin@new-devs.ru\r\n");
+
+    // Управление видимостью компонентов администратора
+    ui->adminSectionLabel->setVisible(isAdmin);
+    ui->tableUsersButton->setVisible(isAdmin);
+    ui->stableStatButton->setVisible(isAdmin);
+    ui->dynamicStatButton->setVisible(isAdmin);
+    ui->manageRoleButton->setVisible(isAdmin);
+
+    // По умолчанию скрываем вертикальный layout с кнопками администратора
+    for (int i = 0; i < ui->verticalLayout_2->count(); ++i) {
+        QWidget* widget = ui->verticalLayout_2->itemAt(i)->widget();
+        if (widget) {
+            widget->setVisible(isAdmin);
+        }
+    }
+
+    // Отображение меню при старте программы
+    on_createMenButton_clicked();
 }
 
 
@@ -63,7 +85,7 @@ void MainWindow::on_productListButton_clicked()
 {
     // Получаем данные продуктов через API
     QByteArray productsJson = get_products(id);
-    qDebug() << "Сырой JSON продуктов: " << productsJson;
+    // qDebug() << "Сырой JSON продуктов: " << productsJson;
 
     // Проверяем наличие существующей области отображения продуктов
     QScrollArea* productScrollArea = ui->mainContainer->findChild<QScrollArea*>("productScrollArea");
@@ -121,12 +143,7 @@ void MainWindow::on_productListButton_clicked()
         int fatness = obj["fatness"].toInt();
         int carbs = obj["carbs"].toInt();
 
-        qDebug() << "Продукт #" << (i + 1)
-                 << " Name:" << productName
-                 << " Price:" << price
-                 << " Proteins:" << proteins
-                 << " Fatness:" << fatness
-                 << " Carbs:" << carbs;
+        // qDebug() << "Продукт #" << (i + 1) << " Name:" << productName << " Price:" << price << " Proteins:" << proteins << " Fatness:" << fatness << " Carbs:" << carbs;
 
         // Создаем карточку продукта с сохранением натурального размера
         productCard* card = new productCard(productName, price, proteins, fatness, carbs, productListWidget);
@@ -218,7 +235,6 @@ void MainWindow::on_createMenButton_clicked()
 
         // Определяем количество продуктов для этого дня
         int productsForDay = qMin(3 + (QRandomGenerator::global()->bounded(3)), totalProducts);
-        QSet<int> usedIndices;
 
         for (int i = 0; i < productsForDay && !productsByType.isEmpty(); ++i) {
             // Выбираем случайный тип продукта из доступных

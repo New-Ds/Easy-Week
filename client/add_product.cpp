@@ -6,6 +6,8 @@ AddProductWindow::AddProductWindow(QWidget *parent) :
     ui(new Ui::AddProductWindow)
 {
     ui->setupUi(this);
+
+    this->setFixedSize(this->width(), this->height());
     //connect(ui->add, &QPushButton::clicked, this, &AddProductWindow::on_add_clicked);
 }
 

@@ -1,10 +1,5 @@
 #include "menuCard.h"
 #include "ui_menuCard.h"
- //pfc это БЖУ
-
-
-
-
 
 
  menuCard::menuCard(QString day, QStringList products, int calories, QVector<int>& pfc, int weight, int price, QWidget *parent)
@@ -15,6 +10,14 @@
 
 
      ui->dayLabel->setText(day);
+
+     // В конструкторе menuCard::menuCard после вызова ui->setupUi(this)
+     ui->favoriteButton->setIcon(QIcon(":/images/images/star.png"));
+     ui->updateButton->setIcon(QIcon(":/images/images/upde.png"));
+
+     // Установка размера иконок для лучшей видимости
+     ui->favoriteButton->setIconSize(QSize(30, 30));
+     ui->updateButton->setIconSize(QSize(30, 30));
 
 
      // 1. Добавляем продукты в menuVerticalLayout
@@ -39,14 +42,19 @@
      priceLabel->setStyleSheet(paramStyle);
 
      // Добавление в layout
+     ui->paramsVerticalLayout->addStretch(1);
      ui->paramsVerticalLayout->addWidget(caloriesLabel);
+     ui->paramsVerticalLayout->addStretch(1);
      ui->paramsVerticalLayout->addWidget(pfcLabel);
+     ui->paramsVerticalLayout->addStretch(1);
      ui->paramsVerticalLayout->addWidget(weightLabel);
+     ui->paramsVerticalLayout->addStretch(1);
      ui->paramsVerticalLayout->addWidget(priceLabel);
+     ui->paramsVerticalLayout->addStretch(1);
 
      // Добавляем растягивающийся элемент в конец
      ui->menuVerticalLayout->addStretch();
-     ui->paramsVerticalLayout->addStretch();
+     // ui->paramsVerticalLayout->addStretch();
  }
 
 menuCard::~menuCard()
