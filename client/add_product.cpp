@@ -56,3 +56,9 @@ void AddProductWindow::slot_show()
     this->show();
 
 }
+
+void AddProductWindow::on_cancle_clicked()
+{
+    this->close();
+}
+

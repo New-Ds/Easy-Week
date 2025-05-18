@@ -29,6 +29,7 @@ public slots:
 
 private slots:
     void on_add_clicked();
+    void on_cancle_clicked();
 };
 
 #endif // ADD_PRODUCT_H
