@@ -32,6 +32,25 @@ void MainWindow::set_current_user(QString id, QString login,  QString email) {
 
     this->email = email;
 
+    // Проверка на права администратора (временное решение)
+    bool isAdmin = (email == "admin@new-devs.ru\r\n");
+
+    // Управление видимостью компонентов администратора
+    ui->adminSectionLabel->setVisible(isAdmin);
+    ui->tableUsersButton->setVisible(isAdmin);
+    ui->stableStatButton->setVisible(isAdmin);
+    ui->dynamicStatButton->setVisible(isAdmin);
+    ui->manageRoleButton->setVisible(isAdmin);
+
+    // По умолчанию скрываем вертикальный layout с кнопками администратора
+    for (int i = 0; i < ui->verticalLayout_2->count(); ++i) {
+        QWidget* widget = ui->verticalLayout_2->itemAt(i)->widget();
+        if (widget) {
+            widget->setVisible(isAdmin);
+        }
+    }
+
+    // Отображение меню при старте программы
     on_createMenButton_clicked();
 }
 
