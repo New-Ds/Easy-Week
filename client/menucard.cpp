@@ -61,3 +61,10 @@ menuCard::~menuCard()
 {
     delete ui;
 }
+
+void menuCard::on_updateButton_clicked()
+{
+    qDebug() << "upd buttonb clicked";
+    emit buttonClicked(this);
+}
+
