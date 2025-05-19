@@ -15,8 +15,16 @@ public:
     explicit menuCard(QString day, QStringList products, int calories, QVector<int>& pfc, int weight, int price, QWidget *parent = nullptr);
     ~menuCard();
 
+
+signals:
+    void buttonClicked(menuCard* self);
+private slots:
+
+    void on_updateButton_clicked();
+
 private:
     Ui::menuCard *ui;
+    menuCard * card;
 };
 
 #endif // MENUCARD_H
