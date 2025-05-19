@@ -281,7 +281,8 @@ void MainWindow::on_createMenButton_clicked()
         }
 
         // Создаем карточку меню для дня
-        menuCard* card = generateMenuCardForDay(days[dayIndex], productArray, cardsContainer);
+
+        menuCard* card = generateMenuCardForDay(days[dayIndex], productArray, cardsContainer, dayIndex);
         connect(card, &menuCard::buttonClicked, this, &MainWindow::updateMenuCard);
         card->setFixedHeight(450);
         cardsLayout->addWidget(card);
@@ -321,7 +322,7 @@ void MainWindow::handleProductAdded(QString name, int proteins, int fats, int ca
 }
 
 
-menuCard* MainWindow::generateMenuCardForDay(const QString& dayName, const QJsonArray& productArray, QWidget* parent) {
+menuCard* MainWindow::generateMenuCardForDay(const QString& dayName, const QJsonArray& productArray, QWidget* parent, int index) {
     // Распределяем продукты по типам
     QMap<int, QList<QJsonObject>> productsByType;
     for (const QJsonValue& value : productArray) {
@@ -371,37 +372,45 @@ menuCard* MainWindow::generateMenuCardForDay(const QString& dayName, const QJson
                          selectedProduct["carbs"].toInt() * 4;
     }
 
-    return new menuCard(dayName, selectedProducts, totalCalories, pfc, totalWeight, totalPrice, parent);
+    return new menuCard(dayName, selectedProducts, totalCalories, pfc, totalWeight, totalPrice, parent, index);
 }
 
 
 
-void MainWindow::updateMenuCard() {
+void MainWindow::updateMenuCard(int cardIndex) {
     QByteArray productsJson = get_products(id);
     QJsonDocument doc = QJsonDocument::fromJson(productsJson);
     if (!doc.isArray()) return;
 
     QJsonArray productArray = doc.array();
 
-    // Пример обновления карточки ПОНЕДЕЛЬНИК (первой)
     QWidget* container = ui->mainContainer->findChild<QScrollArea*>("menuScrollArea") ?
                              ui->mainContainer->findChild<QScrollArea*>("menuScrollArea")->widget() : nullptr;
 
     if (!container) return;
 
     QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(container->layout());
-    if (!layout || layout->count() == 0) return;
+    if (!layout || layout->count() <= cardIndex) return;
 
-    QWidget* oldCard = layout->itemAt(0)->widget(); // Обновляем первую карточку
+    // Обновляем карточку с нужным индексом
+    QWidget* oldCard = layout->itemAt(cardIndex)->widget();
     if (oldCard) {
         oldCard->hide();
         layout->removeWidget(oldCard);
         oldCard->deleteLater();
     }
 
-    menuCard* newCard = generateMenuCardForDay("ПОНЕДЕЛЬНИК", productArray, container);
+    // Получаем имя дня для карточки с этим индексом
+    const QStringList days = {"ПОНЕДЕЛЬНИК", "ВТОРНИК", "СРЕДА", "ЧЕТВЕРГ", "ПЯТНИЦА", "СУББОТА", "ВОСКРЕСЕНЬЕ"};
+    QString dayName = (cardIndex >= 0 && cardIndex < days.size()) ? days[cardIndex] : "ДЕНЬ";
+
+    menuCard* newCard = generateMenuCardForDay(dayName, productArray, container, cardIndex);
+
+    connect(newCard, &menuCard::buttonClicked, this, &MainWindow::updateMenuCard);
+
+
     newCard->setFixedHeight(450);
-    layout->insertWidget(0, newCard);
+    layout->insertWidget(cardIndex, newCard);
 }
 
 

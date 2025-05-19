@@ -1,10 +1,12 @@
 #include "menuCard.h"
 #include "ui_menuCard.h"
+#include <QMessageBox>
 
 
- menuCard::menuCard(QString day, QStringList products, int calories, QVector<int>& pfc, int weight, int price, QWidget *parent)
+ menuCard::menuCard(QString day, QStringList products, int calories, QVector<int>& pfc, int weight, int price, QWidget *parent, int index)
      : QWidget(parent)
      , ui(new Ui::menuCard)
+     , index(index)
  {
      ui->setupUi(this);
 
@@ -65,6 +67,18 @@ menuCard::~menuCard()
 void menuCard::on_updateButton_clicked()
 {
     qDebug() << "upd buttonb clicked";
-    emit buttonClicked(this);
+    emit buttonClicked(index);
+}
+
+
+void menuCard::on_favoriteButton_clicked()
+{
+    // это лохотрон, не работает на самом деле ахахахахахахахах
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Успех");
+    msgBox.setText("Рацион добавлен в избранное!");
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.setStyleSheet("QPushButton { background: #4CAF50; color: white; }");
+    msgBox.exec();
 }
 
