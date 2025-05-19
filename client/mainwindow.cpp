@@ -25,6 +25,8 @@ void MainWindow::slot_show() {
     this->show();
 };
 
+
+
 //здесь мы забираем авторизовавшегося юзера используя сигнал, который посылаем из окна авторизации
 void MainWindow::set_current_user(QString id, QString login,  QString email) {
     this->id = id;
@@ -147,6 +149,7 @@ void MainWindow::on_productListButton_clicked()
 
         // Создаем карточку продукта с сохранением натурального размера
         productCard* card = new productCard(productName, price, proteins, fatness, carbs, productListWidget);
+
 
         // Регулируем размеры карточки для консистентного отображения
         card->setMinimumHeight(200); // Гарантируем минимальную высоту
@@ -278,7 +281,8 @@ void MainWindow::on_createMenButton_clicked()
         }
 
         // Создаем карточку меню для дня
-        menuCard* card = new menuCard(days[dayIndex], selectedProducts, totalCalories, pfc, totalWeight, totalPrice, cardsContainer);
+        menuCard* card = generateMenuCardForDay(days[dayIndex], productArray, cardsContainer);
+        connect(card, &menuCard::buttonClicked, this, &MainWindow::updateMenuCard);
         card->setFixedHeight(450);
         cardsLayout->addWidget(card);
     }
@@ -314,6 +318,90 @@ void MainWindow::handleProductAdded(QString name, int proteins, int fats, int ca
     } else {
         QMessageBox::warning(this, "Ошибка", "Не удалось добавить продукт: " + response);
     }
+}
+
+
+menuCard* MainWindow::generateMenuCardForDay(const QString& dayName, const QJsonArray& productArray, QWidget* parent) {
+    // Распределяем продукты по типам
+    QMap<int, QList<QJsonObject>> productsByType;
+    for (const QJsonValue& value : productArray) {
+        QJsonObject product = value.toObject();
+        int type = product["type"].toInt();
+        productsByType[type].append(product);
+    }
+
+    QStringList selectedProducts;
+    QVector<int> pfc = {0, 0, 0}; // Белки, Жиры, Углеводы
+    int totalCalories = 0;
+    int totalWeight = 0;
+    int totalPrice = 0;
+
+    int productsForDay = qMin(3 + QRandomGenerator::global()->bounded(3), productArray.size());
+
+    for (int i = 0; i < productsForDay && !productsByType.isEmpty(); ++i) {
+        QList<int> types = productsByType.keys();
+        if (types.isEmpty()) break;
+
+        int selectedType = types[QRandomGenerator::global()->bounded(types.size())];
+        QList<QJsonObject>& products = productsByType[selectedType];
+        if (products.isEmpty()) {
+            productsByType.remove(selectedType);
+            --i;
+            continue;
+        }
+
+        QJsonObject selectedProduct = products.takeAt(QRandomGenerator::global()->bounded(products.size()));
+        if (products.isEmpty()) {
+            productsByType.remove(selectedType);
+        }
+
+        selectedProducts.append(selectedProduct["name"].toString());
+
+        pfc[0] += selectedProduct["proteins"].toInt();
+        pfc[1] += selectedProduct["fatness"].toInt();
+        pfc[2] += selectedProduct["carbs"].toInt();
+
+        int weight = selectedProduct["weight"].toInt();
+        int price = selectedProduct["cost"].toInt();
+        totalWeight += weight;
+        totalPrice += price;
+
+        totalCalories += selectedProduct["proteins"].toInt() * 4 +
+                         selectedProduct["fatness"].toInt() * 9 +
+                         selectedProduct["carbs"].toInt() * 4;
+    }
+
+    return new menuCard(dayName, selectedProducts, totalCalories, pfc, totalWeight, totalPrice, parent);
+}
+
+
+
+void MainWindow::updateMenuCard() {
+    QByteArray productsJson = get_products(id);
+    QJsonDocument doc = QJsonDocument::fromJson(productsJson);
+    if (!doc.isArray()) return;
+
+    QJsonArray productArray = doc.array();
+
+    // Пример обновления карточки ПОНЕДЕЛЬНИК (первой)
+    QWidget* container = ui->mainContainer->findChild<QScrollArea*>("menuScrollArea") ?
+                             ui->mainContainer->findChild<QScrollArea*>("menuScrollArea")->widget() : nullptr;
+
+    if (!container) return;
+
+    QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(container->layout());
+    if (!layout || layout->count() == 0) return;
+
+    QWidget* oldCard = layout->itemAt(0)->widget(); // Обновляем первую карточку
+    if (oldCard) {
+        oldCard->hide();
+        layout->removeWidget(oldCard);
+        oldCard->deleteLater();
+    }
+
+    menuCard* newCard = generateMenuCardForDay("ПОНЕДЕЛЬНИК", productArray, container);
+    newCard->setFixedHeight(450);
+    layout->insertWidget(0, newCard);
 }
 
 
