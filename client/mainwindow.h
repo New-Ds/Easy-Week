@@ -24,10 +24,14 @@ public:
     QString password;
     QString email;
 
+
+    menuCard* generateMenuCardForDay(const QString& dayName, const QJsonArray& productArray, QWidget* parent);
+
 public slots:
     void slot_show();
     void set_current_user(QString id, QString login, QString email);
     void handleProductAdded( QString name, int proteins, int fats, int carbs, int weight, int cost, int type);
+    void updateMenuCard();
 
 private:
     Ui::MainWindow *ui;
