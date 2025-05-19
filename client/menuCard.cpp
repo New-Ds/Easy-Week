@@ -1,5 +1,6 @@
 #include "menuCard.h"
 #include "ui_menuCard.h"
+#include "mainwindow.h"
 
 
  menuCard::menuCard(QString day, QStringList products, int calories, QVector<int>& pfc, int weight, int price, QWidget *parent)
@@ -61,3 +62,11 @@ menuCard::~menuCard()
 {
     delete ui;
 }
+
+
+void menuCard::on_updateButton_clicked()
+{
+    qDebug() << "CLICKED";
+    emit buttonClicked(this);
+}
+
