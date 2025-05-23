@@ -31,7 +31,6 @@ void MainWindow::slot_show() {
 void MainWindow::set_current_user(QString id, QString login,  QString email) {
     this->id = id;
     this->login = login;
-
     this->email = email;
 
     // Проверка на права администратора (временное решение)
@@ -74,14 +73,428 @@ void MainWindow::on_dynamicStatButton_clicked()
     qDebug() << stat;
 }
 
+void MainWindow::createUsersTableUI()
+{
+    // Инициализация основного контейнера с архитектурой компоновки
+    usersTableContainer = new QWidget(ui->mainContainer);
+    usersTableContainer->setObjectName("usersTableContainer");
 
+    QVBoxLayout* mainLayout = new QVBoxLayout(usersTableContainer);
+    mainLayout->setContentsMargins(20, 20, 20, 20);
+    mainLayout->setSpacing(15);
+
+    // Заголовок секции с корпоративным стилем
+    QLabel* titleLabel = new QLabel("Управление пользователями системы");
+    titleLabel->setStyleSheet(
+        "font-size: 24px; "
+        "font-weight: bold; "
+        "color: #2c3e50; "
+        "margin-bottom: 10px;"
+        );
+    mainLayout->addWidget(titleLabel);
+
+    // Панель управления с фильтрацией и поиском
+    QHBoxLayout* controlPanelLayout = new QHBoxLayout();
+    controlPanelLayout->setSpacing(15);
+
+    // Компонент фильтрации по ролям
+    QLabel* filterLabel = new QLabel("Фильтр по статусу:");
+    filterLabel->setStyleSheet("font-size: 14px; font-weight: bold;");
+
+    usersFilterCombo = new QComboBox();
+    usersFilterCombo->addItem("Все пользователи");
+    usersFilterCombo->addItem("Только администраторы");
+    usersFilterCombo->addItem("Только пользователи");
+    usersFilterCombo->setMinimumWidth(200);
+    usersFilterCombo->setStyleSheet(
+        "QComboBox {"
+        "    border: 1px solid #cccccc;"
+        "    border-radius: 4px;"
+        "    padding: 8px;"
+        "    background-color: white;"
+        "    font-size: 14px;"
+        "    color: #000000;"
+        "}"
+        "QComboBox:hover {"
+        "    border: 1px solid #4a86e8;"
+        "    color: #000000;"
+        "}"
+        "QComboBox::drop-down {"
+        "    border: none;"
+        "    width: 20px;"
+        "    color: #000000;"
+        "}"
+        "QComboBox QAbstractItemView {"
+        "    color: #000000;"
+        "}"
+        "QComboBox::down-arrow {"
+        "    image: none;"
+        "    border-left: 5px solid transparent;"
+        "    border-right: 5px solid transparent;"
+        "    border-top: 5px solid #333;"
+        "    margin-right: 5px;"
+        "    color: #000000;"
+        "}"
+        );
+
+    // Компонент интеллектуального поиска
+    QLabel* searchLabel = new QLabel("Поиск:");
+    searchLabel->setStyleSheet("font-size: 14px; font-weight: bold;");
+
+    usersSearchLine = new QLineEdit();
+    usersSearchLine->setPlaceholderText("Введите имя или email...");
+    usersSearchLine->setMinimumWidth(250);
+    usersSearchLine->setStyleSheet(
+        "QLineEdit {"
+        "    border: 1px solid #cccccc;"
+        "    border-radius: 4px;"
+        "    padding: 8px;"
+        "    background-color: white;"
+        "    font-size: 14px;"
+        "    color: #000000;"
+        "}"
+        "QLineEdit:focus {"
+        "    border: 1px solid #4a86e8;"
+        "    background-color: #f9f9f9;"
+        "}"
+        );
+
+    // Кнопка синхронизации данных
+    QPushButton* refreshButton = new QPushButton("Обновить данные");
+    refreshButton->setStyleSheet(
+        "QPushButton {"
+        "    background-color: #4a86e8;"
+        "    color: white;"
+        "    border: none;"
+        "    padding: 8px 20px;"
+        "    border-radius: 4px;"
+        "    font-weight: bold;"
+        "    font-size: 14px;"
+        "}"
+        "QPushButton:hover {"
+        "    background-color: #3a76d8;"
+        "}"
+        "QPushButton:pressed {"
+        "    background-color: #2a66c8;"
+        "}"
+        );
+
+    // Компоновка панели управления
+    controlPanelLayout->addWidget(filterLabel);
+    controlPanelLayout->addWidget(usersFilterCombo);
+    controlPanelLayout->addWidget(searchLabel);
+    controlPanelLayout->addWidget(usersSearchLine);
+    controlPanelLayout->addStretch();
+    controlPanelLayout->addWidget(refreshButton);
+
+    mainLayout->addLayout(controlPanelLayout);
+
+    // Инициализация табличного компонента
+    usersTable = new QTableWidget();
+    usersTable->setColumnCount(4);
+    QStringList headers = {"ID", "Имя пользователя", "Email", "Статус"};
+    usersTable->setHorizontalHeaderLabels(headers);
+    usersTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    usersTable->setAlternatingRowColors(true);
+    usersTable->horizontalHeader()->setStretchLastSection(true);
+    usersTable->setSortingEnabled(true);
+    usersTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    // Применение корпоративного стиля к таблице
+    styleUsersTable();
+
+    mainLayout->addWidget(usersTable);
+
+    // Подключение сигналов для реактивного интерфейса
+    // Техническое решение: используем лямбда-функции вместо слотов
+    connect(usersFilterCombo, QOverload<int>::of(&QComboBox::currentIndexChanged),
+            [this](int index) {
+                Q_UNUSED(index);
+                filterUsersTable();
+            });
+
+    connect(usersSearchLine, &QLineEdit::textChanged,
+            [this](const QString& text) {
+                Q_UNUSED(text);
+                filterUsersTable();
+            });
+
+    connect(refreshButton, &QPushButton::clicked,
+            [this]() {
+                refreshUsersTable();
+            });
+
+    // Интеграция в основной layout
+    QVBoxLayout* containerLayout = qobject_cast<QVBoxLayout*>(ui->mainContainer->layout());
+    if (!containerLayout) {
+        containerLayout = new QVBoxLayout(ui->mainContainer);
+        containerLayout->setContentsMargins(0, 0, 0, 0);
+        ui->mainContainer->setLayout(containerLayout);
+    }
+
+    containerLayout->addWidget(usersTableContainer);
+}
+
+void MainWindow::populateUsersTable(const QByteArray& jsonData)
+{
+    // Архитектурное решение: детальная диагностика на всех уровнях
+    qDebug() << "=== JSON DEBUG START ===";
+    qDebug() << "Raw data size:" << jsonData.size();
+    qDebug() << "Raw data (first 200 chars):" << jsonData.left(200);
+    qDebug() << "Raw data (hex):" << jsonData.toHex().left(100);
+
+    // Техническое решение: очистка данных от артефактов протокола
+    QByteArray cleanedData = jsonData;
+
+    // Удаление управляющих символов \r\n в конце
+    if (cleanedData.endsWith("\r\n")) {
+        cleanedData.chop(2);
+        qDebug() << "Removed \\r\\n from end";
+    }
+
+    // Проверка на BOM (Byte Order Mark) и его удаление
+    if (cleanedData.startsWith("\xEF\xBB\xBF")) {
+        cleanedData.remove(0, 3);
+        qDebug() << "Removed BOM";
+    }
+
+    // Валидация начала и конца JSON
+    cleanedData = cleanedData.trimmed();
+
+    // Архитектурное решение: проверка валидности JSON структуры
+    if (!cleanedData.startsWith('[') || !cleanedData.endsWith(']')) {
+        qDebug() << "ERROR: Invalid JSON structure";
+        qDebug() << "First char:" << (cleanedData.isEmpty() ? "EMPTY" : QString(cleanedData.at(0)));
+        qDebug() << "Last char:" << (cleanedData.isEmpty() ? "EMPTY" : QString(cleanedData.at(cleanedData.length()-1)));
+
+        // Попытка найти JSON в ответе
+        int jsonStart = cleanedData.indexOf('[');
+        int jsonEnd = cleanedData.lastIndexOf(']');
+
+        if (jsonStart != -1 && jsonEnd != -1 && jsonEnd > jsonStart) {
+            cleanedData = cleanedData.mid(jsonStart, jsonEnd - jsonStart + 1);
+            qDebug() << "Extracted JSON from position" << jsonStart << "to" << jsonEnd;
+        } else {
+            QMessageBox::critical(this, "Критическая ошибка",
+                                  "Сервер вернул некорректный формат данных.\n"
+                                  "Проверьте серверную часть приложения.");
+            return;
+        }
+    }
+
+    qDebug() << "Cleaned data:" << cleanedData;
+    qDebug() << "=== JSON DEBUG END ===";
+
+    // Парсинг с детальной обработкой ошибок
+    QJsonParseError error;
+    QJsonDocument doc = QJsonDocument::fromJson(cleanedData, &error);
+
+    if (error.error != QJsonParseError::NoError) {
+        qDebug() << "JSON parsing error:" << error.errorString();
+        qDebug() << "Error offset:" << error.offset;
+        qDebug() << "Error type:" << error.error;
+
+        // Техническое решение: показ контекста ошибки
+        if (error.offset > 0 && error.offset < cleanedData.size()) {
+            int contextStart = qMax(0, error.offset - 20);
+            int contextEnd = qMin(cleanedData.size(), error.offset + 20);
+            qDebug() << "Context around error:" << cleanedData.mid(contextStart, contextEnd - contextStart);
+            qDebug() << "Error position marked: " << QString(error.offset - contextStart, ' ') << "^";
+        }
+
+        QMessageBox::warning(this, "Ошибка парсинга",
+                             QString("Не удалось обработать данные пользователей.\n"
+                                     "Ошибка: %1\n"
+                                     "Позиция: %2").arg(error.errorString()).arg(error.offset));
+        return;
+    }
+
+    if (!doc.isArray()) {
+        QString docType = "Unknown";
+        if (doc.isObject()) docType = "Object";
+        else if (doc.isNull()) docType = "Null";
+        else if (doc.isEmpty()) docType = "Empty";
+
+        qDebug() << "ERROR: Root element is not array. Document type:" << docType;
+        QMessageBox::warning(this, "Ошибка формата",
+                             QString("Сервер вернул данные в неверном формате.\n"
+                                     "Ожидался массив JSON, получен: %1").arg(docType));
+        return;
+    }
+
+    // Сохранение валидных данных
+    allUsersData = doc.array();
+    qDebug() << "Successfully parsed" << allUsersData.size() << "users";
+
+    // Применение фильтров к валидным данным
+    filterUsersTable();
+}
+
+void MainWindow::filterUsersTable()
+{
+    // Очистка таблицы перед новой отрисовкой
+    usersTable->setRowCount(0);
+
+    // Получение параметров фильтрации
+    QString searchText = usersSearchLine->text().toLower().trimmed();
+    int filterIndex = usersFilterCombo->currentIndex();
+
+    // Архитектурный паттерн: применение фильтров в цикле обработки
+    for (const QJsonValue& value : allUsersData) {
+        QJsonObject user = value.toObject();
+
+        // Извлечение атрибутов пользователя
+        int userId = user["id"].toInt();
+        QString name = user["name"].toString();
+        QString email = user["email"].toString();
+        bool isAdmin = user["is_admin"].toBool();
+
+        // Логика фильтрации по ролям
+        if (filterIndex == 1 && !isAdmin) continue;    // Только администраторы
+        if (filterIndex == 2 && isAdmin) continue;     // Только обычные пользователи
+
+        // Интеллектуальный поиск по множественным полям
+        if (!searchText.isEmpty()) {
+            bool matchFound = name.toLower().contains(searchText) ||
+                              email.toLower().contains(searchText) ||
+                              QString::number(userId).contains(searchText);
+            if (!matchFound) continue;
+        }
+
+        // Добавление строки в таблицу
+        int row = usersTable->rowCount();
+        usersTable->insertRow(row);
+
+        // Заполнение ячеек с форматированием
+        QTableWidgetItem* idItem = new QTableWidgetItem(QString::number(userId));
+        idItem->setTextAlignment(Qt::AlignCenter);
+        usersTable->setItem(row, 0, idItem);
+
+        usersTable->setItem(row, 1, new QTableWidgetItem(name));
+        usersTable->setItem(row, 2, new QTableWidgetItem(email));
+
+        // Визуализация статуса с цветовой индикацией
+        QTableWidgetItem* statusItem = new QTableWidgetItem(isAdmin ? "Администратор" : "Пользователь");
+        statusItem->setTextAlignment(Qt::AlignCenter);
+
+        if (isAdmin) {
+            // Зеленая цветовая схема для администраторов
+            statusItem->setBackground(QColor("#e8f5e9"));
+            statusItem->setForeground(QColor("#2e7d32"));
+            QFont font = statusItem->font();
+            font.setBold(true);
+            statusItem->setFont(font);
+        } else {
+            // Фиолетовая цветовая схема для пользователей
+            statusItem->setBackground(QColor("#f3e5f5"));
+            statusItem->setForeground(QColor("#6a1b9a"));
+        }
+
+        usersTable->setItem(row, 3, statusItem);
+    }
+
+    // Адаптивная настройка ширины столбцов
+    usersTable->resizeColumnsToContents();
+    usersTable->setColumnWidth(0, 80);  // ID
+    usersTable->setColumnWidth(1, 200); // Имя
+    usersTable->setColumnWidth(2, 250); // Email
+}
+
+void MainWindow::styleUsersTable()
+{
+    // Применение корпоративного дизайн-системы к таблице
+    usersTable->setStyleSheet(
+        "QTableWidget {"
+        "    border: 1px solid #cccccc;"
+        "    border-radius: 4px;"
+        "    background-color: white;"
+        "    gridline-color: #e0e0e0;"
+        "    font-family: 'Segoe UI', Arial, sans-serif;"
+        "}"
+        "QTableWidget::item {"
+        "    padding: 10px;"
+        "    font-size: 14px;"
+        "    border-bottom: 1px solid #f0f0f0;"
+        "    color: #000000;"
+        "}"
+        "QTableWidget::item:selected {"
+        "    background-color: #e3f2fd;"
+        "    color: #1976d2;"
+        "}"
+        "QTableWidget::item:hover {"
+        "    background-color: #f5f5f5;"
+        "}"
+        "QHeaderView::section {"
+        "    background-color: #f5f5f5;"
+        "    padding: 12px;"
+        "    border: none;"
+        "    border-bottom: 2px solid #4a86e8;"
+        "    font-weight: bold;"
+        "    font-size: 14px;"
+        "    color: #2c3e50;"
+        "}"
+        "QHeaderView::section:hover {"
+        "    background-color: #e8e8e8;"
+        "}"
+        "QTableWidget::verticalHeader {"
+        "    border: none;"
+        "    background-color: #fafafa;"
+        "}"
+        "QTableWidget QTableCornerButton::section {"
+        "    background-color: #f5f5f5;"
+        "    border: none;"
+        "}"
+        );
+
+    // Архитектурное решение: скрытие вертикального заголовка для минимализма
+    usersTable->verticalHeader()->setVisible(false);
+
+    // Настройка высоты строк для улучшенной читаемости
+    usersTable->verticalHeader()->setDefaultSectionSize(45);
+
+    // Визуальная оптимизация: фиксированная ширина первого столбца
+    usersTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+    usersTable->setColumnWidth(0, 80);
+}
+
+void MainWindow::refreshUsersTable()
+{
+    // Архитектурный паттерн: централизованное обновление данных
+    QByteArray usersData = get_all_users();
+
+    // Визуальная индикация загрузки (опционально для UX)
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+
+    // Обработка полученных данных
+    populateUsersTable(usersData);
+
+    // Восстановление курсора
+    QApplication::restoreOverrideCursor();
+
+    // Информирование пользователя об успешном обновлении
+    qDebug() << "Данные пользователей успешно обновлены";
+}
 
 void MainWindow::on_tableUsersButton_clicked()
 {
-    QByteArray users = get_all_users();
-    qDebug() << users;
-}
+    // Архитектурный паттерн: скрытие всех активных виджетов
+    for (QObject* child : ui->mainContainer->children()) {
+        if (QWidget* widget = qobject_cast<QWidget*>(child)) {
+            widget->hide();
+        }
+    }
 
+    // Ленивая инициализация - создаем UI только при первом вызове
+    if (!usersTableContainer) {
+        createUsersTableUI();
+    }
+
+    // Загрузка актуальных данных с сервера
+    refreshUsersTable();
+
+    // Отображение контейнера с таблицей
+    usersTableContainer->show();
+}
 
 void MainWindow::on_productListButton_clicked()
 {

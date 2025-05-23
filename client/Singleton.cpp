@@ -53,39 +53,67 @@ ClientSingleton::~ClientSingleton() {
 
 QByteArray ClientSingleton::send_msg(QStringList msg)
 {
+    qDebug() << "=== CLIENT DEBUG START ===";
+    qDebug() << "Sending message:" << msg;
 
     if (socket->state() != QAbstractSocket::ConnectedState) {
         qDebug() << "Error: Not connected to server!";
         return "Error: Not connected to server!";
     }
 
-
     QString message = msg.join("//");
     QByteArray data = message.toUtf8();
 
-    socket->write(data);
-    socket->waitForReadyRead(5000); // таймаут 5 сек
+    qDebug() << "Formatted message:" << message;
+    qDebug() << "Data to send:" << data;
 
+    qint64 bytesWritten = socket->write(data);
+    qDebug() << "Bytes written:" << bytesWritten;
 
+    // Архитектурное решение: увеличенный timeout для диагностики
+    const int WRITE_TIMEOUT = 10000; // 10 секунд
+    const int READ_TIMEOUT = 30000;  // 30 секунд для тяжелых операций с БД
 
-    QByteArray res = "";
-    while (socket->bytesAvailable() > 0) {
-        QByteArray array = socket->readAll();
-        //qDebug() << array << "\n";
-        if (array == "\\x01\r\n") {
-            socket->write(res);
-            res = "";
-        } else {
-            res.append(array);
-        }
+    if (!socket->waitForBytesWritten(WRITE_TIMEOUT)) {
+        qDebug() << "Write timeout after" << WRITE_TIMEOUT << "ms";
+        return "Error: Write timeout";
     }
+
+    qDebug() << "Write completed, waiting for response...";
+
+    if (!socket->waitForReadyRead(READ_TIMEOUT)) {
+        qDebug() << "Read timeout after" << READ_TIMEOUT << "ms";
+        qDebug() << "Socket state:" << socket->state();
+        qDebug() << "Socket error:" << socket->errorString();
+        return "Error: Read timeout";
+    }
+
+    QByteArray res;
+    // Читаем все доступные данные с небольшими паузами
+    int attempts = 0;
+    while (socket->bytesAvailable() > 0 || attempts < 3) {
+        if (socket->bytesAvailable() == 0) {
+            // Даем серверу время отправить данные
+            QThread::msleep(100);
+            attempts++;
+            continue;
+        }
+
+        QByteArray chunk = socket->readAll();
+        qDebug() << "Received chunk:" << chunk.size() << "bytes";
+        res.append(chunk);
+        attempts = 0; // Сбрасываем счетчик при получении данных
+    }
+
+    qDebug() << "Total response:" << res.size() << "bytes";
+    qDebug() << "Response preview:" << res.left(100);
+    qDebug() << "=== CLIENT DEBUG END ===";
 
     if (res.isEmpty()) {
-        //qDebug() << "Error: empty response from server";
         return "Error: empty response from server";
     }
-    return res;
 
+    return res;
 }
 
 void ClientSingleton::slot_connected() {

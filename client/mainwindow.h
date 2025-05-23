@@ -6,6 +6,14 @@
 #include "productCard.h"
 #include "menuCard.h"
 #include <QMessageBox>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QTableWidget>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QHeaderView>
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +43,18 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    // Добавить эти поля после существующих
+    QWidget* usersTableContainer = nullptr;
+    QTableWidget* usersTable = nullptr;
+    QComboBox* usersFilterCombo = nullptr;
+    QLineEdit* usersSearchLine = nullptr;
+    QJsonArray allUsersData;
+
+    // Вспомогательные методы для таблицы пользователей
+    void createUsersTableUI();
+    void populateUsersTable(const QByteArray& jsonData);
+    void filterUsersTable();
+    void styleUsersTable();
 
 private slots:
     void on_stableStatButton_clicked();
@@ -44,6 +64,9 @@ private slots:
     void on_createMenButton_clicked();
     void on_addProductButton_clicked();
     void on_exitButton_clicked();
+
+    // Добавить только этот слот после существующих
+    void refreshUsersTable();
 
 signals:
     void add_product();

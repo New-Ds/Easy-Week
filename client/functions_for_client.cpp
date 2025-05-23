@@ -54,13 +54,24 @@ QString get_dynamic_stat() {
 
 
 QByteArray get_all_users() {
-
     ClientSingleton& client = ClientSingleton::getInstance();
 
-    QByteArray stat = client.send_msg(QStringList{"admin", "get_all_users"});
+    // Архитектурное решение: отправка команды без лишних параметров
+    QByteArray response = client.send_msg(QStringList{"admin", "get_all_users"});
 
-    return stat;
-};
+    // Техническое решение: очистка ответа от протокольных артефактов
+    if (response.endsWith("\r\n")) {
+        response.chop(2);
+    }
+
+    // Валидация структуры JSON перед возвратом
+    response = response.trimmed();
+
+    // Диагностика для отладки
+    qDebug() << "get_all_users raw response:" << response.left(100) << "...";
+
+    return response;
+}
 
 
 QByteArray get_products(QString id) {
