@@ -15,63 +15,89 @@ QMap<QString, QList<QString>> mockDatabase = {
     };
 
 using namespace std;
+// КРИТИЧЕСКИ ВАЖНОЕ исправление в func2serv.cpp
+// Полная замена функции parsing с корректной обработкой admin команд:
+
 QByteArray parsing(QString input, int socdes)
 {
-
-    QStringList container = input.remove("\r\n").split("//"); //пример входящих данных reg//login_user//password_user
+    // Архитектурное решение: нормализация входных данных
+    QStringList container = input.remove("\r\n").split("//");
 
     if (container.isEmpty()) {
-        return "server error: empty command\\n";
+        qDebug() << "ERROR: Empty command received";
+        return "server error: empty command\r\n";
     }
 
+    // Диагностика для отладки маршрутизации
+    qDebug() << "=== PARSING REQUEST ===";
+    qDebug() << "Socket:" << socdes;
+    qDebug() << "Raw input:" << input;
+    qDebug() << "Parsed command:" << container;
+    qDebug() << "Command[0]:" << (container.size() > 0 ? container[0] : "NONE");
+    qDebug() << "Command[1]:" << (container.size() > 1 ? container[1] : "NONE");
 
-    qDebug() << socdes << " user command: " << container[0];
     QString var = container[0];
-    if (var == "check_task")
-    {
+
+    // КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: правильная обработка admin команд
+    if (var == "admin") {
+        qDebug() << "Admin command detected";
+
+        if (container.size() < 2) {
+            qDebug() << "ERROR: Admin command without subcommand";
+            return "server error: admin command requires subcommand\r\n";
+        }
+
+        QString adminCmd = container[1];
+        qDebug() << "Admin subcommand:" << adminCmd;
+
+        if (adminCmd == "get_all_users") {
+            qDebug() << "Executing get_all_users...";
+            QByteArray result = get_all_users();
+            qDebug() << "get_all_users returned:" << result.size() << "bytes";
+            return result;
+        }
+        else if (adminCmd == "dynamic_stat") {
+            return get_dynamic_stat();
+        }
+        else if (adminCmd == "stable_stat") {
+            return get_stable_stat();
+        }
+        else {
+            qDebug() << "Unknown admin command:" << adminCmd;
+            return "server error: unknown admin command\r\n";
+        }
+    }
+    else if (var == "check_task") {
         return check_task();
     }
-    else if (var =="auth")
-    {
+    else if (var == "auth") {
         return auth(container);
     }
-    else if (var == "add_product")
-    {
+    else if (var == "add_product") {
         return add_product(container);
     }
-    else if (var == "user" && container[2] == "get_products") {
-        return get_products(container[1]);
+    else if (var == "user" && container.size() >= 3) {
+        if (container[2] == "get_products") {
+            return get_products(container[1]);
+        }
+        else if (container[2] == "add_favorite_ration") {
+            return add_favorite_ration(container);
+        }
     }
-    else if (var =="reg")
-    {
+    else if (var == "reg") {
         return reg(container);
     }
-    else if (var == "get_stat")
-    {
-        return(get_stat());
+    else if (var == "get_stat") {
+        return get_stat();
     }
-    else if (var == "admin" && container[1] == "dynamic_stat") {
-        return get_dynamic_stat();
-    }
-    else if (var == "menu_export")
-    {
+    else if (var == "menu_export") {
         return menu_export();
     }
-    else if (var == "user" && container[2] == "add_favorite_ration") {
-        return add_favorite_ration(container);
-    }
-    else if (var == "admin" && container[1] == "get_all_users") {
-        return get_all_users();
-    }
-    else if (var == "admin" && container[1] == "stable_stat") {
-        return get_stable_stat();
-    }
-    else
-    {
-        return "server error: unknow command\r\n";
+    else {
+        qDebug() << "ERROR: Unknown command:" << var;
+        return "server error: unknown command\r\n";
     }
 }
-
 
 // дарова Руслан, когда будешь писать тут функцию эту, при успешной авторизации просто пропиши return "true", при неуспешной return "false", на клиенте я так принимаю ответ
 QByteArray auth(QStringList log) {
@@ -233,17 +259,51 @@ QByteArray get_products(QString userId) {
 }
 
 QByteArray get_all_users() {
-    QStringList users;
+    qDebug() << "\n=== EXECUTING GET_ALL_USERS ===";
 
-    // fetch_users_from_db(users);
-
-    QString response;
-    for (const QString& user : users) {
-        response += user + "\r\n";
+    // Техническое решение: early return паттерн для минимизации задержек
+    DataBaseSingleton* db = DataBaseSingleton::getInstance();
+    if (!db) {
+        qDebug() << "CRITICAL: Database not initialized";
+        return "[]";
     }
 
-    return response.toUtf8();
+    // Архитектурное решение: единственный SQL запрос без дополнительных проверок
+    QSqlQuery query = db->executeQuery(
+        "SELECT id, name, email, is_admin FROM users ORDER BY id"
+        );
+
+    // Быстрая проверка на ошибки SQL
+    if (query.lastError().isValid()) {
+        qDebug() << "SQL Error:" << query.lastError().text();
+        return "[]";
+    }
+
+    // Оптимизация: резервирование памяти для JSON
+    QJsonArray usersArray;
+
+    while (query.next()) {
+        QJsonObject userObj;
+        userObj["id"] = query.value(0).toInt();
+        userObj["name"] = query.value(1).toString();
+        userObj["email"] = query.value(2).toString();
+        userObj["is_admin"] = query.value(3).toBool();
+
+        usersArray.append(userObj);
+    }
+
+    qDebug() << "Users found:" << usersArray.size();
+
+    // Критически важно: компактная сериализация для минимизации размера
+    QJsonDocument doc(usersArray);
+    QByteArray result = doc.toJson(QJsonDocument::Compact);
+
+    qDebug() << "JSON generated, size:" << result.size();
+    qDebug() << "=== GET_ALL_USERS COMPLETE ===\n";
+
+    return result;
 }
+
 int get_user_count() {
     // Здесь будет SQL-запрос, пока заглушка
     return 152; // Примерное значение

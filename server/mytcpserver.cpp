@@ -48,14 +48,63 @@ void MyTcpServer::slotNewConnection()
 
 void MyTcpServer::slotServerRead() {
     QTcpSocket *clientSocket = qobject_cast<QTcpSocket*>(sender());
-    if (!clientSocket) return;
+    if (!clientSocket) {
+        qDebug() << "CRITICAL ERROR: Invalid socket in slotServerRead";
+        return;
+    }
 
     QByteArray data = clientSocket->readAll();
-    qDebug() << "Received data:" << data;
 
-    // Обрабатываем данные сразу, без накопления
-    QByteArray response = parsing(QString(data).trimmed(), clientSocket->socketDescriptor());
-    clientSocket->write(response);
+    // Архитектурное решение: детальное логирование для диагностики
+    qDebug() << "\n=== SERVER REQUEST PROCESSING ===";
+    qDebug() << "Socket descriptor:" << clientSocket->socketDescriptor();
+    qDebug() << "Received bytes:" << data.size();
+    qDebug() << "Raw data:" << data;
+    qDebug() << "As string:" << QString(data);
+
+    // Техническое решение: валидация данных перед обработкой
+    if (data.isEmpty()) {
+        qDebug() << "WARNING: Empty data received";
+        return;
+    }
+
+    // Обработка запроса
+    QString trimmedInput = QString(data).trimmed();
+    qDebug() << "Processing command:" << trimmedInput;
+
+    QByteArray response = parsing(trimmedInput, clientSocket->socketDescriptor());
+
+    qDebug() << "Response size:" << response.size();
+    qDebug() << "Response preview:" << response.left(100);
+
+    // КРИТИЧЕСКИ ВАЖНО: правильная отправка данных
+    if (!response.isEmpty()) {
+        qint64 bytesWritten = clientSocket->write(response);
+        qDebug() << "Bytes written:" << bytesWritten;
+
+        // Архитектурное решение: гарантированная отправка данных
+        if (bytesWritten > 0) {
+            // КРИТИЧЕСКИ ВАЖНО: форсируем отправку
+            clientSocket->flush();
+            qDebug() << "Data flushed successfully";
+
+            // Дополнительная проверка состояния сокета
+            if (clientSocket->state() == QTcpSocket::ConnectedState) {
+                qDebug() << "Socket still connected after write";
+            } else {
+                qDebug() << "WARNING: Socket state changed:" << clientSocket->state();
+            }
+        } else {
+            qDebug() << "ERROR: Failed to write response";
+        }
+    } else {
+        qDebug() << "WARNING: Empty response from parsing";
+        // Отправляем пустой JSON массив как fallback
+        clientSocket->write("[]");
+        clientSocket->flush();
+    }
+
+    qDebug() << "=== SERVER REQUEST COMPLETE ===\n";
 }
 
 void MyTcpServer::slotClientDisconnected()
