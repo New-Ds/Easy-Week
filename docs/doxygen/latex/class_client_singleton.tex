@@ -1,0 +1,325 @@
+\doxysection{Client\+Singleton Class Reference}
+\hypertarget{class_client_singleton}{}\label{class_client_singleton}\index{ClientSingleton@{ClientSingleton}}
+
+
+Сетевой клиент, реализующий паттерн Singleton.  
+
+
+
+
+{\ttfamily \#include $<$Singleton.\+h$>$}
+
+
+
+Inheritance diagram for Client\+Singleton\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=162pt]{class_client_singleton__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Client\+Singleton\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{class_client_singleton__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_client_singleton_ad5bef444cf0be862cfcd1db9b13be85f}{slot\+\_\+connected}} ()
+\begin{DoxyCompactList}\small\item\em Слот вызывается при успешном соединении с сервером. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_client_singleton_ab0a1e28677b42aa8af44beebcae64c12}{slot\+\_\+ready\+Read}} ()
+\begin{DoxyCompactList}\small\item\em Слот вызывается при получении данных от сервера. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+QByte\+Array \mbox{\hyperlink{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564}{send\+\_\+msg}} (QString\+List list)
+\begin{DoxyCompactList}\small\item\em Отправляет сообщение серверу. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \& \mbox{\hyperlink{class_client_singleton_addfb20092076c2a67a058b26f7bc399a}{get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Получить экземпляр Singleton. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_client_singleton_a57646cacb9dca62e898d284eeda9a149}{Client\+Singleton}} ()
+\begin{DoxyCompactList}\small\item\em Конструктор по умолчанию. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_client_singleton_a50d0d044c19911495d1f4faad14a8fc3}{\texorpdfstring{$\sim$}{\string~}\+Client\+Singleton}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_client_singleton_a8c1320c8b92c5c48a5ece0c9706ecc7e}{Client\+Singleton}} (const \mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \&)=delete
+\begin{DoxyCompactList}\small\item\em Запрещено копирование \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \& \mbox{\hyperlink{class_client_singleton_a58f471a67b4888bd27539bc53eadfe54}{operator=}} (const \mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \&)=delete
+\begin{DoxyCompactList}\small\item\em Запрещено присваивание \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QTcp\+Socket \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}
+\begin{DoxyCompactList}\small\item\em Сокет для соединения с сервером \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_client_singleton_a0614c6ae3e4e0b166500a150dc178720}{p\+\_\+instance}}
+\begin{DoxyCompactList}\small\item\em Указатель на экземпляр Singleton. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{class_client_singleton_destroyer}{Client\+Singleton\+Destroyer}} \mbox{\hyperlink{class_client_singleton_a58182cf45d3ad789fd78ba39eba6121e}{destroyer}}
+\begin{DoxyCompactList}\small\item\em Объект-\/разрушитель \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_client_singleton_a9c2e5f87a0557168f05d25189a9da384}{Client\+Singleton\+Destroyer}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Сетевой клиент, реализующий паттерн Singleton. 
+
+Используется для подключения к серверу, отправки и получения данных. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_client_singleton_a57646cacb9dca62e898d284eeda9a149}\index{ClientSingleton@{ClientSingleton}!ClientSingleton@{ClientSingleton}}
+\index{ClientSingleton@{ClientSingleton}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{ClientSingleton()}{ClientSingleton()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_client_singleton_a57646cacb9dca62e898d284eeda9a149} 
+Client\+Singleton\+::\+Client\+Singleton (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Конструктор по умолчанию. 
+
+Устанавливает соединение с сервером. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}\ =\ \textcolor{keyword}{new}\ QTcpSocket(\textcolor{keyword}{this});}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ т.к.\ запускаю\ на\ своём\ пк\ адрес\ localhost,\ в\ будущем\ заменить\ на\ ip\ сервера}}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>connectToHost(\textcolor{stringliteral}{"{}localhost"{}},\ 33333);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ проверка\ успешного\ подключения\ к\ серверу}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>waitForConnected())\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Connected\ to\ server!"{}};}
+\DoxyCodeLine{00037\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Failed\ to\ connect\ to\ server:"{}}\ <<\ \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>errorString();}
+\DoxyCodeLine{00039\ \ \ \ \ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//connect(socket,\ SIGNAL(connected()),\ SLOT(slot\_connected()));}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//connect(socket,\ SIGNAL(readyRead()),\ SLOT(slot\_readyRead()));}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \};}
+
+\end{DoxyCode}
+\Hypertarget{class_client_singleton_a50d0d044c19911495d1f4faad14a8fc3}\index{ClientSingleton@{ClientSingleton}!````~ClientSingleton@{\texorpdfstring{$\sim$}{\string~}ClientSingleton}}
+\index{````~ClientSingleton@{\texorpdfstring{$\sim$}{\string~}ClientSingleton}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ClientSingleton()}{\string~ClientSingleton()}}
+{\footnotesize\ttfamily \label{class_client_singleton_a50d0d044c19911495d1f4faad14a8fc3} 
+Client\+Singleton\+::\texorpdfstring{$\sim$}{\string~}\+Client\+Singleton (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Деструктор. 
+
+Закрывает соединение с сервером. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>close();}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \};}
+
+\end{DoxyCode}
+\Hypertarget{class_client_singleton_a8c1320c8b92c5c48a5ece0c9706ecc7e}\index{ClientSingleton@{ClientSingleton}!ClientSingleton@{ClientSingleton}}
+\index{ClientSingleton@{ClientSingleton}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{ClientSingleton()}{ClientSingleton()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_client_singleton_a8c1320c8b92c5c48a5ece0c9706ecc7e} 
+Client\+Singleton\+::\+Client\+Singleton (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [delete]}}
+
+
+
+Запрещено копирование 
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_client_singleton_addfb20092076c2a67a058b26f7bc399a}\index{ClientSingleton@{ClientSingleton}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \label{class_client_singleton_addfb20092076c2a67a058b26f7bc399a} 
+\mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \& Client\+Singleton\+::get\+Instance (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Получить экземпляр Singleton. 
+
+\begin{DoxyReturn}{Returns}
+Ссылка на экземпляр \doxylink{class_client_singleton}{Client\+Singleton}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_client_singleton_a0614c6ae3e4e0b166500a150dc178720}{p\_instance}})\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_client_singleton_a0614c6ae3e4e0b166500a150dc178720}{p\_instance}}\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_client_singleton_a57646cacb9dca62e898d284eeda9a149}{ClientSingleton}}();}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_client_singleton_a58182cf45d3ad789fd78ba39eba6121e}{destroyer}}.initialize(\mbox{\hyperlink{class_client_singleton_a0614c6ae3e4e0b166500a150dc178720}{p\_instance}});}
+\DoxyCodeLine{00018\ \ \ \ \ \};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{return}\ *\mbox{\hyperlink{class_client_singleton_a0614c6ae3e4e0b166500a150dc178720}{p\_instance}};}
+\DoxyCodeLine{00020\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_client_singleton_a58f471a67b4888bd27539bc53eadfe54}\index{ClientSingleton@{ClientSingleton}!operator=@{operator=}}
+\index{operator=@{operator=}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{class_client_singleton_a58f471a67b4888bd27539bc53eadfe54} 
+\mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \& Client\+Singleton\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [delete]}}
+
+
+
+Запрещено присваивание 
+
+\Hypertarget{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564}\index{ClientSingleton@{ClientSingleton}!send\_msg@{send\_msg}}
+\index{send\_msg@{send\_msg}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{send\_msg()}{send\_msg()}}
+{\footnotesize\ttfamily \label{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564} 
+QByte\+Array Client\+Singleton\+::send\+\_\+msg (\begin{DoxyParamCaption}\item[{QString\+List}]{list}{}\end{DoxyParamCaption})}
+
+
+
+Отправляет сообщение серверу. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em list} & Список строк с данными для отправки. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Ответ от сервера в виде QByte\+Array. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>state()\ !=\ QAbstractSocket::ConnectedState)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Error:\ Not\ connected\ to\ server!"{}};}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Error:\ Not\ connected\ to\ server!"{}};}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ QString\ message\ =\ msg.join(\textcolor{stringliteral}{"{}//"{}});}
+\DoxyCodeLine{00064\ \ \ \ \ QByteArray\ data\ =\ message.toUtf8();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>write(data);}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>waitForReadyRead(5000);\ \textcolor{comment}{//\ таймаут\ 5\ сек}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ QByteArray\ res\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>bytesAvailable()\ >\ 0)\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ QByteArray\ array\ =\ \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>readAll();}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ array\ <<\ "{}\(\backslash\)n"{};}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (array\ ==\ \textcolor{stringliteral}{"{}\(\backslash\)\(\backslash\)x01\(\backslash\)r\(\backslash\)n"{}})\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>write(res);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ res.append(array);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{if}\ (res.isEmpty())\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//qDebug()\ <<\ "{}Error:\ empty\ response\ from\ server"{};}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Error:\ empty\ response\ from\ server"{}};}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_client_singleton_ad5bef444cf0be862cfcd1db9b13be85f}\index{ClientSingleton@{ClientSingleton}!slot\_connected@{slot\_connected}}
+\index{slot\_connected@{slot\_connected}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{slot\_connected}{slot\_connected}}
+{\footnotesize\ttfamily \label{class_client_singleton_ad5bef444cf0be862cfcd1db9b13be85f} 
+void Client\+Singleton\+::slot\+\_\+connected (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Слот вызывается при успешном соединении с сервером. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Connected\ to\ server!"{}};}
+\DoxyCodeLine{00093\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_client_singleton_ab0a1e28677b42aa8af44beebcae64c12}\index{ClientSingleton@{ClientSingleton}!slot\_readyRead@{slot\_readyRead}}
+\index{slot\_readyRead@{slot\_readyRead}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{slot\_readyRead}{slot\_readyRead}}
+{\footnotesize\ttfamily \label{class_client_singleton_ab0a1e28677b42aa8af44beebcae64c12} 
+void Client\+Singleton\+::slot\+\_\+ready\+Read (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Слот вызывается при получении данных от сервера. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00096\ \ \ \ \ QByteArray\ data\ =\ \mbox{\hyperlink{class_client_singleton_a1341b873e995fed7fb253213de3eac19}{socket}}-\/>readAll();}
+\DoxyCodeLine{00097\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Data\ received:"{}}\ <<\ data;}
+\DoxyCodeLine{00098\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_client_singleton_a9c2e5f87a0557168f05d25189a9da384}\index{ClientSingleton@{ClientSingleton}!ClientSingletonDestroyer@{ClientSingletonDestroyer}}
+\index{ClientSingletonDestroyer@{ClientSingletonDestroyer}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{ClientSingletonDestroyer}{ClientSingletonDestroyer}}
+{\footnotesize\ttfamily \label{class_client_singleton_a9c2e5f87a0557168f05d25189a9da384} 
+friend class \mbox{\hyperlink{class_client_singleton_destroyer}{Client\+Singleton\+Destroyer}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_client_singleton_a58182cf45d3ad789fd78ba39eba6121e}\index{ClientSingleton@{ClientSingleton}!destroyer@{destroyer}}
+\index{destroyer@{destroyer}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{destroyer}{destroyer}}
+{\footnotesize\ttfamily \label{class_client_singleton_a58182cf45d3ad789fd78ba39eba6121e} 
+\mbox{\hyperlink{class_client_singleton_destroyer}{Client\+Singleton\+Destroyer}} Client\+Singleton\+::destroyer\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Объект-\/разрушитель 
+
+\Hypertarget{class_client_singleton_a0614c6ae3e4e0b166500a150dc178720}\index{ClientSingleton@{ClientSingleton}!p\_instance@{p\_instance}}
+\index{p\_instance@{p\_instance}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{p\_instance}{p\_instance}}
+{\footnotesize\ttfamily \label{class_client_singleton_a0614c6ae3e4e0b166500a150dc178720} 
+\mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \texorpdfstring{$\ast$}{*} Client\+Singleton\+::p\+\_\+instance\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Указатель на экземпляр Singleton. 
+
+\Hypertarget{class_client_singleton_a1341b873e995fed7fb253213de3eac19}\index{ClientSingleton@{ClientSingleton}!socket@{socket}}
+\index{socket@{socket}!ClientSingleton@{ClientSingleton}}
+\doxysubsubsection{\texorpdfstring{socket}{socket}}
+{\footnotesize\ttfamily \label{class_client_singleton_a1341b873e995fed7fb253213de3eac19} 
+QTcp\+Socket\texorpdfstring{$\ast$}{*} Client\+Singleton\+::socket\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Сокет для соединения с сервером 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+client/\mbox{\hyperlink{_singleton_8h}{Singleton.\+h}}\item 
+client/\mbox{\hyperlink{_singleton_8cpp}{Singleton.\+cpp}}\end{DoxyCompactItemize}

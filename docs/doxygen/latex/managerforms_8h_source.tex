@@ -1,0 +1,35 @@
+\doxysection{managerforms.\+h}
+\hypertarget{managerforms_8h_source}{}\label{managerforms_8h_source}\index{client/managerforms.h@{client/managerforms.h}}
+\mbox{\hyperlink{managerforms_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MANAGERFORMS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MANAGERFORMS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{add__product_8h}{add\_product.h}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{authregwindow_8h}{authregwindow.h}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{mainwindow_8h}{mainwindow.h}}"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_singleton_8h}{Singleton.h}}"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_ui}{Ui}}\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keyword}{class\ }ManagerForms;}
+\DoxyCodeLine{00012\ \}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_manager_forms_a28520be4f92d605ac48783497f23cf96}{ManagerForms}}\ :\ \textcolor{keyword}{public}\ QMainWindow}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_manager_forms_a28520be4f92d605ac48783497f23cf96}{ManagerForms}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{class_manager_forms_a6fcef06607418dbf71c05c44847b0112}{\string~ManagerForms}}();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_auth_reg_window}{AuthRegWindow}}\ *\mbox{\hyperlink{class_manager_forms_a30b01a09a0e1859c5c934d77280249c8}{curr\_auth}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_main_window}{MainWindow}}\ *\mbox{\hyperlink{class_manager_forms_a55e8215156bd70da8b91860773f181a6}{main}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_add_product_window}{AddProductWindow}}\ *\mbox{\hyperlink{class_manager_forms_a35e56ed089659370d82a6ede47a35ff0}{addProductWindow}};\ }
+\DoxyCodeLine{00040\ \};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ MANAGERFORMS\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,17 @@
+<map id="server/mytcpserver.h" name="server/mytcpserver.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="301,5,446,32"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,80,75,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="309,35,91,82,89,77,308,30"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="99,80,189,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="334,35,200,77,198,72,333,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="213,80,307,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="355,35,294,74,291,69,352,30"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="331,80,416,107"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="376,33,376,64,371,64,371,33"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="439,80,529,107"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="394,30,454,69,451,74,391,35"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="553,80,623,107"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="412,30,540,73,538,78,410,35"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="646,80,703,107"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="434,30,632,77,631,82,433,35"/>
+</map>

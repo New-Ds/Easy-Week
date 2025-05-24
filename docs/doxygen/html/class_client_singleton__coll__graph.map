@@ -1,0 +1,9 @@
+<map id="ClientSingleton" name="ClientSingleton">
+<area shape="rect" id="Node000001" title="Сетевой клиент, реализующий паттерн Singleton." alt="" coords="34,81,143,108"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="160,87,170,95,161,102,144,104,143,99,159,97,165,95,157,92"/>
+<area shape="rect" id="Node000003" href="$class_client_singleton_destroyer.html" title="Разрушитель Singleton для корректного удаления ClientSingleton." alt="" coords="5,172,172,199"/>
+<area shape="poly" id="edge4_Node000003_Node000001" title=" " alt="" coords="50,119,39,133,37,143,41,152,63,169,59,174,37,156,32,144,34,131,46,116"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="54,5,123,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,47,91,81,86,81,86,47"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="103,157,106,145,106,133,95,110,100,108,111,131,112,146,108,159"/>
+</map>

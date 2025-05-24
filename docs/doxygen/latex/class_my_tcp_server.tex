@@ -1,0 +1,248 @@
+\doxysection{My\+Tcp\+Server Class Reference}
+\hypertarget{class_my_tcp_server}{}\label{class_my_tcp_server}\index{MyTcpServer@{MyTcpServer}}
+
+
+{\ttfamily \#include $<$mytcpserver.\+h$>$}
+
+
+
+Inheritance diagram for My\+Tcp\+Server\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{class_my_tcp_server__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for My\+Tcp\+Server\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=154pt]{class_my_tcp_server__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_my_tcp_server_a0ba7316ffe1a26c57fabde9e74b6c8dc}{slot\+New\+Connection}} ()
+\begin{DoxyCompactList}\small\item\em Слот для обработки нового подключения. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_tcp_server_a3e040c49dbefd65b9a58ab662fc9f7a2}{slot\+Client\+Disconnected}} ()
+\begin{DoxyCompactList}\small\item\em Слот для обработки отключения клиента. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_my_tcp_server_ab4a64d2eab985d723090963f5c8a2882}{slot\+Server\+Read}} ()
+\begin{DoxyCompactList}\small\item\em Слот для чтения данных от клиента. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_my_tcp_server_acf367c4695b4d160c7a2d25c2afaaec4}{My\+Tcp\+Server}} (QObject \texorpdfstring{$\ast$}{*}parent=nullptr)
+\begin{DoxyCompactList}\small\item\em Конструктор \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_my_tcp_server_ab39e651ff7c37c152215c02c225e79ef}{\texorpdfstring{$\sim$}{\string~}\+My\+Tcp\+Server}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QTcp\+Server \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}{m\+Tcp\+Server}}
+\begin{DoxyCompactList}\small\item\em Сервер для обработки TCP-\/соединений \end{DoxyCompactList}\item 
+QTcp\+Socket \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_my_tcp_server_ab55c030e6eb6cf5d1acfe6d7d2bf0ed1}{m\+Tcp\+Socket}}
+\begin{DoxyCompactList}\small\item\em Сокет для взаимодействия с клиентом \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91}{server\+\_\+status}}
+\begin{DoxyCompactList}\small\item\em Статус сервера \end{DoxyCompactList}\item 
+QMap$<$ int, QTcp\+Socket \texorpdfstring{$\ast$}{*} $>$ \mbox{\hyperlink{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3}{m\+Socket\+Descriptors}}
+\begin{DoxyCompactList}\small\item\em Хранение дескрипторов сокетов \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_my_tcp_server_acf367c4695b4d160c7a2d25c2afaaec4}\index{MyTcpServer@{MyTcpServer}!MyTcpServer@{MyTcpServer}}
+\index{MyTcpServer@{MyTcpServer}!MyTcpServer@{MyTcpServer}}
+\doxysubsubsection{\texorpdfstring{MyTcpServer()}{MyTcpServer()}}
+{\footnotesize\ttfamily \label{class_my_tcp_server_acf367c4695b4d160c7a2d25c2afaaec4} 
+My\+Tcp\+Server\+::\+My\+Tcp\+Server (\begin{DoxyParamCaption}\item[{QObject \texorpdfstring{$\ast$}{*}}]{parent}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Конструктор 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ QObject(parent) }
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}{mTcpServer}}\ =\ \textcolor{keyword}{new}\ QTcpServer(\textcolor{keyword}{this});}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ connect(\mbox{\hyperlink{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}{mTcpServer}},\ \&QTcpServer::newConnection,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_my_tcp_server_a0ba7316ffe1a26c57fabde9e74b6c8dc}{MyTcpServer::slotNewConnection}});}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}{mTcpServer}}-\/>listen(QHostAddress::Any,\ 33333))\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}server\ is\ not\ started"{}};}
+\DoxyCodeLine{00022\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91}{server\_status}}\ =\ 1;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}server\ is\ started"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_my_tcp_server_ab39e651ff7c37c152215c02c225e79ef}\index{MyTcpServer@{MyTcpServer}!````~MyTcpServer@{\texorpdfstring{$\sim$}{\string~}MyTcpServer}}
+\index{````~MyTcpServer@{\texorpdfstring{$\sim$}{\string~}MyTcpServer}!MyTcpServer@{MyTcpServer}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}MyTcpServer()}{\string~MyTcpServer()}}
+{\footnotesize\ttfamily \label{class_my_tcp_server_ab39e651ff7c37c152215c02c225e79ef} 
+My\+Tcp\+Server\+::\texorpdfstring{$\sim$}{\string~}\+My\+Tcp\+Server (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Деструктор 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \mbox{\hyperlink{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}{mTcpServer}}-\/>close();}
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91}{server\_status}}\ =\ 0;}
+\DoxyCodeLine{00011\ \ \ \ \ qDeleteAll(\mbox{\hyperlink{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3}{mSocketDescriptors}});\ \textcolor{comment}{//\ Удаляем\ все\ сокеты}}
+\DoxyCodeLine{00012\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_my_tcp_server_a3e040c49dbefd65b9a58ab662fc9f7a2}\index{MyTcpServer@{MyTcpServer}!slotClientDisconnected@{slotClientDisconnected}}
+\index{slotClientDisconnected@{slotClientDisconnected}!MyTcpServer@{MyTcpServer}}
+\doxysubsubsection{\texorpdfstring{slotClientDisconnected}{slotClientDisconnected}}
+{\footnotesize\ttfamily \label{class_my_tcp_server_a3e040c49dbefd65b9a58ab662fc9f7a2} 
+void My\+Tcp\+Server\+::slot\+Client\+Disconnected (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Слот для обработки отключения клиента. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ QTcpSocket\ *clientSocket\ =\ qobject\_cast<QTcpSocket*>(sender());}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{if}\ (!clientSocket)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//\ Получаем\ дескриптор\ сокета\ из\ контейнера}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{int}\ socketDescriptor\ =\ -\/1;}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ \mbox{\hyperlink{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3}{mSocketDescriptors}}.begin();\ it\ !=\ \mbox{\hyperlink{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3}{mSocketDescriptors}}.end();\ ++it)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it.value()\ ==\ clientSocket)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ socketDescriptor\ =\ it.key();}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordflow}{if}\ (socketDescriptor\ !=\ -\/1)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3}{mSocketDescriptors}}.remove(socketDescriptor);\ \textcolor{comment}{//\ Удаляем\ сокет\ из\ контейнера}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Client\ disconnected,\ socket\ descriptor:"{}}\ <<\ socketDescriptor;}
+\DoxyCodeLine{00080\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Client\ disconnected,\ but\ socket\ descriptor\ not\ found!"{}};}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ clientSocket-\/>deleteLater();\ \textcolor{comment}{//\ Удаляем\ сокет}}
+\DoxyCodeLine{00085\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_my_tcp_server_a0ba7316ffe1a26c57fabde9e74b6c8dc}\index{MyTcpServer@{MyTcpServer}!slotNewConnection@{slotNewConnection}}
+\index{slotNewConnection@{slotNewConnection}!MyTcpServer@{MyTcpServer}}
+\doxysubsubsection{\texorpdfstring{slotNewConnection}{slotNewConnection}}
+{\footnotesize\ttfamily \label{class_my_tcp_server_a0ba7316ffe1a26c57fabde9e74b6c8dc} 
+void My\+Tcp\+Server\+::slot\+New\+Connection (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Слот для обработки нового подключения. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91}{server\_status}}\ ==\ 1)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ QTcpSocket\ *clientSocket\ =\ \mbox{\hyperlink{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}{mTcpServer}}-\/>nextPendingConnection();}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ socketDescriptor\ =\ clientSocket-\/>socketDescriptor();\ \textcolor{comment}{//\ Получаем\ дескриптор\ сокета}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (socketDescriptor\ ==\ -\/1)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Invalid\ socket\ descriptor!"{}};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ clientSocket-\/>deleteLater();\ \textcolor{comment}{//\ Удаляем\ сокет,\ если\ дескриптор\ недействителен}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3}{mSocketDescriptors}}.insert(socketDescriptor,\ clientSocket);\ \textcolor{comment}{//\ Сохраняем\ сокет\ в\ контейнере}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}New\ connection,\ socket\ descriptor:"{}}\ <<\ socketDescriptor;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ connect(clientSocket,\ \&QTcpSocket::readyRead,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_my_tcp_server_ab4a64d2eab985d723090963f5c8a2882}{MyTcpServer::slotServerRead}});}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ connect(clientSocket,\ \&QTcpSocket::disconnected,\ \textcolor{keyword}{this},\ \&\mbox{\hyperlink{class_my_tcp_server_a3e040c49dbefd65b9a58ab662fc9f7a2}{MyTcpServer::slotClientDisconnected}});}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_my_tcp_server_ab4a64d2eab985d723090963f5c8a2882}\index{MyTcpServer@{MyTcpServer}!slotServerRead@{slotServerRead}}
+\index{slotServerRead@{slotServerRead}!MyTcpServer@{MyTcpServer}}
+\doxysubsubsection{\texorpdfstring{slotServerRead}{slotServerRead}}
+{\footnotesize\ttfamily \label{class_my_tcp_server_ab4a64d2eab985d723090963f5c8a2882} 
+void My\+Tcp\+Server\+::slot\+Server\+Read (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+Слот для чтения данных от клиента. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ QTcpSocket\ *clientSocket\ =\ qobject\_cast<QTcpSocket*>(sender());}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{if}\ (!clientSocket)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ QByteArray\ data\ =\ clientSocket-\/>readAll();}
+\DoxyCodeLine{00054\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Received\ data:"{}}\ <<\ data;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ Обрабатываем\ данные\ сразу,\ без\ накопления}}
+\DoxyCodeLine{00057\ \ \ \ \ QByteArray\ response\ =\ \mbox{\hyperlink{func2serv_8cpp_a99bd96103155e73697cc47518a5559a4}{parsing}}(QString(data).trimmed(),\ clientSocket-\/>socketDescriptor());}
+\DoxyCodeLine{00058\ \ \ \ \ clientSocket-\/>write(response);}
+\DoxyCodeLine{00059\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3}\index{MyTcpServer@{MyTcpServer}!mSocketDescriptors@{mSocketDescriptors}}
+\index{mSocketDescriptors@{mSocketDescriptors}!MyTcpServer@{MyTcpServer}}
+\doxysubsubsection{\texorpdfstring{mSocketDescriptors}{mSocketDescriptors}}
+{\footnotesize\ttfamily \label{class_my_tcp_server_aae9c5addbbedcfa39ccbe55204f473a3} 
+QMap$<$int, QTcp\+Socket\texorpdfstring{$\ast$}{*}$>$ My\+Tcp\+Server\+::m\+Socket\+Descriptors\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Хранение дескрипторов сокетов 
+
+\Hypertarget{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c}\index{MyTcpServer@{MyTcpServer}!mTcpServer@{mTcpServer}}
+\index{mTcpServer@{mTcpServer}!MyTcpServer@{MyTcpServer}}
+\doxysubsubsection{\texorpdfstring{mTcpServer}{mTcpServer}}
+{\footnotesize\ttfamily \label{class_my_tcp_server_a7d854875e1e02887023ec9aac1a1542c} 
+QTcp\+Server\texorpdfstring{$\ast$}{*} My\+Tcp\+Server\+::m\+Tcp\+Server\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Сервер для обработки TCP-\/соединений 
+
+\Hypertarget{class_my_tcp_server_ab55c030e6eb6cf5d1acfe6d7d2bf0ed1}\index{MyTcpServer@{MyTcpServer}!mTcpSocket@{mTcpSocket}}
+\index{mTcpSocket@{mTcpSocket}!MyTcpServer@{MyTcpServer}}
+\doxysubsubsection{\texorpdfstring{mTcpSocket}{mTcpSocket}}
+{\footnotesize\ttfamily \label{class_my_tcp_server_ab55c030e6eb6cf5d1acfe6d7d2bf0ed1} 
+QTcp\+Socket\texorpdfstring{$\ast$}{*} My\+Tcp\+Server\+::m\+Tcp\+Socket\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Сокет для взаимодействия с клиентом 
+
+\Hypertarget{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91}\index{MyTcpServer@{MyTcpServer}!server\_status@{server\_status}}
+\index{server\_status@{server\_status}!MyTcpServer@{MyTcpServer}}
+\doxysubsubsection{\texorpdfstring{server\_status}{server\_status}}
+{\footnotesize\ttfamily \label{class_my_tcp_server_ae0dc69dfef4f9fc3a5f031f4152e4f91} 
+int My\+Tcp\+Server\+::server\+\_\+status\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Статус сервера 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+server/\mbox{\hyperlink{mytcpserver_8h}{mytcpserver.\+h}}\item 
+server/\mbox{\hyperlink{mytcpserver_8cpp}{mytcpserver.\+cpp}}\end{DoxyCompactItemize}

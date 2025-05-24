@@ -1,0 +1,52 @@
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches:
+      - "main"  # или ваша основная ветка, например, "main"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # Устанавливаем Doxygen
+      - name: Install Doxygen
+        run: sudo apt install doxygen && doxygen --version
+
+      # Устанавливаем Graphviz (если нужно для генерации графиков в Doxygen)
+      - name: Install Graphviz
+        run: sudo apt install graphviz
+
+      # Создаем документацию
+      - name: Create documentation
+        run: doxygen
+
+      # Загрузка артефакта (с учетом структуры папок)
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs/doxygen/html'  # Указываем правильный путь к сгенерированной документации
+
+      # Разворачиваем на GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

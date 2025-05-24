@@ -1,0 +1,103 @@
+\doxysection{Client\+Singleton\+Destroyer Class Reference}
+\hypertarget{class_client_singleton_destroyer}{}\label{class_client_singleton_destroyer}\index{ClientSingletonDestroyer@{ClientSingletonDestroyer}}
+
+
+Разрушитель Singleton для корректного удаления \doxylink{class_client_singleton}{Client\+Singleton}.  
+
+
+
+
+{\ttfamily \#include $<$Singleton.\+h$>$}
+
+
+
+Collaboration diagram for Client\+Singleton\+Destroyer\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{class_client_singleton_destroyer__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_client_singleton_destroyer_a2357bc74046db52178cf01625f92b5a7}{\texorpdfstring{$\sim$}{\string~}\+Client\+Singleton\+Destroyer}} ()
+\begin{DoxyCompactList}\small\item\em Деструктор. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_client_singleton_destroyer_a26da498540dff266ed02cadab5cf2ceb}{initialize}} (\mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \texorpdfstring{$\ast$}{*}p)
+\begin{DoxyCompactList}\small\item\em Инициализирует указатель на Singleton. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_client_singleton_destroyer_a58c4352591e26446fbc431e15fd5df76}{p\+\_\+instance}}
+\begin{DoxyCompactList}\small\item\em Указатель на экземпляр \doxylink{class_client_singleton}{Client\+Singleton}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Разрушитель Singleton для корректного удаления \doxylink{class_client_singleton}{Client\+Singleton}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_client_singleton_destroyer_a2357bc74046db52178cf01625f92b5a7}\index{ClientSingletonDestroyer@{ClientSingletonDestroyer}!````~ClientSingletonDestroyer@{\texorpdfstring{$\sim$}{\string~}ClientSingletonDestroyer}}
+\index{````~ClientSingletonDestroyer@{\texorpdfstring{$\sim$}{\string~}ClientSingletonDestroyer}!ClientSingletonDestroyer@{ClientSingletonDestroyer}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ClientSingletonDestroyer()}{\string~ClientSingletonDestroyer()}}
+{\footnotesize\ttfamily \label{class_client_singleton_destroyer_a2357bc74046db52178cf01625f92b5a7} 
+Client\+Singleton\+Destroyer\+::\texorpdfstring{$\sim$}{\string~}\+Client\+Singleton\+Destroyer (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Деструктор. 
+
+Удаляет экземпляр \doxylink{class_client_singleton}{Client\+Singleton}. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_client_singleton_destroyer_a58c4352591e26446fbc431e15fd5df76}{p\_instance}})\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \mbox{\hyperlink{class_client_singleton_destroyer_a58c4352591e26446fbc431e15fd5df76}{p\_instance}};}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_client_singleton_destroyer_a58c4352591e26446fbc431e15fd5df76}{p\_instance}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00010\ \ \ \ \ \};}
+\DoxyCodeLine{00011\ \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_client_singleton_destroyer_a26da498540dff266ed02cadab5cf2ceb}\index{ClientSingletonDestroyer@{ClientSingletonDestroyer}!initialize@{initialize}}
+\index{initialize@{initialize}!ClientSingletonDestroyer@{ClientSingletonDestroyer}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{class_client_singleton_destroyer_a26da498540dff266ed02cadab5cf2ceb} 
+void Client\+Singleton\+Destroyer\+::initialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_client_singleton}{Client\+Singleton}} \texorpdfstring{$\ast$}{*}}]{p}{}\end{DoxyParamCaption})}
+
+
+
+Инициализирует указатель на Singleton. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Указатель на экземпляр \doxylink{class_client_singleton}{Client\+Singleton}. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ this-\/>\mbox{\hyperlink{class_client_singleton_destroyer_a58c4352591e26446fbc431e15fd5df76}{p\_instance}}\ =\ b;}
+\DoxyCodeLine{00025\ \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_client_singleton_destroyer_a58c4352591e26446fbc431e15fd5df76}\index{ClientSingletonDestroyer@{ClientSingletonDestroyer}!p\_instance@{p\_instance}}
+\index{p\_instance@{p\_instance}!ClientSingletonDestroyer@{ClientSingletonDestroyer}}
+\doxysubsubsection{\texorpdfstring{p\_instance}{p\_instance}}
+{\footnotesize\ttfamily \label{class_client_singleton_destroyer_a58c4352591e26446fbc431e15fd5df76} 
+\mbox{\hyperlink{class_client_singleton}{Client\+Singleton}}\texorpdfstring{$\ast$}{*} Client\+Singleton\+Destroyer\+::p\+\_\+instance\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Указатель на экземпляр \doxylink{class_client_singleton}{Client\+Singleton}. 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+client/\mbox{\hyperlink{_singleton_8h}{Singleton.\+h}}\item 
+client/\mbox{\hyperlink{_singleton_8cpp}{Singleton.\+cpp}}\end{DoxyCompactItemize}

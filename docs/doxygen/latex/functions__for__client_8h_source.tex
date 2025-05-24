@@ -1,0 +1,43 @@
+\doxysection{functions\+\_\+for\+\_\+client.\+h}
+\hypertarget{functions__for__client_8h_source}{}\label{functions__for__client_8h_source}\index{client/functions\_for\_client.h@{client/functions\_for\_client.h}}
+\mbox{\hyperlink{functions__for__client_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FUNCTIONS\_FOR\_CLIENT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FUNCTIONS\_FOR\_CLIENT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QString>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_singleton_8h}{Singleton.h}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00013\ QString\ \mbox{\hyperlink{functions__for__client_8h_aaeef61cff0ff956865a7521c007e41cc}{auth}}(QString\ login,\ QString\ password);}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00022\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{functions__for__client_8h_a9638764c61635aa7172dc25ef99ce281}{reg}}(QString\ login,\ QString\ password,\ QString\ email);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00028\ QString\ \mbox{\hyperlink{functions__for__client_8h_a80d2dcf81ccda5494a09d546d287fbf5}{get\_stable\_stat}}();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00034\ QString\ \mbox{\hyperlink{functions__for__client_8h_afa0e0e567062f87c4f78a1c848713dc3}{get\_dynamic\_stat}}();}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00040\ QByteArray\ \mbox{\hyperlink{functions__for__client_8h_ab8bda875989629df9b683e881296b32d}{get\_all\_users}}();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ QByteArray\ \mbox{\hyperlink{functions__for__client_8h_a6d4386c36a7ed61c61cf3d1bad354f27}{check\_task}}();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00052\ QByteArray\ \mbox{\hyperlink{functions__for__client_8h_aa70831eddff4b8ed7a04647778a35747}{menu\_export}}();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00059\ QByteArray\ \mbox{\hyperlink{functions__for__client_8h_a73b3ae758a8cf3621318d27cd1a17722}{get\_products}}(QString\ userId);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00073\ QByteArray\ \mbox{\hyperlink{functions__for__client_8h_a48a4f2da0c749370a70323e13422a698}{add\_product}}(QString\ \textcolor{keywordtype}{id},\ QString\ name,\ \textcolor{keywordtype}{int}\ proteins,\ \textcolor{keywordtype}{int}\ fats,\ \textcolor{keywordtype}{int}\ carbs,\ \textcolor{keywordtype}{int}\ weight,\ \textcolor{keywordtype}{int}\ cost,\ \textcolor{keywordtype}{int}\ type);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{functions__for__client_8h_a8ebcc70a2024aab70883f094fc35849e}{get\_user\_count}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{functions__for__client_8h_a4ddd067c5a29f76aead93c977a05113a}{get\_product\_count}}();}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{functions__for__client_8h_a4d269e13002c5cded37bee9ade854d93}{get\_weekly\_logins}}();}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{functions__for__client_8h_a2d6f70d14e474616a4a16a72485c2f0e}{get\_monthly\_logins}}();}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00104\ QByteArray\ \mbox{\hyperlink{functions__for__client_8h_a6496e445a644cca89c6252f6e7adecb0}{add\_favorite\_ration}}(\textcolor{keyword}{const}\ QStringList\&\ container);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{functions__for__client_8h_a064e99d59eaa1d8cccef20b3192df015}{add\_ration\_to\_favorites}}(\textcolor{keyword}{const}\ QString\&\ userId,\ \textcolor{keyword}{const}\ QString\&\ rationId);}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ FUNCTIONS\_FOR\_CLIENT\_H}}
+
+\end{DoxyCode}

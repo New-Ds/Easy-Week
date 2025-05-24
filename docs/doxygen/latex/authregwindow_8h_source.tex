@@ -1,0 +1,46 @@
+\doxysection{authregwindow.\+h}
+\hypertarget{authregwindow_8h_source}{}\label{authregwindow_8h_source}\index{client/authregwindow.h@{client/authregwindow.h}}
+\mbox{\hyperlink{authregwindow_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ AUTHREGWINDOW\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ AUTHREGWINDOW\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QMainWindow>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{functions__for__client_8h}{functions\_for\_client.h}}"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_ui}{Ui}}\ \{}
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }AuthRegWindow;}
+\DoxyCodeLine{00010\ \}}
+\DoxyCodeLine{00011\ QT\_END\_NAMESPACE}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_auth_reg_window_a63d0011acccbecf9228b753146a481c9}{AuthRegWindow}}\ :\ \textcolor{keyword}{public}\ QMainWindow}
+\DoxyCodeLine{00020\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{class_auth_reg_window_a63d0011acccbecf9228b753146a481c9}{AuthRegWindow}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_auth_reg_window_a8943657334ceb937919fb555148a4ddb}{\string~AuthRegWindow}}();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_auth_reg_window_a5987983dc2b91cd78eb0e557da1bbfde}{on\_toRegButton\_clicked}}();}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_auth_reg_window_aed5a0ff0a108f067e2070eb3a72f9273}{on\_regButton\_clicked}}();}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_auth_reg_window_aaf84765f56f397a63dc1d952a1de8268}{on\_loginButton\_clicked}}();}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ signals:}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_auth_reg_window_ae7c7188f7a51b721fa342670262d2faa}{auth\_ok}}(QString\ \textcolor{keywordtype}{id},\ QString\ login,\ QString\ email);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ \ \ Ui::AuthRegWindow\ *\mbox{\hyperlink{class_auth_reg_window_a0e1dff8a9b2550dc25e88889e131fc94}{ui}};\ }
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_auth_reg_window_a635ffca6ab9ac9f659d053e56ca47eaf}{change\_type\_to\_reg}}(\textcolor{keywordtype}{bool}\ to\_reg);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_auth_reg_window_a7a94b51b7d506acd94390e2663b5baa0}{clear}}();}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AUTHREGWINDOW\_H}}
+
+\end{DoxyCode}
