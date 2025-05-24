@@ -1,0 +1,23 @@
+<map id="client/authregwindow.h" name="client/authregwindow.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="113,5,266,32"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="62,80,168,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,34,140,71,136,67,174,31"/>
+<area shape="rect" id="Node000003" href="$functions__for__client_8h.html" title=" " alt="" coords="191,80,337,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="204,31,242,67,239,71,200,34"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="181,155,246,181"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="257,109,233,144,228,141,253,106"/>
+<area shape="rect" id="Node000005" href="$_singleton_8h.html" title=" " alt="" coords="270,155,356,181"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="275,106,298,140,294,143,270,109"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="5,229,75,256"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="271,183,90,231,89,226,269,178"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="99,229,192,256"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="285,184,190,225,188,220,283,179"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="216,229,301,256"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="306,183,279,218,275,215,302,180"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="325,229,414,256"/>
+<area shape="poly" id="edge8_Node000005_Node000009" title=" " alt="" coords="325,180,353,215,348,219,321,184"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="439,229,508,256"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="342,179,433,220,431,225,340,184"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="532,229,618,256"/>
+<area shape="poly" id="edge10_Node000005_Node000011" title=" " alt="" coords="358,179,518,223,516,228,356,184"/>
+</map>

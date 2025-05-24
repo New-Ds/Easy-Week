@@ -1,0 +1,275 @@
+\doxysection{client/functions\+\_\+for\+\_\+client.cpp File Reference}
+\hypertarget{functions__for__client_8cpp}{}\label{functions__for__client_8cpp}\index{client/functions\_for\_client.cpp@{client/functions\_for\_client.cpp}}
+{\ttfamily \#include "{}functions\+\_\+for\+\_\+client.\+h"{}}\newline
+{\ttfamily \#include "{}mainwindow.\+h"{}}\newline
+{\ttfamily \#include "{}managerforms.\+h"{}}\newline
+{\ttfamily \#include $<$QDebug$>$}\newline
+{\ttfamily \#include $<$QByte\+Array$>$}\newline
+{\ttfamily \#include $<$QString\+List$>$}\newline
+Include dependency graph for functions\+\_\+for\+\_\+client.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{functions__for__client_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{functions__for__client_8cpp_af65491b695e43e33df9105ec4d8702b4}{auth}} (QString email, QString password)
+\begin{DoxyCompactList}\small\item\em Авторизация пользователя. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{functions__for__client_8cpp_a9638764c61635aa7172dc25ef99ce281}{reg}} (QString login, QString password, QString email)
+\begin{DoxyCompactList}\small\item\em Регистрация нового пользователя. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{functions__for__client_8cpp_a80d2dcf81ccda5494a09d546d287fbf5}{get\+\_\+stable\+\_\+stat}} ()
+\begin{DoxyCompactList}\small\item\em Получение стабильной статистики. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{functions__for__client_8cpp_afa0e0e567062f87c4f78a1c848713dc3}{get\+\_\+dynamic\+\_\+stat}} ()
+\begin{DoxyCompactList}\small\item\em Получение динамической статистики. \end{DoxyCompactList}\item 
+QByte\+Array \mbox{\hyperlink{functions__for__client_8cpp_ab8bda875989629df9b683e881296b32d}{get\+\_\+all\+\_\+users}} ()
+\begin{DoxyCompactList}\small\item\em Получение всех пользователей. \end{DoxyCompactList}\item 
+QByte\+Array \mbox{\hyperlink{functions__for__client_8cpp_a88bb6f910508e9101b193e736adf8385}{get\+\_\+products}} (QString id)
+\begin{DoxyCompactList}\small\item\em Получение списка продуктов. \end{DoxyCompactList}\item 
+QByte\+Array \mbox{\hyperlink{functions__for__client_8cpp_a48a4f2da0c749370a70323e13422a698}{add\+\_\+product}} (QString id, QString name, int proteins, int fats, int carbs, int weight, int cost, int type)
+\begin{DoxyCompactList}\small\item\em Добавление нового продукта. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{functions__for__client_8cpp_a48a4f2da0c749370a70323e13422a698}\index{functions\_for\_client.cpp@{functions\_for\_client.cpp}!add\_product@{add\_product}}
+\index{add\_product@{add\_product}!functions\_for\_client.cpp@{functions\_for\_client.cpp}}
+\doxysubsubsection{\texorpdfstring{add\_product()}{add\_product()}}
+{\footnotesize\ttfamily \label{functions__for__client_8cpp_a48a4f2da0c749370a70323e13422a698} 
+QByte\+Array add\+\_\+product (\begin{DoxyParamCaption}\item[{QString}]{id}{, }\item[{QString}]{name}{, }\item[{int}]{proteins}{, }\item[{int}]{fats}{, }\item[{int}]{carbs}{, }\item[{int}]{weight}{, }\item[{int}]{cost}{, }\item[{int}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Добавление нового продукта. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Идентификатор пользователя. \\
+\hline
+{\em name} & Название продукта. \\
+\hline
+{\em proteins} & Количество белков. \\
+\hline
+{\em fats} & Количество жиров. \\
+\hline
+{\em carbs} & Количество углеводов. \\
+\hline
+{\em weight} & Вес продукта. \\
+\hline
+{\em cost} & Стоимость продукта. \\
+\hline
+{\em type} & Тип продукта. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Массив байтов с результатом операции. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{class_client_singleton}{ClientSingleton}}\&\ client\ =\ \mbox{\hyperlink{class_client_singleton_addfb20092076c2a67a058b26f7bc399a}{ClientSingleton::getInstance}}();}
+\DoxyCodeLine{00079\ \ \ \ \ QStringList\ params\ =\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}add\_product"{}},}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ id,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ name,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ QString::number(proteins),}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ QString::number(fats),}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ QString::number(carbs),}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ QString::number(weight),}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ QString::number(cost),}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ QString::number(type)}
+\DoxyCodeLine{00089\ \ \ \ \ \};}
+\DoxyCodeLine{00090\ \ \ \ \ QByteArray\ response\ =\ client.\mbox{\hyperlink{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564}{send\_msg}}(params);}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ response;}
+\DoxyCodeLine{00092\ \}}
+
+\end{DoxyCode}
+\Hypertarget{functions__for__client_8cpp_af65491b695e43e33df9105ec4d8702b4}\index{functions\_for\_client.cpp@{functions\_for\_client.cpp}!auth@{auth}}
+\index{auth@{auth}!functions\_for\_client.cpp@{functions\_for\_client.cpp}}
+\doxysubsubsection{\texorpdfstring{auth()}{auth()}}
+{\footnotesize\ttfamily \label{functions__for__client_8cpp_af65491b695e43e33df9105ec4d8702b4} 
+QString auth (\begin{DoxyParamCaption}\item[{QString}]{login}{, }\item[{QString}]{password}{}\end{DoxyParamCaption})}
+
+
+
+Авторизация пользователя. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em login} & Логин пользователя. \\
+\hline
+{\em password} & Пароль пользователя. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Ответ от сервера. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{class_client_singleton}{ClientSingleton}}\&\ client\ =\ \mbox{\hyperlink{class_client_singleton_addfb20092076c2a67a058b26f7bc399a}{ClientSingleton::getInstance}}();}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ QString\ response\ =\ client.\mbox{\hyperlink{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564}{send\_msg}}(QStringList\{\textcolor{stringliteral}{"{}auth"{}},\ email,\ password\});}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Авторизация:\ "{}}\ <<\ response;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{return}\ response;}
+\DoxyCodeLine{00018\ \};}
+
+\end{DoxyCode}
+\Hypertarget{functions__for__client_8cpp_ab8bda875989629df9b683e881296b32d}\index{functions\_for\_client.cpp@{functions\_for\_client.cpp}!get\_all\_users@{get\_all\_users}}
+\index{get\_all\_users@{get\_all\_users}!functions\_for\_client.cpp@{functions\_for\_client.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_all\_users()}{get\_all\_users()}}
+{\footnotesize\ttfamily \label{functions__for__client_8cpp_ab8bda875989629df9b683e881296b32d} 
+QByte\+Array get\+\_\+all\+\_\+users (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Получение всех пользователей. 
+
+Получение списка всех пользователей.
+
+\begin{DoxyReturn}{Returns}
+Список всех пользователей в виде QByte\+Array. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{class_client_singleton}{ClientSingleton}}\&\ client\ =\ \mbox{\hyperlink{class_client_singleton_addfb20092076c2a67a058b26f7bc399a}{ClientSingleton::getInstance}}();}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ QByteArray\ stat\ =\ client.\mbox{\hyperlink{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564}{send\_msg}}(QStringList\{\textcolor{stringliteral}{"{}admin"{}},\ \textcolor{stringliteral}{"{}get\_all\_users"{}}\});}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{return}\ stat;}
+\DoxyCodeLine{00063\ \};}
+
+\end{DoxyCode}
+\Hypertarget{functions__for__client_8cpp_afa0e0e567062f87c4f78a1c848713dc3}\index{functions\_for\_client.cpp@{functions\_for\_client.cpp}!get\_dynamic\_stat@{get\_dynamic\_stat}}
+\index{get\_dynamic\_stat@{get\_dynamic\_stat}!functions\_for\_client.cpp@{functions\_for\_client.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_dynamic\_stat()}{get\_dynamic\_stat()}}
+{\footnotesize\ttfamily \label{functions__for__client_8cpp_afa0e0e567062f87c4f78a1c848713dc3} 
+QString get\+\_\+dynamic\+\_\+stat (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Получение динамической статистики. 
+
+\begin{DoxyReturn}{Returns}
+Динамическая статистика в виде QByte\+Array. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{class_client_singleton}{ClientSingleton}}\&\ client\ =\ \mbox{\hyperlink{class_client_singleton_addfb20092076c2a67a058b26f7bc399a}{ClientSingleton::getInstance}}();}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ QString\ stat\ =\ client.\mbox{\hyperlink{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564}{send\_msg}}(QStringList\{\textcolor{stringliteral}{"{}admin"{}},\ \textcolor{stringliteral}{"{}dynamic\_stat"{}}\});}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ stat;}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \};}
+
+\end{DoxyCode}
+\Hypertarget{functions__for__client_8cpp_a88bb6f910508e9101b193e736adf8385}\index{functions\_for\_client.cpp@{functions\_for\_client.cpp}!get\_products@{get\_products}}
+\index{get\_products@{get\_products}!functions\_for\_client.cpp@{functions\_for\_client.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_products()}{get\_products()}}
+{\footnotesize\ttfamily \label{functions__for__client_8cpp_a88bb6f910508e9101b193e736adf8385} 
+QByte\+Array get\+\_\+products (\begin{DoxyParamCaption}\item[{QString}]{User\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Получение списка продуктов. 
+
+Получение всех продуктов пользователя.
+
+
+\begin{DoxyParams}{Parameters}
+{\em User\+Id} & Идентификатор пользователя. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Список продуктов в виде QByte\+Array. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_client_singleton}{ClientSingleton}}\&\ client\ =\ \mbox{\hyperlink{class_client_singleton_addfb20092076c2a67a058b26f7bc399a}{ClientSingleton::getInstance}}();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ QStringList\ params\ =\ \{\textcolor{stringliteral}{"{}user"{}},\ id,\ \textcolor{stringliteral}{"{}get\_products"{}}\};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ QByteArray\ response\ =\ client.\mbox{\hyperlink{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564}{send\_msg}}(params);}
+\DoxyCodeLine{00072\ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Сырой\ ответ\ от\ сервера\ (JSON):\ "{}}\ <<\ response;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{return}\ response;\ \ \textcolor{comment}{//\ <-\/-\/\ просто\ возвращаем\ JSON\ байты,\ пусть\ парсинг\ делает\ кликер}}
+\DoxyCodeLine{00075\ \}}
+
+\end{DoxyCode}
+\Hypertarget{functions__for__client_8cpp_a80d2dcf81ccda5494a09d546d287fbf5}\index{functions\_for\_client.cpp@{functions\_for\_client.cpp}!get\_stable\_stat@{get\_stable\_stat}}
+\index{get\_stable\_stat@{get\_stable\_stat}!functions\_for\_client.cpp@{functions\_for\_client.cpp}}
+\doxysubsubsection{\texorpdfstring{get\_stable\_stat()}{get\_stable\_stat()}}
+{\footnotesize\ttfamily \label{functions__for__client_8cpp_a80d2dcf81ccda5494a09d546d287fbf5} 
+QString get\+\_\+stable\+\_\+stat (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Получение стабильной статистики. 
+
+\begin{DoxyReturn}{Returns}
+Стабильная статистика в виде QByte\+Array. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_client_singleton}{ClientSingleton}}\&\ client\ =\ \mbox{\hyperlink{class_client_singleton_addfb20092076c2a67a058b26f7bc399a}{ClientSingleton::getInstance}}();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ QString\ stat\ =\ client.\mbox{\hyperlink{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564}{send\_msg}}(QStringList\{\textcolor{stringliteral}{"{}admin"{}},\ \textcolor{stringliteral}{"{}stable\_stat"{}}\});}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{return}\ stat;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \};}
+
+\end{DoxyCode}
+\Hypertarget{functions__for__client_8cpp_a9638764c61635aa7172dc25ef99ce281}\index{functions\_for\_client.cpp@{functions\_for\_client.cpp}!reg@{reg}}
+\index{reg@{reg}!functions\_for\_client.cpp@{functions\_for\_client.cpp}}
+\doxysubsubsection{\texorpdfstring{reg()}{reg()}}
+{\footnotesize\ttfamily \label{functions__for__client_8cpp_a9638764c61635aa7172dc25ef99ce281} 
+bool reg (\begin{DoxyParamCaption}\item[{QString}]{login}{, }\item[{QString}]{password}{, }\item[{QString}]{email}{}\end{DoxyParamCaption})}
+
+
+
+Регистрация нового пользователя. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em login} & Логин пользователя. \\
+\hline
+{\em password} & Пароль. \\
+\hline
+{\em email} & Электронная почта. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true, если регистрация успешна; иначе — false. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{class_client_singleton}{ClientSingleton}}\&\ client\ =\ \mbox{\hyperlink{class_client_singleton_addfb20092076c2a67a058b26f7bc399a}{ClientSingleton::getInstance}}();}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ QString\ response\ =\ client.\mbox{\hyperlink{class_client_singleton_af0ffa3bef8214e9929b4a04293c15564}{send\_msg}}(QStringList\{\textcolor{stringliteral}{"{}reg"{}},\ login,\ email,\ password\});}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ QStringList\ parts\ =\ response.split(\textcolor{stringliteral}{"{}//"{}});}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ проверка\ на\ успешность\ регистрации}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{if}\ (parts[0]\ ==\ \textcolor{stringliteral}{"{}reg\_success"{}})\ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00033\ \};}
+
+\end{DoxyCode}

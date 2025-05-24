@@ -1,0 +1,641 @@
+\doxysection{Data\+Base\+Singleton Class Reference}
+\hypertarget{class_data_base_singleton}{}\label{class_data_base_singleton}\index{DataBaseSingleton@{DataBaseSingleton}}
+
+
+Класс для работы с базой данных.  
+
+
+
+
+{\ttfamily \#include $<$databasesingleton.\+h$>$}
+
+
+
+Collaboration diagram for Data\+Base\+Singleton\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{class_data_base_singleton__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_data_base_singleton_a59bda63308000a018c5bdc1989582e50}{initialize}} (const QString \&database\+Name)
+\begin{DoxyCompactList}\small\item\em Инициализация базы данных. \end{DoxyCompactList}\item 
+QSql\+Query \mbox{\hyperlink{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}{execute\+Query}} (const QString \&query, const QVariant\+Map \&params=QVariant\+Map())
+\begin{DoxyCompactList}\small\item\em Выполнение SQL-\/запроса с параметрами. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_data_base_singleton_a51bd7dc4507c5f3d04a2903899e13d42}{check\+User\+Credentials}} (const QString \&login, const QString \&password)
+\begin{DoxyCompactList}\small\item\em Проверка учетных данных пользователя. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_data_base_singleton_af17db97dfc40b0fa48b3ed9abeacca76}{add\+User}} (const QString \&name, const QString \&email, const QString \&password, bool is\+Admin=false)
+\begin{DoxyCompactList}\small\item\em Добавление нового пользователя в базу данных. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_data_base_singleton_a3fe2a5e1f41a408023066e8caf63b523}{add\+Product}} (int user\+Id, const QString \&name, int proteins, int fatness, int carbs, int weight, int cost, int type)
+\begin{DoxyCompactList}\small\item\em Добавление продукта в базу данных. \end{DoxyCompactList}\item 
+QVector$<$ QVariant\+Map $>$ \mbox{\hyperlink{class_data_base_singleton_a84fe7936dd15c077eff86d7884ce3049}{get\+Products\+By\+User}} (int user\+Id)
+\begin{DoxyCompactList}\small\item\em Получение продуктов для конкретного пользователя. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_data_base_singleton_a515aed6cbbb34fe71f254943a70d504b}{add\+Favorite\+Ration}} (int user\+Id, const QVector$<$ int $>$ \&product\+Ids, int calories, int all\+Cost, int all\+Weight)
+\begin{DoxyCompactList}\small\item\em Добавление рациона в избранное. \end{DoxyCompactList}\item 
+QVector$<$ QVariant\+Map $>$ \mbox{\hyperlink{class_data_base_singleton_afee32779221eaa5f92eb0c8a8666bb50}{get\+Favorites\+By\+User}} (int user\+Id)
+\begin{DoxyCompactList}\small\item\em Получение избранных рационов пользователя. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_data_base_singleton_ab2877d5184cd7af28f1ea3b31f523280}{update\+Statistics}} (int registrations, int visits, int generations)
+\begin{DoxyCompactList}\small\item\em Обновление статистики. \end{DoxyCompactList}\item 
+QVariant\+Map \mbox{\hyperlink{class_data_base_singleton_aad20b90cdb02aab3df1f27a9e4f882a3}{get\+Statistics}} ()
+\begin{DoxyCompactList}\small\item\em Получение статистики. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_data_base_singleton_ae1a24c20c524fd67554e1ffe66319ede}{get\+Instance}} ()
+\begin{DoxyCompactList}\small\item\em Получение единственного экземпляра Singleton. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_data_base_singleton_aa289e69de3195fef9593052246b9b1b0}{Data\+Base\+Singleton}} ()
+\begin{DoxyCompactList}\small\item\em Приватный конструктор. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_data_base_singleton_abe02a9a0f33a2664ba969d20d777d4d9}{Data\+Base\+Singleton}} (const \mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \&)=delete
+\begin{DoxyCompactList}\small\item\em Запрещает копирование экземпляра \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \& \mbox{\hyperlink{class_data_base_singleton_af310f74ceebe21ef29454dd7eccac19a}{operator=}} (const \mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \&)=delete
+\begin{DoxyCompactList}\small\item\em Запрещает присваивание \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_data_base_singleton_aa0d2615a21bdb8d7367a513c802e32c1}{\texorpdfstring{$\sim$}{\string~}\+Data\+Base\+Singleton}} ()=default
+\begin{DoxyCompactList}\small\item\em Приватный деструктор. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QSql\+Database \mbox{\hyperlink{class_data_base_singleton_a929da7bbfe9e068b4c3bc5a095e6156a}{db}}
+\begin{DoxyCompactList}\small\item\em Объект базы данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_data_base_singleton_abf86267afcfebbe05658438ff0ccfdfd}{p\+\_\+instance}} = nullptr
+\begin{DoxyCompactList}\small\item\em Единственный экземпляр класса \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{class_singleton_destroyer}{Singleton\+Destroyer}} \mbox{\hyperlink{class_data_base_singleton_a414f1ff51603535a839d5fc2e24b65e0}{destroyer}}
+\begin{DoxyCompactList}\small\item\em Объект-\/разрушитель \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_data_base_singleton_aa93ce997b9645496c0e17460fba08432}{Singleton\+Destroyer}}
+\begin{DoxyCompactList}\small\item\em Дружественный класс для доступа к деструктору \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Класс для работы с базой данных. 
+
+Реализует паттерн Singleton для подключения к базе данных, выполнения SQL-\/запросов, а также управления данными пользователей, продуктов, избранных рационов и статистики. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_data_base_singleton_aa289e69de3195fef9593052246b9b1b0}\index{DataBaseSingleton@{DataBaseSingleton}!DataBaseSingleton@{DataBaseSingleton}}
+\index{DataBaseSingleton@{DataBaseSingleton}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{DataBaseSingleton()}{DataBaseSingleton()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_aa289e69de3195fef9593052246b9b1b0} 
+Data\+Base\+Singleton\+::\+Data\+Base\+Singleton (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Приватный конструктор. 
+
+Запрещает создание экземпляров класса напрямую. 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \mbox{\hyperlink{class_data_base_singleton_a929da7bbfe9e068b4c3bc5a095e6156a}{db}}\ =\ QSqlDatabase::addDatabase(\textcolor{stringliteral}{"{}QSQLITE"{}});}
+\DoxyCodeLine{00008\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_abe02a9a0f33a2664ba969d20d777d4d9}\index{DataBaseSingleton@{DataBaseSingleton}!DataBaseSingleton@{DataBaseSingleton}}
+\index{DataBaseSingleton@{DataBaseSingleton}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{DataBaseSingleton()}{DataBaseSingleton()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_abe02a9a0f33a2664ba969d20d777d4d9} 
+Data\+Base\+Singleton\+::\+Data\+Base\+Singleton (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+
+
+Запрещает копирование экземпляра 
+
+\Hypertarget{class_data_base_singleton_aa0d2615a21bdb8d7367a513c802e32c1}\index{DataBaseSingleton@{DataBaseSingleton}!````~DataBaseSingleton@{\texorpdfstring{$\sim$}{\string~}DataBaseSingleton}}
+\index{````~DataBaseSingleton@{\texorpdfstring{$\sim$}{\string~}DataBaseSingleton}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}DataBaseSingleton()}{\string~DataBaseSingleton()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_aa0d2615a21bdb8d7367a513c802e32c1} 
+Data\+Base\+Singleton\+::\texorpdfstring{$\sim$}{\string~}\+Data\+Base\+Singleton (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [default]}}
+
+
+
+Приватный деструктор. 
+
+Закрыт для предотвращения удаления экземпляра Singleton извне. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_data_base_singleton_a515aed6cbbb34fe71f254943a70d504b}\index{DataBaseSingleton@{DataBaseSingleton}!addFavoriteRation@{addFavoriteRation}}
+\index{addFavoriteRation@{addFavoriteRation}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{addFavoriteRation()}{addFavoriteRation()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_a515aed6cbbb34fe71f254943a70d504b} 
+bool Data\+Base\+Singleton\+::add\+Favorite\+Ration (\begin{DoxyParamCaption}\item[{int}]{user\+Id}{, }\item[{const QVector$<$ int $>$ \&}]{product\+Ids}{, }\item[{int}]{calories}{, }\item[{int}]{all\+Cost}{, }\item[{int}]{all\+Weight}{}\end{DoxyParamCaption})}
+
+
+
+Добавление рациона в избранное. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & Идентификатор пользователя. \\
+\hline
+{\em product\+Ids} & Список идентификаторов продуктов. \\
+\hline
+{\em calories} & Общее количество калорий. \\
+\hline
+{\em all\+Cost} & Общая стоимость рациона. \\
+\hline
+{\em all\+Weight} & Общий вес рациона. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true, если рацион добавлен, иначе false. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{comment}{//\ Преобразуем\ QVector<int>\ в\ QVector<QString>}}
+\DoxyCodeLine{00156\ \ \ \ \ QVector<QString>\ productIdsStr;}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}\ :\ productIds)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ productIdsStr.append(QString::number(\textcolor{keywordtype}{id}));\ \textcolor{comment}{//\ Преобразуем\ int\ в\ QString}}
+\DoxyCodeLine{00159\ \ \ \ \ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{comment}{//\ Преобразуем\ QVector<QString>\ в\ QStringList\ и\ объединяем\ в\ строку\ через\ запятую}}
+\DoxyCodeLine{00162\ \ \ \ \ QString\ productsStr\ =\ QStringList::fromVector(productIdsStr).join(\textcolor{stringliteral}{"{},"{}});}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{comment}{//\ Выполняем\ SQL-\/запрос}}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}{executeQuery}}(}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}INSERT\ INTO\ favorites\ (id\_user,\ products,\ calories,\ all\_cost,\ all\_weight)\ "{}}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}VALUES\ (:id\_user,\ :products,\ :calories,\ :all\_cost,\ :all\_weight)"{}},}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}:id\_user"{}},\ userId\},\ \{\textcolor{stringliteral}{"{}:products"{}},\ productsStr\},\ \{\textcolor{stringliteral}{"{}:calories"{}},\ calories\},}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}:all\_cost"{}},\ allCost\},\ \{\textcolor{stringliteral}{"{}:all\_weight"{}},\ allWeight\}\}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ).exec();}
+\DoxyCodeLine{00171\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_a3fe2a5e1f41a408023066e8caf63b523}\index{DataBaseSingleton@{DataBaseSingleton}!addProduct@{addProduct}}
+\index{addProduct@{addProduct}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{addProduct()}{addProduct()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_a3fe2a5e1f41a408023066e8caf63b523} 
+bool Data\+Base\+Singleton\+::add\+Product (\begin{DoxyParamCaption}\item[{int}]{user\+Id}{, }\item[{const QString \&}]{name}{, }\item[{int}]{proteins}{, }\item[{int}]{fatness}{, }\item[{int}]{carbs}{, }\item[{int}]{weight}{, }\item[{int}]{cost}{, }\item[{int}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Добавление продукта в базу данных. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & Идентификатор пользователя. \\
+\hline
+{\em name} & Название продукта. \\
+\hline
+{\em proteins} & Количество белков в продукте. \\
+\hline
+{\em fatness} & Количество жиров в продукте. \\
+\hline
+{\em carbs} & Количество углеводов в продукте. \\
+\hline
+{\em weight} & Вес продукта. \\
+\hline
+{\em cost} & Стоимость продукта. \\
+\hline
+{\em type} & Тип продукта. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true, если продукт добавлен, иначе false. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00115\ \ \ \ \ QSqlQuery\ query\ =\ \mbox{\hyperlink{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}{executeQuery}}(}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}INSERT\ INTO\ products\ (id\_user,\ name,\ proteins,\ fatness,\ carbs,\ weight,\ cost,\ type)\ "{}}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}VALUES\ (:id\_user,\ :name,\ :proteins,\ :fatness,\ :carbs,\ :weight,\ :cost,\ :type)"{}},}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}:id\_user"{}},\ userId\},}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}:name"{}},\ name\},}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}:proteins"{}},\ proteins\},}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}:fatness"{}},\ fatness\},}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}:carbs"{}},\ carbs\},}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}:weight"{}},\ weight\},}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}:cost"{}},\ cost\},}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}:type"{}},\ type\}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ !query.lastError().isValid();\ \textcolor{comment}{//\ Возвращаем\ true,\ если\ ошибок\ нет}}
+\DoxyCodeLine{00130\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_af17db97dfc40b0fa48b3ed9abeacca76}\index{DataBaseSingleton@{DataBaseSingleton}!addUser@{addUser}}
+\index{addUser@{addUser}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{addUser()}{addUser()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_af17db97dfc40b0fa48b3ed9abeacca76} 
+bool Data\+Base\+Singleton\+::add\+User (\begin{DoxyParamCaption}\item[{const QString \&}]{name}{, }\item[{const QString \&}]{email}{, }\item[{const QString \&}]{password}{, }\item[{bool}]{is\+Admin}{ = {\ttfamily false}}\end{DoxyParamCaption})}
+
+
+
+Добавление нового пользователя в базу данных. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Имя пользователя. \\
+\hline
+{\em email} & Электронная почта пользователя. \\
+\hline
+{\em password} & Пароль пользователя. \\
+\hline
+{\em is\+Admin} & Флаг администратора (по умолчанию false). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true, если пользователь добавлен, иначе false. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00101\ \ \ \ \ QSqlQuery\ query\ =\ \mbox{\hyperlink{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}{executeQuery}}(}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}INSERT\ INTO\ users\ (name,\ email,\ pass,\ is\_admin)\ VALUES\ (:name,\ :email,\ :pass,\ :is\_admin)"{}},}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}:name"{}},\ name\},\ \{\textcolor{stringliteral}{"{}:email"{}},\ email\},\ \{\textcolor{stringliteral}{"{}:pass"{}},\ password\},\ \{\textcolor{stringliteral}{"{}:is\_admin"{}},\ isAdmin\}\}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{if}\ (query.lastError().isValid())\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Ошибка\ SQL:"{}}\ <<\ query.lastError().text();}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00111\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_a51bd7dc4507c5f3d04a2903899e13d42}\index{DataBaseSingleton@{DataBaseSingleton}!checkUserCredentials@{checkUserCredentials}}
+\index{checkUserCredentials@{checkUserCredentials}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{checkUserCredentials()}{checkUserCredentials()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_a51bd7dc4507c5f3d04a2903899e13d42} 
+bool Data\+Base\+Singleton\+::check\+User\+Credentials (\begin{DoxyParamCaption}\item[{const QString \&}]{login}{, }\item[{const QString \&}]{password}{}\end{DoxyParamCaption})}
+
+
+
+Проверка учетных данных пользователя. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em login} & Логин пользователя. \\
+\hline
+{\em password} & Пароль пользователя. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true, если учетные данные корректны, иначе false. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ QSqlQuery\ query\ =\ \mbox{\hyperlink{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}{executeQuery}}(}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}SELECT\ *\ FROM\ users\ WHERE\ email\ =\ :email\ AND\ pass\ =\ :pass"{}},}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}:email"{}},\ email\},\ \{\textcolor{stringliteral}{"{}:pass"{}},\ password\}\}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ query.next();}
+\DoxyCodeLine{00098\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}\index{DataBaseSingleton@{DataBaseSingleton}!executeQuery@{executeQuery}}
+\index{executeQuery@{executeQuery}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{executeQuery()}{executeQuery()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151} 
+QSql\+Query Data\+Base\+Singleton\+::execute\+Query (\begin{DoxyParamCaption}\item[{const QString \&}]{query}{, }\item[{const QVariant\+Map \&}]{params}{ = {\ttfamily QVariantMap()}}\end{DoxyParamCaption})}
+
+
+
+Выполнение SQL-\/запроса с параметрами. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em query} & SQL-\/запрос в виде строки. \\
+\hline
+{\em params} & Параметры для SQL-\/запроса. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Результат выполнения запроса в виде QSql\+Query. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00079\ \ \ \ \ QSqlQuery\ query(\mbox{\hyperlink{class_data_base_singleton_a929da7bbfe9e068b4c3bc5a095e6156a}{db}});}
+\DoxyCodeLine{00080\ \ \ \ \ query.prepare(queryStr);}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ it\ =\ params.begin();\ it\ !=\ params.end();\ ++it)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ query.bindValue(it.key(),\ it.value());}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{if}\ (!query.exec())\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Ошибка\ запроса:"{}}\ <<\ query.lastError().text();}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Текст\ запроса:"{}}\ <<\ queryStr;}
+\DoxyCodeLine{00087\ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{return}\ query;}
+\DoxyCodeLine{00089\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_afee32779221eaa5f92eb0c8a8666bb50}\index{DataBaseSingleton@{DataBaseSingleton}!getFavoritesByUser@{getFavoritesByUser}}
+\index{getFavoritesByUser@{getFavoritesByUser}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{getFavoritesByUser()}{getFavoritesByUser()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_afee32779221eaa5f92eb0c8a8666bb50} 
+QVector$<$ QVariant\+Map $>$ Data\+Base\+Singleton\+::get\+Favorites\+By\+User (\begin{DoxyParamCaption}\item[{int}]{user\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Получение избранных рационов пользователя. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & Идентификатор пользователя. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Список избранных рационов пользователя. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ QSqlQuery\ query\ =\ \mbox{\hyperlink{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}{executeQuery}}(}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}SELECT\ *\ FROM\ favorites\ WHERE\ id\_user\ =\ :id\_user"{}},}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}:id\_user"{}},\ userId\}\}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00178\ \ \ \ \ QVector<QVariantMap>\ favorites;}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{while}\ (query.next())\ \{}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ QVariantMap\ favorite;}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ favorite[\textcolor{stringliteral}{"{}products"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}products"{}}).toString();}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ favorite[\textcolor{stringliteral}{"{}calories"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}calories"{}}).toInt();}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ favorite[\textcolor{stringliteral}{"{}all\_cost"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}all\_cost"{}}).toInt();}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ favorite[\textcolor{stringliteral}{"{}all\_weight"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}all\_weight"{}}).toInt();}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ favorites.append(favorite);}
+\DoxyCodeLine{00186\ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{return}\ favorites;}
+\DoxyCodeLine{00188\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_ae1a24c20c524fd67554e1ffe66319ede}\index{DataBaseSingleton@{DataBaseSingleton}!getInstance@{getInstance}}
+\index{getInstance@{getInstance}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{getInstance()}{getInstance()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_ae1a24c20c524fd67554e1ffe66319ede} 
+\mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \texorpdfstring{$\ast$}{*} Data\+Base\+Singleton\+::get\+Instance (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Получение единственного экземпляра Singleton. 
+
+\begin{DoxyReturn}{Returns}
+Экземпляр класса \doxylink{class_data_base_singleton}{Data\+Base\+Singleton}. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_data_base_singleton_abf86267afcfebbe05658438ff0ccfdfd}{p\_instance}})\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_data_base_singleton_abf86267afcfebbe05658438ff0ccfdfd}{p\_instance}}\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_data_base_singleton_aa289e69de3195fef9593052246b9b1b0}{DataBaseSingleton}}();}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_data_base_singleton_a414f1ff51603535a839d5fc2e24b65e0}{destroyer}}.initialize(\mbox{\hyperlink{class_data_base_singleton_abf86267afcfebbe05658438ff0ccfdfd}{p\_instance}});}
+\DoxyCodeLine{00014\ \ \ \ \ \}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_data_base_singleton_abf86267afcfebbe05658438ff0ccfdfd}{p\_instance}};}
+\DoxyCodeLine{00016\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_a84fe7936dd15c077eff86d7884ce3049}\index{DataBaseSingleton@{DataBaseSingleton}!getProductsByUser@{getProductsByUser}}
+\index{getProductsByUser@{getProductsByUser}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{getProductsByUser()}{getProductsByUser()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_a84fe7936dd15c077eff86d7884ce3049} 
+QVector$<$ QVariant\+Map $>$ Data\+Base\+Singleton\+::get\+Products\+By\+User (\begin{DoxyParamCaption}\item[{int}]{user\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Получение продуктов для конкретного пользователя. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em user\+Id} & Идентификатор пользователя. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Список продуктов, принадлежащих пользователю. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ QSqlQuery\ query\ =\ \mbox{\hyperlink{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}{executeQuery}}(}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}SELECT\ *\ FROM\ products\ WHERE\ id\_user\ =\ :id\_user"{}},}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}:id\_user"{}},\ userId\}\}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00137\ \ \ \ \ QVector<QVariantMap>\ products;}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{while}\ (query.next())\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ QVariantMap\ product;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ product[\textcolor{stringliteral}{"{}id"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}id"{}}).toInt();}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ product[\textcolor{stringliteral}{"{}name"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}name"{}}).toString();}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ product[\textcolor{stringliteral}{"{}proteins"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}proteins"{}}).toInt();}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ product[\textcolor{stringliteral}{"{}fatness"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}fatness"{}}).toInt();}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ product[\textcolor{stringliteral}{"{}carbs"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}carbs"{}}).toInt();}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ product[\textcolor{stringliteral}{"{}weight"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}weight"{}}).toInt();}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ product[\textcolor{stringliteral}{"{}cost"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}cost"{}}).toInt();}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ product[\textcolor{stringliteral}{"{}type"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}type"{}}).toInt();}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ products.append(product);}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordflow}{return}\ products;}
+\DoxyCodeLine{00151\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_aad20b90cdb02aab3df1f27a9e4f882a3}\index{DataBaseSingleton@{DataBaseSingleton}!getStatistics@{getStatistics}}
+\index{getStatistics@{getStatistics}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{getStatistics()}{getStatistics()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_aad20b90cdb02aab3df1f27a9e4f882a3} 
+QVariant\+Map Data\+Base\+Singleton\+::get\+Statistics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Получение статистики. 
+
+\begin{DoxyReturn}{Returns}
+Словарь с данными статистики. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00200\ \ \ \ \ QSqlQuery\ query\ =\ \mbox{\hyperlink{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}{executeQuery}}(\textcolor{stringliteral}{"{}SELECT\ *\ FROM\ statistics"{}});}
+\DoxyCodeLine{00201\ \ \ \ \ QVariantMap\ stats;}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordflow}{if}\ (query.next())\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ stats[\textcolor{stringliteral}{"{}registrations"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}count\_registrations"{}}).toInt();}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ stats[\textcolor{stringliteral}{"{}visits"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}count\_visits"{}}).toInt();}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ stats[\textcolor{stringliteral}{"{}generations"{}}]\ =\ query.value(\textcolor{stringliteral}{"{}count\_generations"{}}).toInt();}
+\DoxyCodeLine{00206\ \ \ \ \ \}}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{return}\ stats;}
+\DoxyCodeLine{00208\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_a59bda63308000a018c5bdc1989582e50}\index{DataBaseSingleton@{DataBaseSingleton}!initialize@{initialize}}
+\index{initialize@{initialize}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_a59bda63308000a018c5bdc1989582e50} 
+bool Data\+Base\+Singleton\+::initialize (\begin{DoxyParamCaption}\item[{const QString \&}]{database\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Инициализация базы данных. 
+
+Создает соединение с базой данных и выполняет необходимые операции для создания таблиц.
+
+
+\begin{DoxyParams}{Parameters}
+{\em database\+Name} & Имя файла базы данных. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true, если инициализация успешна, иначе false. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{class_data_base_singleton_a929da7bbfe9e068b4c3bc5a095e6156a}{db}}.setDatabaseName(databaseName);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{class_data_base_singleton_a929da7bbfe9e068b4c3bc5a095e6156a}{db}}.open())\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ qDebug()\ <<\ \textcolor{stringliteral}{"{}Ошибка\ подключения:"{}}\ <<\ \mbox{\hyperlink{class_data_base_singleton_a929da7bbfe9e068b4c3bc5a095e6156a}{db}}.lastError().text();}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\ Создание\ таблицы\ users}}
+\DoxyCodeLine{00026\ \ \ \ \ QSqlQuery\ query(\mbox{\hyperlink{class_data_base_singleton_a929da7bbfe9e068b4c3bc5a095e6156a}{db}});}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ success\ =\ query.exec(}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}CREATE\ TABLE\ IF\ NOT\ EXISTS\ users\ ("{}}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}id\ INTEGER\ PRIMARY\ KEY\ AUTOINCREMENT,\ "{}}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}name\ VARCHAR(20)\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}email\ VARCHAR(50)\ NOT\ NULL\ ,\ "{}}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}pass\ VARCHAR(20)\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}is\_admin\ BOOLEAN\ DEFAULT\ FALSE)"{}}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ success\ \&=\ query.exec(\textcolor{stringliteral}{"{}CREATE\ UNIQUE\ INDEX\ IF\ NOT\ EXISTS\ idx\_users\_email\ ON\ users(email)"{}});}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ Создание\ таблицы\ products}}
+\DoxyCodeLine{00039\ \ \ \ \ success\ \&=\ query.exec(}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}CREATE\ TABLE\ IF\ NOT\ EXISTS\ products\ ("{}}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}id\ INTEGER\ PRIMARY\ KEY\ AUTOINCREMENT,\ "{}}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}id\_user\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}name\ VARCHAR(50)\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}proteins\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}fatness\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}carbs\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}weight\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cost\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}type\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}FOREIGN\ KEY(id\_user)\ REFERENCES\ users(id))"{}}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ Создание\ таблицы\ favorites}}
+\DoxyCodeLine{00054\ \ \ \ \ success\ \&=\ query.exec(}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}CREATE\ TABLE\ IF\ NOT\ EXISTS\ favorites\ ("{}}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}id\_user\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}products\ TEXT\ NOT\ NULL,\ "{}}\ \ \textcolor{comment}{//\ Хранение\ массива\ ID\ продуктов\ в\ виде\ строки}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}calories\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}all\_cost\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}all\_weight\ INTEGER\ NOT\ NULL,\ "{}}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}FOREIGN\ KEY(id\_user)\ REFERENCES\ users(id))"{}}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ Создание\ таблицы\ statistics}}
+\DoxyCodeLine{00065\ \ \ \ \ success\ \&=\ query.exec(}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}CREATE\ TABLE\ IF\ NOT\ EXISTS\ statistics\ ("{}}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}count\_registrations\ INTEGER\ DEFAULT\ 0,\ "{}}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}count\_visits\ INTEGER\ DEFAULT\ 0,\ "{}}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}count\_generations\ INTEGER\ DEFAULT\ 0)"{}}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//\ Инициализация\ статистики,\ если\ таблица\ пуста}}
+\DoxyCodeLine{00073\ \ \ \ \ query.exec(\textcolor{stringliteral}{"{}INSERT\ OR\ IGNORE\ INTO\ statistics\ (count\_registrations,\ count\_visits,\ count\_generations)\ VALUES\ (0,\ 0,\ 0)"{}});}
+\DoxyCodeLine{00074\ \ \ \ \ query.exec(\textcolor{stringliteral}{"{}INSERT\ OR\ IGNORE\ INTO\ users(name,\ email,\ pass,\ is\_admin)\ VALUES\ ('NewDev','new@devs.su','admin',true)"{}});}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ success;}
+\DoxyCodeLine{00076\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_data_base_singleton_af310f74ceebe21ef29454dd7eccac19a}\index{DataBaseSingleton@{DataBaseSingleton}!operator=@{operator=}}
+\index{operator=@{operator=}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_af310f74ceebe21ef29454dd7eccac19a} 
+\mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \& Data\+Base\+Singleton\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+
+
+Запрещает присваивание 
+
+\Hypertarget{class_data_base_singleton_ab2877d5184cd7af28f1ea3b31f523280}\index{DataBaseSingleton@{DataBaseSingleton}!updateStatistics@{updateStatistics}}
+\index{updateStatistics@{updateStatistics}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{updateStatistics()}{updateStatistics()}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_ab2877d5184cd7af28f1ea3b31f523280} 
+bool Data\+Base\+Singleton\+::update\+Statistics (\begin{DoxyParamCaption}\item[{int}]{registrations}{, }\item[{int}]{visits}{, }\item[{int}]{generations}{}\end{DoxyParamCaption})}
+
+
+
+Обновление статистики. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em registrations} & Количество регистраций. \\
+\hline
+{\em visits} & Количество посещений. \\
+\hline
+{\em generations} & Количество генераций. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true, если статистика обновлена, иначе false. 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_data_base_singleton_a4aa9edfd87be83120492e7b5c8de6151}{executeQuery}}(}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}UPDATE\ statistics\ SET\ count\_registrations\ =\ :registrations,\ "{}}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}count\_visits\ =\ :visits,\ count\_generations\ =\ :generations"{}},}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\{\textcolor{stringliteral}{"{}:registrations"{}},\ registrations\},\ \{\textcolor{stringliteral}{"{}:visits"{}},\ visits\},\ \{\textcolor{stringliteral}{"{}:generations"{}},\ generations\}\}}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ).exec();}
+\DoxyCodeLine{00197\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{class_data_base_singleton_aa93ce997b9645496c0e17460fba08432}\index{DataBaseSingleton@{DataBaseSingleton}!SingletonDestroyer@{SingletonDestroyer}}
+\index{SingletonDestroyer@{SingletonDestroyer}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{SingletonDestroyer}{SingletonDestroyer}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_aa93ce997b9645496c0e17460fba08432} 
+friend class \mbox{\hyperlink{class_singleton_destroyer}{Singleton\+Destroyer}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Дружественный класс для доступа к деструктору 
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_data_base_singleton_a929da7bbfe9e068b4c3bc5a095e6156a}\index{DataBaseSingleton@{DataBaseSingleton}!db@{db}}
+\index{db@{db}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{db}{db}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_a929da7bbfe9e068b4c3bc5a095e6156a} 
+QSql\+Database Data\+Base\+Singleton\+::db\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Объект базы данных 
+
+\Hypertarget{class_data_base_singleton_a414f1ff51603535a839d5fc2e24b65e0}\index{DataBaseSingleton@{DataBaseSingleton}!destroyer@{destroyer}}
+\index{destroyer@{destroyer}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{destroyer}{destroyer}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_a414f1ff51603535a839d5fc2e24b65e0} 
+\mbox{\hyperlink{class_singleton_destroyer}{Singleton\+Destroyer}} Data\+Base\+Singleton\+::destroyer\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Объект-\/разрушитель 
+
+\Hypertarget{class_data_base_singleton_abf86267afcfebbe05658438ff0ccfdfd}\index{DataBaseSingleton@{DataBaseSingleton}!p\_instance@{p\_instance}}
+\index{p\_instance@{p\_instance}!DataBaseSingleton@{DataBaseSingleton}}
+\doxysubsubsection{\texorpdfstring{p\_instance}{p\_instance}}
+{\footnotesize\ttfamily \label{class_data_base_singleton_abf86267afcfebbe05658438ff0ccfdfd} 
+\mbox{\hyperlink{class_data_base_singleton}{Data\+Base\+Singleton}} \texorpdfstring{$\ast$}{*} Data\+Base\+Singleton\+::p\+\_\+instance = nullptr\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Единственный экземпляр класса 
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+server/\mbox{\hyperlink{databasesingleton_8h}{databasesingleton.\+h}}\item 
+server/\mbox{\hyperlink{databasesingleton_8cpp}{databasesingleton.\+cpp}}\end{DoxyCompactItemize}
