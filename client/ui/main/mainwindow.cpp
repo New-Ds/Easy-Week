@@ -843,3 +843,14 @@ void MainWindow::on_exitButton_clicked()
     // Закрываем текущее приложение
     QApplication::quit();
 }
+
+/**
+ * @brief Обработчик нажатия на кнопку экспорта
+ *
+ * Производит экспорт меню за неделю в текстовый файл
+ */
+void MainWindow::on_exportButton_clicked()
+{
+    qDebug() << "Заглушка";
+}
+

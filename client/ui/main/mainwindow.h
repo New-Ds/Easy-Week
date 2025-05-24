@@ -156,6 +156,11 @@ private slots:
      */
     void refreshUsersTable();
 
+    /**
+     * @brief Обработка нажатия кнопки экспорта
+     */
+    void on_exportButton_clicked();
+
 signals:
     /**
      * @brief Сигнал о необходимости добавления продукта
