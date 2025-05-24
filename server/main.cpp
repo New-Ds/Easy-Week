@@ -1,12 +1,10 @@
 #include <QCoreApplication>
 #include <QObject>
-#include<QVariant>
+#include <QVariant>
 #include <QSqlDatabase>
 #include <QSqlQuery>
-#include "mytcpserver.h"
-#include "databasesingleton.h"
-
-
+#include "network/mytcpserver.h"
+#include "database/databasesingleton.h"
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
@@ -17,7 +15,8 @@ int main(int argc, char *argv[]) {
         qFatal("Failed to initialize database");
     }
 
-
+    // Создание и запуск TCP-сервера
     MyTcpServer myserv;
+    
     return a.exec();
 }

@@ -18,10 +18,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    databasesingleton.cpp \
-    func2serv.cpp \
+    database/databasesingleton.cpp \
+    database/migrations.cpp \
     main.cpp \
-    mytcpserver.cpp
+    network/mytcpserver.cpp \
+    network/requesthandler.cpp \
+    services/authservice.cpp \
+    services/productservice.cpp \
+    services/rationservice.cpp \
+    services/statsservice.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -29,6 +34,11 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    databasesingleton.h \
-    func2serv.h \
-    mytcpserver.h
+    database/databasesingleton.h \
+    database/migrations.h \
+    network/mytcpserver.h \
+    network/requesthandler.h \
+    services/authservice.h \
+    services/productservice.h \
+    services/rationservice.h \
+    services/statsservice.h
