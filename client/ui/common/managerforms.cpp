@@ -7,6 +7,7 @@ ManagerForms::ManagerForms(QWidget *parent) : QMainWindow(parent)
     this->curr_auth->show();
     this->addProductWindow = new AddProductWindow();
 
+    // Связываем сигналы и слоты для переключения между окнами
     connect(main, &MainWindow::add_product, addProductWindow, &AddProductWindow::slot_show);
     connect(addProductWindow, &AddProductWindow::productAdded, main, &MainWindow::handleProductAdded);
 
@@ -16,5 +17,5 @@ ManagerForms::ManagerForms(QWidget *parent) : QMainWindow(parent)
 
 ManagerForms::~ManagerForms()
 {
-
+    // Qt автоматически удалит дочерние объекты
 }

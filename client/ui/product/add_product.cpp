@@ -6,9 +6,7 @@ AddProductWindow::AddProductWindow(QWidget *parent) :
     ui(new Ui::AddProductWindow)
 {
     ui->setupUi(this);
-
     this->setFixedSize(this->width(), this->height());
-    //connect(ui->add, &QPushButton::clicked, this, &AddProductWindow::on_add_clicked);
 }
 
 void AddProductWindow::on_add_clicked()
@@ -49,18 +47,16 @@ void AddProductWindow::clear() {
     ui->In_carbs->setText("");
     ui->In_weights->setText("");
     ui->In_cost->setText("");
-    ui->comboBox->setCurrentIndex(-1);
+    ui->comboBox->setCurrentIndex(0);
 };
 
 // Показывает окно
 void AddProductWindow::slot_show()
 {
     this->show();
-
 }
 
 void AddProductWindow::on_cancle_clicked()
 {
     this->close();
 }
-
