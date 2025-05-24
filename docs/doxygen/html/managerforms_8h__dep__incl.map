@@ -1,9 +1,0 @@
-<map id="client/managerforms.h" name="client/managerforms.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="140,5,290,32"/>
-<area shape="rect" id="Node000002" href="$functions__for__client_8cpp.html" title=" " alt="" coords="5,80,137,123"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,42,109,82,107,77,178,38"/>
-<area shape="rect" id="Node000003" href="$client_2main_8cpp.html" title=" " alt="" coords="160,88,270,115"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,48,218,88,212,88,212,48"/>
-<area shape="rect" id="Node000004" href="$managerforms_8cpp.html" title=" " alt="" coords="294,88,458,115"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="255,37,352,85,350,90,252,42"/>
-</map>
