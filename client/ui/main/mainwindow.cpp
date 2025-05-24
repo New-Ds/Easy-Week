@@ -851,6 +851,173 @@ void MainWindow::on_exitButton_clicked()
  */
 void MainWindow::on_exportButton_clicked()
 {
-    qDebug() << "Заглушка";
-}
+    // Получаем ScrollArea с меню (если она существует)
+    QScrollArea* menuScrollArea = ui->mainContainer->findChild<QScrollArea*>("menuScrollArea");
+    if (!menuScrollArea || !menuScrollArea->widget()) {
+        QMessageBox::warning(this, "Ошибка экспорта", "Меню не найдено. Сначала сгенерируйте меню!");
+        return;
+    }
 
+    // Получаем контейнер с карточками
+    QWidget* container = menuScrollArea->widget();
+    QHBoxLayout* layout = qobject_cast<QHBoxLayout*>(container->layout());
+    if (!layout || layout->count() == 0) {
+        QMessageBox::warning(this, "Ошибка экспорта", "Не удалось найти карточки меню!");
+        return;
+    }
+
+    // Открываем диалог сохранения файла
+    QString fileName = QFileDialog::getSaveFileName(this,
+                                                    "Сохранить меню",
+                                                    QDir::homePath() + "/menu_easyweek.txt",
+                                                    "Текстовые файлы (*.txt)");
+    if (fileName.isEmpty()) {
+        return; // Пользователь отменил выбор файла
+    }
+
+    // Открываем файл для записи
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::critical(this, "Ошибка", "Не удалось открыть файл для записи!");
+        return;
+    }
+
+    QTextStream out(&file);
+
+    // Заголовок файла
+    out << "=========================================\n";
+    out << "        МЕНЮ НА НЕДЕЛЮ - EASY WEEK      \n";
+    out << "=========================================\n\n";
+    out << "Пользователь: " << login << " (" << email << ")\n";
+    out << "Дата экспорта: " << QDateTime::currentDateTime().toString("dd.MM.yyyy HH:mm") << "\n\n";
+
+    // Дни недели
+    const QStringList days = {"ПОНЕДЕЛЬНИК", "ВТОРНИК", "СРЕДА", "ЧЕТВЕРГ", "ПЯТНИЦА", "СУББОТА", "ВОСКРЕСЕНЬЕ"};
+
+    // Перебираем все карточки меню
+    for (int i = 0; i < layout->count() && i < days.size(); ++i) {
+        MenuCard* card = qobject_cast<MenuCard*>(layout->itemAt(i)->widget());
+        if (!card) continue;
+
+        // Записываем день недели
+        out << "=========================================\n";
+        out << "              " << days[i] << "\n";
+        out << "=========================================\n\n";
+
+        // Получаем данные о продуктах
+        QStringList products;
+        QVector<int> pfc = {0, 0, 0};
+        int calories = 0, weight = 0, price = 0;
+
+        // Собираем все метки карточки
+        QList<QLabel*> labels = card->findChildren<QLabel*>();
+
+        // Извлекаем продукты (любые метки, которые не содержат ":" и не являются названием дня недели)
+        for (QLabel* label : labels) {
+            QString text = label->text();
+            if (!text.isEmpty() && !text.contains(":") && !days.contains(text)) {
+                products.append(text);
+            }
+        }
+
+        // Извлекаем информацию о питательных веществах и цене
+        for (QLabel* label : labels) {
+            QString text = label->text();
+
+            if (text.startsWith("Калории:")) {
+                calories = text.mid(text.indexOf(":") + 1).trimmed().toInt();
+            } else if (text.startsWith("БЖУ:")) {
+                QString pfcStr = text.mid(text.indexOf(":") + 1).trimmed();
+                QStringList pfcParts = pfcStr.split("-");
+
+                for (int j = 0; j < pfcParts.size() && j < 3; ++j) {
+                    pfc[j] = pfcParts[j].trimmed().toInt();
+                }
+            } else if (text.startsWith("Вес:")) {
+                QString weightStr = text.mid(text.indexOf(":") + 1).trimmed();
+                weight = weightStr.split(" ").first().toInt();
+            } else if (text.startsWith("Цена:")) {
+                QString priceStr = text.mid(text.indexOf(":") + 1).trimmed();
+                price = priceStr.split(" ").first().toInt();
+            }
+        }
+
+        // Записываем информацию о продуктах
+        out << "ПРОДУКТЫ:\n";
+        if (products.isEmpty()) {
+            out << "  Продукты не найдены\n";
+        } else {
+            for (int j = 0; j < products.size(); ++j) {
+                out << "  " << j+1 << ". " << products[j] << "\n";
+            }
+        }
+        out << "\n";
+
+        // Записываем информацию о питательной ценности
+        out << "ПИТАТЕЛЬНАЯ ЦЕННОСТЬ:\n";
+        out << "  Белки:    " << pfc[0] << " г\n";
+        out << "  Жиры:     " << pfc[1] << " г\n";
+        out << "  Углеводы: " << pfc[2] << " г\n";
+        out << "  Калории:  " << calories << " ккал\n";
+        out << "\n";
+
+        // Записываем общую информацию
+        out << "ОБЩАЯ ИНФОРМАЦИЯ:\n";
+        out << "  Общий вес:  " << weight << " г\n";
+        out << "  Общая цена: " << price << " руб.\n";
+        out << "\n\n";
+    }
+
+    // Записываем итоговую информацию
+    out << "=========================================\n";
+    out << "          ИТОГО ЗА НЕДЕЛЮ:\n";
+    out << "=========================================\n\n";
+
+    // Подсчитываем итоговые значения
+    int totalCalories = 0, totalWeight = 0, totalPrice = 0;
+    QVector<int> totalPfc = {0, 0, 0};
+
+    for (int i = 0; i < layout->count(); ++i) {
+        MenuCard* card = qobject_cast<MenuCard*>(layout->itemAt(i)->widget());
+        if (!card) continue;
+
+        // Собираем данные из меток
+        for (QLabel* label : card->findChildren<QLabel*>()) {
+            QString text = label->text();
+
+            if (text.startsWith("Калории:")) {
+                totalCalories += text.mid(text.indexOf(":") + 1).trimmed().toInt();
+            } else if (text.startsWith("БЖУ:")) {
+                QString pfcStr = text.mid(text.indexOf(":") + 1).trimmed();
+                QStringList pfcParts = pfcStr.split("-");
+
+                for (int j = 0; j < pfcParts.size() && j < 3; ++j) {
+                    totalPfc[j] += pfcParts[j].trimmed().toInt();
+                }
+            } else if (text.startsWith("Вес:")) {
+                QString weightStr = text.mid(text.indexOf(":") + 1).trimmed();
+                totalWeight += weightStr.split(" ").first().toInt();
+            } else if (text.startsWith("Цена:")) {
+                QString priceStr = text.mid(text.indexOf(":") + 1).trimmed();
+                totalPrice += priceStr.split(" ").first().toInt();
+            }
+        }
+    }
+
+    // Записываем итоговую сводку
+    out << "ИТОГОВАЯ СВОДКА ПО ПИТАТЕЛЬНОЙ ЦЕННОСТИ:\n";
+    out << "  Белки:    " << totalPfc[0] << " г\n";
+    out << "  Жиры:     " << totalPfc[1] << " г\n";
+    out << "  Углеводы: " << totalPfc[2] << " г\n";
+    out << "  Калории:  " << totalCalories << " ккал\n\n";
+
+    out << "ИТОГОВАЯ СВОДКА ПО ВЕСУ И СТОИМОСТИ:\n";
+    out << "  Общий вес за неделю:  " << totalWeight << " г (" << totalWeight/1000.0 << " кг)\n";
+    out << "  Общая цена за неделю: " << totalPrice << " руб.\n";
+
+    // Закрываем файл
+    file.close();
+
+    QMessageBox::information(this, "Успешный экспорт",
+                             "Меню на неделю успешно экспортировано в файл:\n" + fileName);
+}

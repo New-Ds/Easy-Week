@@ -16,6 +16,11 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QHeaderView>
+#include <QFile>
+#include <QTextStream>
+#include <QDir>
+#include <QFileDialog>
+#include <QDateTime>
 
 namespace Ui {
 class MainWindow;
