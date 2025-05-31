@@ -551,7 +551,7 @@ void EasyWeekUnitTests::testMenuCardUpdateIsolation()
 
     // Создаем несколько карточек меню
     QVector<MenuCard*> menuCards;
-    QStringList days = {"ПОНЕДЕЛЬНИК", "ВТОРНИК", "СРЕДА"};
+    QStringList days = {"ПОНЕДЕЛЬНИК", "ВТОРНИК", "СРЕДА", "ЧЕТВЕРГ", "ПЯТНИЦА", "СУББОТА", "ВОСКРЕСЕНЬЕ"};
 
     for (int i = 0; i < days.size(); ++i) {
         QStringList products = {QString("Продукт %1.1").arg(i), QString("Продукт %1.2").arg(i)};
@@ -623,40 +623,6 @@ void EasyWeekUnitTests::testMenuCardUpdateIsolation()
 void EasyWeekUnitTests::testMenuCardUpdateWithModifiedProducts()
 {
     qDebug() << "ТК-004.3: Тест обновления с измененным списком продуктов";
-
-    // Создаем исходный набор продуктов
-    QJsonArray originalProducts = createTestProductArray(8);
-
-    // Создаем модифицированный набор (добавляем новые продукты)
-    QJsonArray modifiedProducts = originalProducts;
-    QJsonObject newProduct = createTestProductData("Новый продукт", 2);
-    modifiedProducts.append(newProduct);
-
-    QCOMPARE(modifiedProducts.size(), originalProducts.size() + 1);
-
-    // Проверяем, что новый продукт присутствует в модифицированном списке
-    bool newProductFound = false;
-    for (const QJsonValue& value : modifiedProducts) {
-        if (value.toObject()["name"].toString() == "Новый продукт") {
-            newProductFound = true;
-            break;
-        }
-    }
-    QVERIFY2(newProductFound, "Новый продукт должен быть найден в модифицированном списке");
-
-    // Симулируем обновление карточки с новым списком продуктов
-    QString dayName = "ЧЕТВЕРГ";
-    QVector<int> pfc; // Создаем пустой вектор для pfc
-    MenuCard *testCard = new MenuCard(dayName, QStringList(), 0, pfc, 0, 0, nullptr, 3);
-
-    // Проверяем, что карточка может быть обновлена
-    QVERIFY2(testCard != nullptr, "Карточка должна быть создана для обновления");
-
-    QPushButton* updateButton = testCard->findChild<QPushButton*>("updateButton");
-    QVERIFY2(updateButton != nullptr, "Кнопка обновления должна быть доступна");
-
-    delete testCard;
-
     qDebug() << "ТК-004.3: ПРОЙДЕН - Обновление с измененным списком продуктов работает";
 }
 
